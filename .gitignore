@@ -1,0 +1,52 @@
+# Large disk images and VM state
+vm_instances/
+*.img
+*.qcow2
+*.qcow
+*.raw
+*.vmdk
+vm_instances_backup_*.tar
+
+# Build artifacts
+qemu/build*/
+qemu-sgi-repo/build*/
+*.o
+*.a
+*.so
+*.pyc
+__pycache__/
+*.egg-info/
+
+# Software libraries and source trees (separate repos or large data)
+software_library/
+mame/
+qemu/
+qemu-irix/
+qemu-sgi-repo/
+netbsd_source/
+pyirix/
+ip32prom-decompiler/
+mipspro-nag-suppress/
+irix-655/
+
+# Ghidra and analysis state
+ghidra_projects/
+*.log
+
+# macOS
+.DS_Store
+
+# Staging compiled objects (large binaries, regeneratable)
+ip54_tftp_staging/compiled_objects/
+ip54_tftp_staging/khdrs/
+
+# Misc
+*.swp
+*.swo
+
+# Backup and temp files
+*.bak
+*.orig
+core
+*.webp
+*.zip

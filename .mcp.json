@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "sgi": {
+      "type": "stdio",
+      "command": "python3",
+      "args": ["-m", "sgi_mcp.server"],
+      "cwd": ".."
+    }
+  }
+}

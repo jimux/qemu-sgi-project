@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "pyirix_qemu"
+version = "0.1.0"
+description = "QEMU orchestration tools for SGI/IRIX emulation"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+dependencies = [
+    "pyirix",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+pyirix-disk = "pyirix_qemu.disk_manager:main"
+
+[tool.setuptools.packages.find]
+where = [".."]
+include = ["pyirix_qemu*"]

@@ -1,0 +1,7 @@
+# SGI PROM MCP Server Dependencies
+
+# MIPS disassembly engine
+capstone>=5.0.0
+
+# MCP Python SDK
+mcp>=1.0.0

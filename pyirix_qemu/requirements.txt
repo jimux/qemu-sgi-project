@@ -1,0 +1,6 @@
+# pyirix_qemu runtime dependencies
+pyirix
+
+# QEMU (system dependency — not installable via pip):
+#   Build with: ../configure --target-list=mips64-softmmu
+#   qemu-system-mips64 and qemu-img must be on PATH or in qemu/build*/
