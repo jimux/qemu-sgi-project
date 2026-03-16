@@ -17,7 +17,6 @@
 
 #if IP54
 
-#include "ml/ml.h"
 #include <sys/asm.h>
 #include <sys/regdef.h>
 #include <sys/sbd.h>
@@ -96,13 +95,18 @@ XLEAF(getcpuid)
     END(ip54_dummyret0)
 
 /*
- * ip54_get_timestamp - return the HEART h_count cycle counter.
- * HEART h_count is at offset 0x0080 in the HEART PIU register map.
+ * ip54_get_timestamp - return a 64-bit free-running cycle counter.
+ *
+ * Original IP30 implementation read HEART h_count at 0x0FF00080.
+ * IP54 has no HEART; use the pvtimer 64-bit counter at 0x14000038
+ * (KSEG1: 0xB4000038).  The pvtimer runs at 66 MHz — same order of
+ * magnitude as HEART h_count, so calibration loops that use this
+ * for delta-time measurements will behave correctly.
  */
 LEAF(ip54_get_timestamp)
 XLEAF(_get_timestamp)
     .set    noreorder
-    LI      t0, IP54_HEART_BASE + 0x0080   /* heart_piu->h_count */
+    LI      t0, 0xB4000038   /* pvtimer counter register (66 MHz) */
     ld      v0, 0(t0)
     j       ra
     nop

@@ -1,0 +1,8 @@
+struct vme_intrs vme_intrs[] = {
+	{ 0 }
+};
+
+struct edt edt[] = {
+};
+
+int nedt = sizeof (edt)/ sizeof (struct edt);

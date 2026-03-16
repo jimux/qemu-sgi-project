@@ -33,6 +33,8 @@
 #include "sys/cpu.h"
 #include "sys/conf.h"
 #include "sys/cred.h"
+#include "sys/edt.h"
+#include "sys/hwgraph.h"
 #include "ksys/ddmap.h"
 
 /*
@@ -73,8 +75,8 @@
 #define PVFB_BPP_RGB565     2
 
 /* Maximum framebuffer dimensions */
-#define PVFB_MAX_WIDTH      1920
-#define PVFB_MAX_HEIGHT     1200
+#define PVFB_MAX_WIDTH      640
+#define PVFB_MAX_HEIGHT     480
 #define PVFB_MAX_BPP        4
 #define PVFB_MAX_FBSIZE     (PVFB_MAX_WIDTH * PVFB_MAX_HEIGHT * PVFB_MAX_BPP)
 
@@ -100,6 +102,9 @@ struct pvfb_state {
 
 static struct pvfb_state pvfb_state;
 
+/* Static framebuffer in BSS - guaranteed contiguous in KSEG0 */
+static char pvfb_static_fb[PVFB_MAX_FBSIZE];
+
 int pvfbdevflag = 0;
 
 /*
@@ -121,21 +126,17 @@ pvfbopen(dev_t dev, int oflag, int otyp, cred_t *crp)
     GLACCEL_REG(GLACCEL_EXEC) = GLACCEL_EXEC_RESET;
 
     /*
-     * Pre-allocate framebuffer at maximum size using kvpalloc.
-     * kvpalloc returns a page-aligned KSEG0 (direct-mapped) virtual address.
+     * Use static BSS buffer for framebuffer - avoids dynamic allocation
+     * issues with contiguous physical memory on low-RAM systems.
+     * BSS is in KSEG0 (direct-mapped), so kvtophys gives the physical addr.
      */
-    npages = btoc(PVFB_MAX_FBSIZE);
-    k0buf  = kvpalloc(npages, VM_DIRECT | VM_NOSLEEP, 0);
-    if (k0buf == NULL) {
-        cmn_err(CE_WARN, "pvfb: cannot allocate %d pages for framebuffer",
-                npages);
-        return ENOMEM;
-    }
+    k0buf = pvfb_static_fb;
+    bzero(k0buf, PVFB_MAX_FBSIZE);
 
     ps->ps_fbphys  = (__uint64_t)kvtophys((caddr_t)k0buf);
     ps->ps_fbk1    = (void *)PHYS_TO_K1(ps->ps_fbphys);
-    ps->ps_fbpages = npages;
-    ps->ps_fbsize  = ctob(npages);
+    ps->ps_fbpages = 0;
+    ps->ps_fbsize  = PVFB_MAX_FBSIZE;
 
     /* Default mode: 640x480 RGBA8888 */
     ps->ps_width   = 640;
@@ -162,15 +163,11 @@ pvfbclose(dev_t dev, int oflag, int otyp, cred_t *crp)
 
     GLACCEL_REG(GLACCEL_EXEC) = GLACCEL_EXEC_RESET;
 
-    if (ps->ps_fbk1 != NULL) {
-        /* kvpfree takes a KSEG0 pointer, so convert back via physical */
-        caddr_t k0 = (caddr_t)PHYS_TO_K0(ps->ps_fbphys);
-        kvpfree(k0, ps->ps_fbpages);
-        ps->ps_fbk1    = NULL;
-        ps->ps_fbphys  = 0;
-        ps->ps_fbpages = 0;
-        ps->ps_fbsize  = 0;
-    }
+    /* Static buffer - don't free, just clear state */
+    ps->ps_fbk1    = NULL;
+    ps->ps_fbphys  = 0;
+    ps->ps_fbpages = 0;
+    ps->ps_fbsize  = 0;
 
     ps->ps_open = 0;
     return 0;
@@ -273,6 +270,32 @@ pvfbmap(dev_t dev, vhandl_t *vt, off_t off, int len, int prot)
         return EINVAL;
 
     return v_mapphys(vt, (caddr_t)ps->ps_fbk1 + off, len);
+}
+
+/*
+ * pvfbedtinit - register /hw/pvfb character device node via hwgraph.
+ *
+ * Called from io_init[] at boot. Without this, userland open("/dev/pvfb")
+ * fails with ENXIO because IRIX 6.5 routes char device opens through
+ * hwgraph vertices, not the raw cdevsw table.
+ */
+void
+pvfbedtinit(struct edt *edtp)
+{
+    vertex_hdl_t pvfb_vhdl;
+    graph_error_t rv;
+
+    if (badaddr((void *)GLACCEL_BASE, sizeof(__uint32_t))) {
+        return;
+    }
+
+    rv = hwgraph_char_device_add(hwgraph_root, "pvfb", "pvfb", &pvfb_vhdl);
+    if (rv == GRAPH_SUCCESS) {
+        hwgraph_chmod(pvfb_vhdl, 0666);
+        cmn_err(CE_NOTE, "pvfb: registered /hw/pvfb");
+    } else {
+        cmn_err(CE_WARN, "pvfb: hwgraph_char_device_add failed (%d)", rv);
+    }
 }
 
 #endif /* IP54 */

@@ -51,6 +51,7 @@ XFS_SB_MAGIC = 0x58465342      # 'XFSB'
 XFS_DINODE_MAGIC = 0x494E       # 'IN'
 XFS_DIR2_BLOCK_MAGIC = 0x58443242  # 'XD2B'
 XFS_DIR2_DATA_MAGIC = 0x58443244   # 'XD2D'
+XFS_DIR_LEAF_MAGIC = 0xfeeb        # old V1 IRIX leaf directory block
 XFS_BMAP_MAGIC = 0x424d4150        # 'BMAP'
 XFS_DIR2_FREE_TAG = 0xFFFF
 XFS_DINODE_FMT_DEV = 0
@@ -501,6 +502,8 @@ def xfs_read_superblock(f, part_offset):
     sb['sb_ifree'] = struct.unpack('>Q', data[0x88:0x90])[0]
     sb['sb_fdblocks'] = struct.unpack('>Q', data[0x90:0x98])[0]
     sb['sb_dirblklog'] = data[0xC0]
+    if len(data) >= 0xCC:
+        sb['sb_features2'] = struct.unpack('>I', data[0xC8:0xCC])[0]
     return sb
 
 
@@ -775,64 +778,93 @@ def xfs_read_dir_entries(f, part_offset, sb, inode):
     fmt = inode['di_format']
 
     if fmt == XFS_DINODE_FMT_LOCAL:
-        return _xfs_read_dir_sf(inode)
+        return _xfs_read_dir_sf(inode, sb)
     else:
         return _xfs_read_dir_block(f, part_offset, sb, inode)
 
 
-def _xfs_read_dir_sf(inode):
-    """Read shortform directory entries from inline data."""
+def _xfs_read_dir_sf(inode, sb=None):
+    """Read shortform directory entries from inline data.
+
+    Dispatches to V1 or dir2 shortform based on superblock version.
+    """
     raw = inode['_raw']
     fork_offset = inode['_data_fork_offset']
     size = inode['di_size']
     data = raw[fork_offset:fork_offset + size]
 
-    if len(data) < 3:
+    if sb is not None and (sb['sb_versionnum'] & 0x2000):
+        ftype = bool((sb['sb_versionnum'] & 0x8000) and
+                      (sb.get('sb_features2', 0) & 0x200))
+        return _xfs_read_dir_sf_v2(data, ftype)
+
+    # V1 format: parent(8) + count(1) = 9 bytes header
+    if len(data) < 9:
+        return []
+
+    count = data[8]
+    offset = 9
+
+    entries = []
+    for _ in range(count):
+        if offset + 9 > len(data):
+            break
+        ino = struct.unpack('>Q', data[offset:offset + 8])[0]
+        namelen = data[offset + 8]
+        if offset + 9 + namelen > len(data):
+            break
+        name = data[offset + 9:offset + 9 + namelen].decode('ascii', errors='replace')
+        offset += 9 + namelen
+
+        if name not in ('.', '..') and ino > 0:
+            entries.append((name, ino))
+
+    return entries
+
+
+def _xfs_read_dir_sf_v2(data, ftype=False):
+    """Read dir2 shortform directory entries.
+
+    Dir2 shortform: count(1) + i8count(1) + parent(4 or 8)
+    Entry: namelen(1) + offset(2) + name[namelen] [+ ftype(1)] + ino(4 or 8)
+    """
+    if len(data) < 6:
         return []
 
     count = data[0]
     i8count = data[1]
-    offset = 2
+    use_8byte = (i8count != 0)
 
-    # Parent inode
-    if i8count > 0:
-        # 8-byte inode numbers
-        ino_size = 8
-        if offset + 8 > len(data):
-            return []
-        offset += 8  # skip parent
+    if use_8byte:
+        hdr_size = 10  # count(1) + i8count(1) + parent8(8)
+        real_count = i8count
     else:
-        # 4-byte inode numbers
-        ino_size = 4
-        if offset + 4 > len(data):
-            return []
-        offset += 4  # skip parent
+        hdr_size = 6   # count(1) + i8count(1) + parent4(4)
+        real_count = count
 
+    if len(data) < hdr_size:
+        return []
+
+    ino_size = 8 if use_8byte else 4
+    ftype_size = 1 if ftype else 0
+    offset = hdr_size
     entries = []
-    for _ in range(count):
+
+    for _ in range(real_count):
         if offset + 3 > len(data):
             break
-
         namelen = data[offset]
-        offset += 1
-
-        # 2-byte saved offset
-        offset += 2
-
-        if offset + namelen > len(data):
+        if offset + 3 + namelen + ftype_size + ino_size > len(data):
             break
-        name = data[offset:offset + namelen].decode('ascii', errors='replace')
-        offset += namelen
-
-        if offset + ino_size > len(data):
-            break
-        if ino_size == 8:
-            ino = struct.unpack('>Q', data[offset:offset + 8])[0]
+        name = data[offset + 3:offset + 3 + namelen].decode('ascii', errors='replace')
+        ino_off = offset + 3 + namelen + ftype_size
+        if use_8byte:
+            ino = struct.unpack('>Q', data[ino_off:ino_off + 8])[0]
         else:
-            ino = struct.unpack('>I', data[offset:offset + 4])[0]
-        offset += ino_size
+            ino = struct.unpack('>I', data[ino_off:ino_off + 4])[0]
+        offset = ino_off + ino_size
 
-        if name not in ('.', '..'):
+        if ino > 0:
             entries.append((name, ino))
 
     return entries
@@ -863,8 +895,16 @@ def _xfs_read_dir_block(f, part_offset, sb, inode):
             if len(block_data) < 16:
                 continue
 
-            magic = struct.unpack('>I', block_data[0:4])[0]
-            if magic not in (XFS_DIR2_BLOCK_MAGIC, XFS_DIR2_DATA_MAGIC):
+            # Check 4-byte and 2-byte magic (V1 leaf magic is 2 bytes in da_blkinfo)
+            magic4 = struct.unpack('>I', block_data[0:4])[0]
+            magic2 = struct.unpack('>H', block_data[8:10])[0]
+
+            if magic2 == XFS_DIR_LEAF_MAGIC:
+                # Old IRIX V1 leaf directory block
+                _xfs_parse_dir_v1_leaf(block_data, entries)
+                continue
+
+            if magic4 not in (XFS_DIR2_BLOCK_MAGIC, XFS_DIR2_DATA_MAGIC):
                 continue
 
             # For multi-fsblock dir blocks, read the full dir block
@@ -879,6 +919,43 @@ def _xfs_read_dir_block(f, part_offset, sb, inode):
             _xfs_parse_dir_data_block(block_data, entries, sb)
 
     return entries
+
+
+def _xfs_parse_dir_v1_leaf(block_data, entries):
+    """Parse old IRIX V1 XFS leaf directory block (magic=0xfeeb).
+
+    Header layout (32 bytes):
+      xfs_da_blkinfo_t (12): forw(4), back(4), magic(2), pad(2)
+      count(2), namebytes(2), firstused(2), holes(1), pad(1)
+      freemap[3]: 3 * (base:2, size:2) = 12 bytes
+
+    Entry layout (8 bytes each, starting at offset 32):
+      hashval(4), nameidx(2), namelength(1), pad(1)
+
+    Name entry at nameidx (8-byte inum + name bytes):
+      inum(8 big-endian), name[namelength]
+    """
+    if len(block_data) < 32:
+        return
+    count = struct.unpack('>H', block_data[12:14])[0]
+    if count == 0 or count > 512:
+        return
+    for i in range(count):
+        off = 32 + i * 8
+        if off + 8 > len(block_data):
+            break
+        nameidx = struct.unpack('>H', block_data[off + 4:off + 6])[0]
+        namelength = block_data[off + 6]
+        if namelength == 0:
+            continue
+        name_off = nameidx
+        if name_off + 8 + namelength > len(block_data):
+            continue
+        inum = struct.unpack('>Q', block_data[name_off:name_off + 8])[0]
+        name = block_data[name_off + 8:name_off + 8 + namelength].decode(
+            'ascii', errors='replace')
+        if name not in ('.', '..') and inum > 0:
+            entries.append((name, inum))
 
 
 def _xfs_parse_dir_data_block(block_data, entries, sb):
@@ -1521,6 +1598,729 @@ def fs_inject(image_path, host_path, guest_path, uid=0, gid=0, mode=None):
         finally:
             import shutil
             shutil.rmtree(tmpdir, ignore_errors=True)
+
+
+# ── XFS Analysis Tools ───────────────────────────────────────────────
+
+# Version constants
+XFS_SB_VERSION_OKSASHBITS = 0x3FFF  # bits accepted by PROM/SASH for version 4
+
+_XFS_VERSION_BITS = [
+    (0x0010, 'ATTRBIT',    'Extended attributes'),
+    (0x0020, 'NLINKBIT',   '32-bit link count'),
+    (0x0040, 'QUOTABIT',   'Disk quota'),
+    (0x0080, 'ALIGNBIT',   'Inode alignment'),
+    (0x0100, 'DALIGNBIT',  'Data alignment'),
+    (0x0200, 'SHAREDBIT',  'Shared filesystem'),
+    (0x1000, 'EXTFLGBIT',  'Extent flag'),
+    (0x2000, 'DIRV2BIT',   'Directory v2 format'),
+]
+
+_XFS_DINODE_FMT_NAMES = {
+    0: 'FMT_DEV', 1: 'FMT_LOCAL', 2: 'FMT_EXTENTS',
+    3: 'FMT_BTREE', 4: 'FMT_UUID',
+}
+
+_XFS_SB_FIELDS = [
+    # (offset, size, name, format)  format: 'I'=uint32, 'H'=uint16, 'B'=uint8, 'Q'=uint64, 's6'=6-byte str
+    (0,   4, 'sb_magicnum',    'I'),
+    (4,   4, 'sb_blocksize',   'I'),
+    (8,   8, 'sb_dblocks',     'Q'),
+    (16,  8, 'sb_rblocks',     'Q'),
+    (24,  8, 'sb_rextents',    'Q'),
+    (32,  16, 'sb_uuid',       'uuid'),
+    (48,  8, 'sb_logstart',    'Q'),
+    (56,  8, 'sb_rootino',     'Q'),
+    (64,  8, 'sb_rbmino',      'Q'),
+    (72,  8, 'sb_rsumino',     'Q'),
+    (80,  4, 'sb_rextsize',    'I'),
+    (84,  4, 'sb_agblocks',    'I'),
+    (88,  4, 'sb_agcount',     'I'),
+    (92,  4, 'sb_rbmblocks',   'I'),
+    (96,  4, 'sb_logblocks',   'I'),
+    (100, 2, 'sb_versionnum',  'H'),
+    (102, 2, 'sb_sectsize',    'H'),
+    (104, 2, 'sb_inodesize',   'H'),
+    (106, 2, 'sb_inopblock',   'H'),
+    (108, 6, 'sb_fname',       's6'),
+    (114, 6, 'sb_fpack',       's6'),
+    (120, 1, 'sb_blocklog',    'B'),
+    (121, 1, 'sb_sectlog',     'B'),
+    (122, 1, 'sb_inodelog',    'B'),
+    (123, 1, 'sb_inopblog',    'B'),
+    (124, 1, 'sb_agblklog',    'B'),
+    (125, 1, 'sb_rextslog',    'B'),
+    (126, 1, 'sb_inprogress',  'B'),
+    (127, 1, 'sb_imax_pct',    'B'),
+    (128, 8, 'sb_icount',      'Q'),
+    (136, 8, 'sb_ifree',       'Q'),
+    (144, 8, 'sb_fdblocks',    'Q'),
+    (152, 8, 'sb_frextents',   'Q'),
+    (160, 8, 'sb_uquotino',    'Q'),
+    (168, 8, 'sb_gquotino',    'Q'),
+    (176, 2, 'sb_qflags',      'H'),
+    (178, 1, 'sb_flags',       'B'),
+    (179, 1, 'sb_shared_vn',   'B'),
+    (180, 4, 'sb_inoalignmt',  'I'),
+    (184, 4, 'sb_unit',        'I'),
+    (188, 4, 'sb_width',       'I'),
+    (192, 1, 'sb_dirblklog',   'B'),
+]
+
+
+def _xfs_sash_compat(vn):
+    """Return (accepted: bool, reason: str) for PROM/SASH version check."""
+    version_num = vn & 0xf
+    if 1 <= vn <= 3:
+        return True, f"v{vn} — accepted unconditionally"
+    if version_num == 4:
+        feature_bits = vn & 0xfff0
+        bad = vn & ~XFS_SB_VERSION_OKSASHBITS
+        if bad == 0:
+            return True, f"v4 + feature bits 0x{feature_bits:04x} — all within 0x3FFF"
+        return False, f"v4 but bits 0x{bad:04x} outside OKSASHBITS (0x3FFF)"
+    return False, f"version_num={version_num} (>4 rejected by PROM/SASH)"
+
+
+def xfs_superblock(image_path, partition=None):
+    """Detailed XFS superblock dump with field-by-field annotation and SASH compat check."""
+    try:
+        with open_disk_image(image_path) as f:
+            xfs_part = find_xfs_partition(f)
+            if not xfs_part:
+                return "No XFS partition found in disk image."
+            part_offset, part_size = xfs_part
+            f.seek(part_offset)
+            raw = f.read(256)
+    except Exception as e:
+        return f"Error opening image: {e}"
+
+    if len(raw) < 200:
+        return f"Could not read superblock (got {len(raw)} bytes)."
+    magic = struct.unpack('>I', raw[0:4])[0]
+    if magic != XFS_SB_MAGIC:
+        return f"No XFS superblock found (magic=0x{magic:08x}, expected 0x{XFS_SB_MAGIC:08x})."
+
+    lba = part_offset // 512
+    lines = [
+        f"## XFS Superblock — `{image_path}`",
+        f"",
+        f"Partition: XFS at LBA {lba} (byte offset 0x{part_offset:x}, "
+        f"size {part_size // (1024*1024)} MB)",
+        f"",
+        f"### Raw Hex (first 128 bytes)",
+        f"```",
+        _hex_dump(raw[:128], 16),
+        f"```",
+        f"",
+        f"### Fields",
+        f"```",
+        f"{'Off':>4}  {'Size':>4}  {'Field':<18}  {'Raw Hex':<18}  Interpreted",
+        f"{'---':>4}  {'----':>4}  {'-----':<18}  {'-------':<18}  -----------",
+    ]
+
+    def parse_field(off, size, fmt):
+        chunk = raw[off:off+size]
+        if fmt == 'Q':
+            return struct.unpack('>Q', chunk)[0], chunk.hex()
+        elif fmt == 'I':
+            return struct.unpack('>I', chunk)[0], chunk.hex()
+        elif fmt == 'H':
+            return struct.unpack('>H', chunk)[0], chunk.hex()
+        elif fmt == 'B':
+            return chunk[0], chunk.hex()
+        elif fmt in ('s6', 'uuid'):
+            s = chunk.rstrip(b'\x00')
+            try:
+                return s.decode('ascii', errors='replace'), chunk.hex()
+            except Exception:
+                return repr(chunk), chunk.hex()
+        return None, chunk.hex()
+
+    parsed = {}
+    for off, size, name, fmt in _XFS_SB_FIELDS:
+        if off + size > len(raw):
+            continue
+        val, hexstr = parse_field(off, size, fmt)
+        parsed[name] = val
+        note = ''
+        if name == 'sb_magicnum':
+            note = "✓ 'XFSB'" if val == XFS_SB_MAGIC else "✗ WRONG MAGIC"
+        elif name == 'sb_versionnum':
+            ok, reason = _xfs_sash_compat(val)
+            note = f"{'✓' if ok else '✗'} {reason}"
+        elif name == 'sb_rootino':
+            note = f"root directory inode"
+        elif name == 'sb_blocksize':
+            note = f"({val // 1024}KB)" if val >= 1024 else f"({val}B)"
+        lines.append(f"{off:>4}  {size:>4}  {name:<18}  {hexstr:<18}  {val!s:<16} {note}")
+
+    lines.append("```")
+
+    # Version analysis
+    vn = parsed.get('sb_versionnum', 0)
+    version_num = vn & 0xf
+    feature_bits = vn & 0xfff0
+    ok, reason = _xfs_sash_compat(vn)
+
+    lines += [
+        "",
+        "### Version Analysis",
+        f"  `sb_versionnum` = 0x{vn:04x}",
+        f"  version_num (bits[3:0]) = {version_num}",
+        f"  feature bits (bits[15:4]) = 0x{feature_bits:04x}",
+    ]
+    for bit, bname, bdesc in _XFS_VERSION_BITS:
+        if feature_bits & bit:
+            lines.append(f"    {bname:<12} (0x{bit:04x})  {bdesc}")
+
+    bad = vn & ~XFS_SB_VERSION_OKSASHBITS
+    if bad:
+        lines.append(f"  **Bits outside 0x3FFF: 0x{bad:04x} → PROM will REJECT**")
+
+    lines += [
+        "",
+        f"### PROM/SASH Compatibility: {'✓ ACCEPTED' if ok else '✗ REJECTED'}",
+        f"  {reason}",
+        "",
+        f"### Key Values",
+        f"  Root inode:  {parsed.get('sb_rootino', '?')}",
+        f"  Block size:  {parsed.get('sb_blocksize', '?')} bytes",
+        f"  AG count:    {parsed.get('sb_agcount', '?')}",
+        f"  AG blocks:   {parsed.get('sb_agblocks', '?')}",
+        f"  Inode size:  {parsed.get('sb_inodesize', '?')} bytes",
+        f"  Inodes/blk:  {parsed.get('sb_inopblock', '?')}",
+        f"  Free blocks: {parsed.get('sb_fdblocks', '?')}",
+        f"  Free inodes: {parsed.get('sb_ifree', '?')}",
+    ]
+    return '\n'.join(lines)
+
+
+def xfs_inode(image_path, inode_num, partition=None):
+    """Dump and annotate a single XFS inode: core fields, fork data, and directory entries."""
+    try:
+        with open_disk_image(image_path) as f:
+            xfs_part = find_xfs_partition(f)
+            if not xfs_part:
+                return "No XFS partition found."
+            part_offset, _ = xfs_part
+            sb = xfs_read_superblock(f, part_offset)
+            if not sb:
+                return "Could not read XFS superblock."
+
+            disk_offset = _xfs_ino_to_offset(sb, inode_num, part_offset)
+            f.seek(disk_offset)
+            raw = f.read(sb['sb_inodesize'])
+            if not raw or len(raw) < 96:
+                return f"Could not read inode {inode_num} at offset 0x{disk_offset:x}."
+
+            inode = xfs_read_inode(f, part_offset, sb, inode_num)
+
+            if not raw or struct.unpack('>H', raw[0:2])[0] != XFS_DINODE_MAGIC:
+                return (f"Inode {inode_num}: bad magic "
+                        f"(got 0x{struct.unpack('>H', raw[0:2])[0]:04x}, expected 0x{XFS_DINODE_MAGIC:04x})")
+
+            agblklog = sb['sb_agblklog']
+            inopblog = sb['sb_inopblog']
+            agno = inode_num >> (agblklog + inopblog)
+            agino = inode_num & ((1 << (agblklog + inopblog)) - 1)
+            agbno = agino >> inopblog
+            ino_off = agino & ((1 << inopblog) - 1)
+
+            mode = inode['di_mode']
+            fmt = inode['di_format']
+            fmt_name = _XFS_DINODE_FMT_NAMES.get(fmt, f'FMT_{fmt}')
+            ft = _format_type(mode)
+            perms = _format_perms(mode)
+
+            lines = [
+                f"## XFS Inode {inode_num} — `{image_path}`",
+                f"",
+                f"Disk offset: 0x{disk_offset:x} (AG {agno}, block {agbno}, slot {ino_off})",
+                f"",
+                f"### Inode Core",
+                f"```",
+                f"  di_magic    0x{struct.unpack('>H', raw[0:2])[0]:04x}  ✓ 'IN'",
+                f"  di_mode     0o{mode:06o}  ({ft}{perms})",
+                f"  di_version  {inode['di_version']}",
+                f"  di_format   {fmt}  ({fmt_name})",
+                f"  di_uid      {inode['di_uid']}    di_gid {inode['di_gid']}",
+                f"  di_nlink    {inode['di_nlink']}",
+                f"  di_size     {inode['di_size']}",
+                f"  di_nblocks  {inode['di_nblocks']}",
+                f"  di_nextents {inode['di_nextents']}",
+                f"  di_forkoff  {inode['di_forkoff']}",
+                f"```",
+            ]
+
+            # Data fork raw bytes
+            fork_off = inode['_data_fork_offset']
+            fork_end = (inode['di_forkoff'] * 8 + fork_off) if inode['di_forkoff'] else len(raw)
+            fork_data = raw[fork_off:fork_end]
+
+            lines += ["", f"### Data Fork ({fmt_name}, {len(fork_data)} bytes)"]
+
+            if fmt == XFS_DINODE_FMT_LOCAL:
+                lines.append("```")
+                if len(fork_data) <= 256:
+                    lines.append(_hex_dump(fork_data))
+                else:
+                    lines.append(_hex_dump(fork_data[:256]))
+                    lines.append(f"... ({len(fork_data)} bytes total)")
+                lines.append("```")
+
+            elif fmt == XFS_DINODE_FMT_EXTENTS:
+                n_in_fork = len(fork_data) // 16
+                n_valid = min(n_in_fork, inode['di_nextents'])
+                lines.append(f"```")
+                lines.append(f"  {'#':>3}  {'startoff':>14}  {'startblock':>12}  {'count':>8}  {'flag':>4}")
+                for i in range(min(n_valid, 64)):
+                    rec = fork_data[i*16:(i+1)*16]
+                    if len(rec) < 16:
+                        break
+                    startoff, startblock, blockcount, flag = _xfs_parse_bmbt_rec(rec)
+                    lines.append(f"  {i:>3}  {startoff:>14}  0x{startblock:010x}  {blockcount:>8}  {flag:>4}")
+                if n_valid > 64:
+                    lines.append(f"  ... ({n_valid} extents total, showing first 64)")
+                lines.append("```")
+
+            elif fmt == XFS_DINODE_FMT_BTREE:
+                lines += [
+                    "```",
+                    f"  B+tree root in fork ({len(fork_data)} bytes)",
+                    _hex_dump(fork_data[:64]),
+                    "```",
+                ]
+
+            # Directory entries — read while file is still open
+            is_dir = (mode & S_IFMT) == S_IFDIR
+            if is_dir:
+                try:
+                    entries = xfs_read_dir_entries(f, part_offset, sb, inode)
+                    lines += ["", f"### Directory Entries ({len(entries)})", "```"]
+                    for name, child_ino in entries[:200]:
+                        lines.append(f"  {name:<40} → {child_ino}")
+                    if len(entries) > 200:
+                        lines.append(f"  ... ({len(entries)} total, showing first 200)")
+                    lines.append("```")
+                except Exception as e:
+                    lines.append(f"(Error reading directory entries: {e})")
+
+            # Raw hex dump (first 128 bytes)
+            lines += ["", "### Raw Inode Bytes (first 128)", "```", _hex_dump(raw[:128]), "```"]
+    except Exception as e:
+        return f"Error: {e}"
+
+    return '\n'.join(lines)
+
+
+def xfs_path(image_path, path, partition=None):
+    """Walk an XFS path component by component, showing each directory lookup step."""
+    try:
+        with open_disk_image(image_path) as f:
+            xfs_part = find_xfs_partition(f)
+            if not xfs_part:
+                return "No XFS partition found."
+            part_offset, _ = xfs_part
+            sb = xfs_read_superblock(f, part_offset)
+            if not sb:
+                return "Could not read XFS superblock."
+
+            parts = [p for p in path.strip('/').split('/') if p]
+            root_ino = sb['sb_rootino']
+
+            lines = [
+                f"## XFS Path Walk: `{path}` — `{image_path}`",
+                f"",
+                f"Root inode: {root_ino}",
+                f"Path components: {parts if parts else ['(root)']}",
+                f"",
+            ]
+
+            if not parts:
+                inode = xfs_read_inode(f, part_offset, sb, root_ino)
+                mode = inode['di_mode'] if inode else 0
+                lines += [
+                    f"Resolved to root inode {root_ino}",
+                    f"Type: {_format_type(mode)}{_format_perms(mode)}  "
+                    f"size={inode['di_size'] if inode else '?'}",
+                    f"",
+                    f"**RESULT: SUCCESS** (path is root)",
+                ]
+                return '\n'.join(lines)
+
+            current_ino = root_ino
+            for step_idx, component in enumerate(parts):
+                inode = xfs_read_inode(f, part_offset, sb, current_ino)
+                if not inode:
+                    lines.append(f"Step {step_idx+1}: inode {current_ino} — **UNREADABLE**")
+                    lines.append(f"")
+                    lines.append(f"**RESULT: FAIL** (could not read inode {current_ino})")
+                    return '\n'.join(lines)
+
+                mode = inode['di_mode']
+                if (mode & S_IFMT) != S_IFDIR:
+                    lines.append(f"Step {step_idx+1}: inode {current_ino} — "
+                                 f"**NOT A DIRECTORY** (mode=0o{mode:o})")
+                    lines.append(f"**RESULT: FAIL**")
+                    return '\n'.join(lines)
+
+                fmt = inode['di_format']
+                fmt_name = _XFS_DINODE_FMT_NAMES.get(fmt, f'FMT_{fmt}')
+                entries = xfs_read_dir_entries(f, part_offset, sb, inode)
+                lines.append(f"**Step {step_idx+1}**: directory inode {current_ino}  "
+                             f"({fmt_name}, {len(entries)} entries)")
+                lines.append(f"  Looking for `{component}` among {len(entries)} entries:")
+
+                found_ino = None
+                for name, child_ino in entries:
+                    marker = "  ✓ FOUND" if name == component else ""
+                    lines.append(f"    {name:<40} → {child_ino}{marker}")
+                    if name == component:
+                        found_ino = child_ino
+
+                if found_ino is None:
+                    lines.append(f"")
+                    lines.append(f"**RESULT: FAIL** — `{component}` not found in inode {current_ino}")
+                    return '\n'.join(lines)
+
+                current_ino = found_ino
+                lines.append(f"  → resolved `{component}` to inode {current_ino}")
+                lines.append(f"")
+
+            # Final inode info
+            final_inode = xfs_read_inode(f, part_offset, sb, current_ino)
+            if final_inode:
+                mode = final_inode['di_mode']
+                fmt = final_inode['di_format']
+                fmt_name = _XFS_DINODE_FMT_NAMES.get(fmt, f'FMT_{fmt}')
+                lines += [
+                    f"**Resolved**: `{path}` → inode {current_ino}",
+                    f"Type: {_format_type(mode)}{_format_perms(mode)}  "
+                    f"size={final_inode['di_size']}  {fmt_name}  "
+                    f"nextents={final_inode['di_nextents']}",
+                    f"",
+                    f"**RESULT: SUCCESS**",
+                ]
+            else:
+                lines += [
+                    f"**Resolved**: `{path}` → inode {current_ino} (unreadable)",
+                    f"**RESULT: PARTIAL** (path found but final inode unreadable)",
+                ]
+    except Exception as e:
+        return f"Error: {e}"
+
+    return '\n'.join(lines)
+
+
+def xfs_block(image_path, fsblock, partition=None):
+    """Dump a raw XFS filesystem block by fsblock address, with format detection."""
+    try:
+        with open_disk_image(image_path) as f:
+            xfs_part = find_xfs_partition(f)
+            if not xfs_part:
+                return "No XFS partition found."
+            part_offset, _ = xfs_part
+            sb = xfs_read_superblock(f, part_offset)
+            if not sb:
+                return "Could not read XFS superblock."
+
+            blocksize = sb['sb_blocksize']
+            agblklog = sb['sb_agblklog']
+            agblocks = sb['sb_agblocks']
+
+            agno = fsblock >> agblklog
+            agbno = fsblock & ((1 << agblklog) - 1)
+            phys_block = agno * agblocks + agbno
+            disk_offset = part_offset + phys_block * blocksize
+
+            f.seek(disk_offset)
+            data = f.read(blocksize)
+    except Exception as e:
+        return f"Error: {e}"
+
+    if not data:
+        return f"Could not read block at disk offset 0x{disk_offset:x}."
+
+    # Detect block type
+    block_type = "unknown"
+    annotation = []
+    if len(data) >= 4:
+        magic4 = struct.unpack('>I', data[0:4])[0]
+        magic2_at8 = struct.unpack('>H', data[8:10])[0] if len(data) >= 10 else 0
+        if magic4 == 0x58414742:  # 'XAGB' AGF
+            block_type = "AGF (Allocation Group Free block list)"
+        elif magic4 == 0x58414749:  # 'XAGI' AGI
+            block_type = "AGI (Allocation Group Inode header)"
+        elif magic4 == XFS_DIR2_BLOCK_MAGIC:
+            block_type = "XFS dir2 block ('XD2B')"
+        elif magic4 == XFS_DIR2_DATA_MAGIC:
+            block_type = "XFS dir2 data ('XD2D')"
+            if len(data) >= 16:
+                best_free_0 = struct.unpack('>H', data[12:14])[0]
+                annotation.append(f"  bestfree[0].offset = 0x{best_free_0:04x}")
+        elif magic4 == 0x58443246:  # 'XD2F'
+            block_type = "XFS dir2 freespace ('XD2F')"
+        elif magic4 == XFS_BMAP_MAGIC:
+            block_type = "XFS BMap B+tree ('BMAP')"
+        elif magic2_at8 == XFS_DIR_LEAF_MAGIC:
+            block_type = "XFS V1 leaf directory (0xfeeb at offset 8)"
+            annotation.append(f"  V1 leaf: magic=0xfeeb at offset 8 (in xfs_da_blkinfo_t)")
+        elif magic4 == XFS_SB_MAGIC:
+            block_type = "XFS Superblock ('XFSB') — AG secondary superblock"
+        elif magic4 == XFS_DINODE_MAGIC or (magic4 >> 16) == XFS_DINODE_MAGIC:
+            block_type = "XFS Inode block"
+
+    lines = [
+        f"## XFS Block 0x{fsblock:x} — `{image_path}`",
+        f"",
+        f"fsblock = 0x{fsblock:x}",
+        f"  agno  = {agno}",
+        f"  agbno = {agbno}",
+        f"  disk offset = 0x{disk_offset:x} (physical block {phys_block})",
+        f"  block size  = {blocksize} bytes",
+        f"",
+        f"Detected type: **{block_type}**",
+    ]
+    if annotation:
+        lines.extend(annotation)
+    lines += [
+        f"",
+        f"### Hex dump",
+        f"```",
+        _hex_dump(data, 16),
+        f"```",
+    ]
+    return '\n'.join(lines)
+
+
+def xfs_check(image_path, partition=None):
+    """Comprehensive XFS consistency check including PROM/SASH compatibility."""
+    results = []   # list of (status, message)
+
+    def chk(ok, msg):
+        results.append(('PASS' if ok else 'FAIL', msg))
+        return ok
+
+    def info(msg):
+        results.append(('INFO', msg))
+
+    try:
+        with open_disk_image(image_path) as f:
+            # 1. Volume header
+            f.seek(0)
+            vh_data = f.read(512)
+            if len(vh_data) >= 4:
+                vh_magic = struct.unpack('>I', vh_data[0:4])[0]
+                chk(vh_magic == VHMAGIC,
+                    f"Volume header magic: 0x{vh_magic:08x} "
+                    f"({'OK' if vh_magic == VHMAGIC else f'expected 0x{VHMAGIC:08x}'})")
+            else:
+                chk(False, "Could not read volume header")
+
+            # 2. XFS partition
+            xfs_part = find_xfs_partition(f)
+            if not chk(xfs_part is not None, "XFS partition found (type 10 in volume header)"):
+                _show_results(results)
+                return _format_check_results(image_path, results)
+            part_offset, part_size = xfs_part
+            info(f"XFS partition: LBA {part_offset // 512}, "
+                 f"size {part_size // (1024*1024)} MB")
+
+            # 3. Superblock
+            sb = xfs_read_superblock(f, part_offset)
+            if not chk(sb is not None, "XFS superblock readable"):
+                return _format_check_results(image_path, results)
+
+            f.seek(part_offset)
+            sb_raw = f.read(8)
+            magic = struct.unpack('>I', sb_raw[0:4])[0]
+            chk(magic == XFS_SB_MAGIC,
+                f"Superblock magic: 0x{magic:08x} ('XFSB')")
+
+            # 4. Version / SASH compatibility
+            vn = sb['sb_versionnum']
+            ok, reason = _xfs_sash_compat(vn)
+            chk(ok, f"PROM/SASH version check: 0x{vn:04x} — {reason}")
+
+            # 5. Root inode
+            root_ino = sb['sb_rootino']
+            info(f"Root inode: {root_ino}")
+            root_inode = xfs_read_inode(f, part_offset, sb, root_ino)
+            if not chk(root_inode is not None, f"Root inode {root_ino} readable"):
+                return _format_check_results(image_path, results)
+            chk((root_inode['di_mode'] & S_IFMT) == S_IFDIR,
+                f"Root inode is a directory (mode=0o{root_inode['di_mode']:06o})")
+
+            # 6. Root directory entries
+            root_entries = xfs_read_dir_entries(f, part_offset, sb, root_inode)
+            chk(len(root_entries) > 0,
+                f"Root directory readable ({len(root_entries)} entries)")
+
+            # 7. Path probes
+            for probe_path in ['/unix', '/unix.new', '/stand', '/sash']:
+                try:
+                    ino = _xfs_resolve_path(f, part_offset, sb, probe_path)
+                    if ino is not None:
+                        probe_inode = xfs_read_inode(f, part_offset, sb, ino)
+                        if probe_inode:
+                            ft = _format_type(probe_inode['di_mode'])
+                            sz = probe_inode['di_size']
+                            sz_str = (f"{sz // (1024*1024)}.{(sz % (1024*1024)) // 102400}MB"
+                                      if sz >= 1024*1024 else f"{sz}B")
+                            boot_note = " ← PROM boot target" if probe_path == '/unix.new' else ""
+                            info(f"Path {probe_path:<12} → inode {ino} ({ft}, {sz_str}){boot_note}")
+                        else:
+                            info(f"Path {probe_path:<12} → inode {ino} (unreadable)")
+                    else:
+                        info(f"Path {probe_path:<12} → not found")
+                except Exception as e:
+                    info(f"Path {probe_path:<12} → error: {e}")
+
+    except Exception as e:
+        results.append(('FAIL', f"Unexpected error: {e}"))
+
+    return _format_check_results(image_path, results)
+
+
+def _format_check_results(image_path, results):
+    """Format xfs_check results as a report."""
+    passes = sum(1 for s, _ in results if s == 'PASS')
+    fails = sum(1 for s, _ in results if s == 'FAIL')
+    lines = [
+        f"## XFS Filesystem Check — `{image_path}`",
+        f"",
+    ]
+    for status, msg in results:
+        icon = {'PASS': '✓', 'FAIL': '✗', 'INFO': '·'}.get(status, ' ')
+        lines.append(f"  [{status}] {icon} {msg}")
+    lines += [
+        f"",
+        f"**Overall: {passes} PASS, {fails} FAIL**",
+        f"{'✓ Ready for PROM boot' if fails == 0 else '✗ Issues found — see FAILs above'}",
+    ]
+    return '\n'.join(lines)
+
+
+def xfs_repair_superblock(image_path, field, value, partition=None, dry_run=True):
+    """Patch a single XFS superblock field.
+
+    Supported fields: versionnum (offset 100, uint16), blocksize (offset 4, uint32),
+    agcount (offset 88, uint32).
+
+    With dry_run=True (default): shows what would change without writing.
+    With dry_run=False: converts qcow2 to raw, patches the raw file in-place.
+    The original qcow2 is NEVER modified. The patched raw file is left at
+    <image>.patched.raw for inspection; use qemu-img convert to create a new qcow2.
+    """
+    SUPPORTED = {
+        'versionnum': (100, 2, '>H'),
+        'blocksize':  (4,   4, '>I'),
+        'agcount':    (88,  4, '>I'),
+    }
+    if field not in SUPPORTED:
+        return (f"Field `{field}` not supported. Supported fields: "
+                + ", ".join(SUPPORTED.keys()))
+
+    field_offset, field_size, field_fmt = SUPPORTED[field]
+
+    try:
+        with open_disk_image(image_path) as f:
+            xfs_part = find_xfs_partition(f)
+            if not xfs_part:
+                return "No XFS partition found."
+            part_offset, _ = xfs_part
+            sb = xfs_read_superblock(f, part_offset)
+            if not sb:
+                return "Could not read XFS superblock."
+
+            # Read current value
+            f.seek(part_offset + field_offset)
+            cur_bytes = f.read(field_size)
+    except Exception as e:
+        return f"Error reading image: {e}"
+
+    cur_val = struct.unpack(field_fmt, cur_bytes)[0]
+    new_bytes = struct.pack(field_fmt, value)
+
+    # Version compatibility preview
+    extra = []
+    if field == 'versionnum':
+        cur_ok, cur_reason = _xfs_sash_compat(cur_val)
+        new_ok, new_reason = _xfs_sash_compat(value)
+        extra = [
+            f"  Current: 0x{cur_val:04x} — {'✓' if cur_ok else '✗'} {cur_reason}",
+            f"  New:     0x{value:04x} — {'✓' if new_ok else '✗'} {new_reason}",
+        ]
+
+    lines = [
+        f"## XFS Superblock Repair — `{image_path}`",
+        f"",
+        f"Field:         `{field}` (offset {field_offset}, {field_size} bytes, {field_fmt})",
+        f"Current value: 0x{cur_val:0{field_size*2}x} ({cur_val})",
+        f"New value:     0x{value:0{field_size*2}x} ({value})",
+    ]
+    lines.extend(extra)
+
+    if cur_val == value:
+        lines.append(f"\nField already has value 0x{value:x} — no change needed.")
+        return '\n'.join(lines)
+
+    if dry_run:
+        lines += [
+            f"",
+            f"**[DRY RUN]** No changes made.",
+            f"To apply: call with `dry_run=False`",
+            f"",
+            f"Note: if image is qcow2, a `.patched.raw` file will be created alongside it.",
+        ]
+        return '\n'.join(lines)
+
+    # Apply the patch
+    try:
+        is_qcow = _is_qcow2(image_path)
+        if is_qcow:
+            qemu_img = _find_qemu_img()
+            raw_path = image_path.replace('.qcow2', '').replace('.img', '') + '.patched.raw'
+            result = subprocess.run(
+                [qemu_img, 'convert', '-f', 'qcow2', '-O', 'raw', image_path, raw_path],
+                capture_output=True, text=True
+            )
+            if result.returncode != 0:
+                return f"qemu-img convert failed:\n{result.stderr}"
+            target_path = raw_path
+        else:
+            # Backup
+            import shutil
+            bak_path = image_path + '.bak'
+            shutil.copy2(image_path, bak_path)
+            lines.append(f"Backup created: `{bak_path}`")
+            target_path = image_path
+
+        # Patch
+        write_offset = part_offset + field_offset
+        with open(target_path, 'r+b') as f:
+            f.seek(write_offset)
+            f.write(new_bytes)
+
+        lines += [
+            f"",
+            f"✓ **Patched** `{target_path}` at offset 0x{write_offset:x}",
+            f"  Wrote: {new_bytes.hex()} (was: {cur_bytes.hex()})",
+        ]
+        if is_qcow:
+            lines += [
+                f"",
+                f"Patched raw file: `{raw_path}`",
+                f"To create a new qcow2:",
+                f"```",
+                f"qemu-img convert -f raw -O qcow2 {raw_path} new.qcow2",
+                f"```",
+            ]
+    except Exception as e:
+        lines.append(f"\n✗ **Error applying patch**: {e}")
+
+    return '\n'.join(lines)
 
 
 # ── Internal helpers ─────────────────────────────────────────────────

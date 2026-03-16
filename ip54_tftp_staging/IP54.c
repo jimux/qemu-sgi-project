@@ -42,14 +42,17 @@
 /* heartio.h and arcs headers not installed on build system — declare what we need */
 extern char *arcs_getenv(const char *name);
 
+/* earlybadaddr: safe version of badaddr() usable before curthreadp is set up */
+extern int earlybadaddr(volatile void *, int);
+
 /* -----------------------------------------------------------------------
  * Machine identification
  * ---------------------------------------------------------------------- */
 
-short cputype = 54;             /* xx in IPxx */
+short cputype __attribute__((section(".sdata"))) = 54;             /* xx in IPxx */
 static uint sys_id;             /* serial number from ethernet MAC */
 
-int maxcpus = MAXCPU;
+int maxcpus __attribute__((section(".sdata"))) = 1;    /* IP54: single CPU at boot; _bclean_caches needs UP path */
 
 pdaindr_t pdaindr[MAXCPU];
 int processor_enabled[MAXCPU];
@@ -101,7 +104,7 @@ ip54_pvmem_total_ram(void)
     volatile __uint64_t *pvmem = (volatile __uint64_t *)PHYS_TO_K1(IP54_PV_MEM);
     __uint64_t total;
 
-    if (badaddr((void *)pvmem, sizeof(__uint64_t)))
+    if (earlybadaddr((volatile void *)pvmem, sizeof(__uint64_t)))
         return 64ULL * 1024 * 1024;    /* safe fallback: 64MB */
 
     total = pvmem[0];   /* offset 0x00: TOTAL_RAM */
@@ -124,6 +127,19 @@ struct kmem_ioaddr kmem_ioaddr[] = {
 };
 
 /*
+ * Temporary ring buffer for cmn_err output before setup_lowmem() runs.
+ *
+ * The kernel clears BSS at startup (before mlreset is called), so this
+ * array is safely zeroed.  mlreset() points putbuf at it so that any
+ * cmn_err() call between BSS-clear and setup_lowmem() writes here
+ * instead of to NULL (VA 0, KUSEG) which would cause a TLBS exception.
+ * setup_lowmem() overwrites putbuf/putbufsz with real allocations.
+ */
+extern char *putbuf;        /* defined in os/printf.c */
+extern int   putbufsz;      /* defined in os/printf.c */
+static char  ip54_early_putbuf[4096];   /* BSS: zeroed before mlreset() */
+
+/*
  * mlreset - very early machine reset.
  * Called before interrupts, before paging, before malloc.
  * is_slave: 0 for boot CPU, 1 for secondary CPUs.
@@ -140,8 +156,14 @@ mlreset(int is_slave)
      * IP54: no real BRIDGE/IOC3/XBOW init needed.
      * HEART is the only real chipset; it is initialised by the PROM.
      * The paravirtual devices are ready at boot.
+     *
+     * Pre-initialise putbuf so that any cmn_err() call between here and
+     * setup_lowmem() does not crash with a NULL dereference.  BSS clearing
+     * happens BEFORE mlreset() so ip54_early_putbuf is safely zero-filled.
+     * setup_lowmem() will overwrite putbuf/putbufsz with proper values.
      */
-    cmn_err(CE_CONT, "IP54 Paravirtual SGI Workstation\n");
+    putbuf   = ip54_early_putbuf;
+    putbufsz = sizeof(ip54_early_putbuf);
 }
 
 /*
@@ -196,7 +218,7 @@ init_sysid(void)
          */
         volatile __uint64_t *pvnet = (volatile __uint64_t *)PHYS_TO_K1(IP54_PV_NET);
         __uint64_t mac_hi, mac_lo;
-        if (!badaddr((void *)pvnet, sizeof(__uint64_t))) {
+        if (!earlybadaddr((volatile void *)pvnet, sizeof(__uint64_t))) {
             mac_hi = pvnet[8];   /* offset 0x40 = index 8 */
             mac_lo = pvnet[9];   /* offset 0x48 = index 9 */
             eaddr[0] = (mac_hi >> 8) & 0xff;
@@ -240,9 +262,13 @@ ip54_init_memory(void)
     __uint64_t total_ram = ip54_pvmem_total_ram();
     __uint64_t ram_pages = btoct(total_ram);
 
-    cmn_err(CE_CONT, "IP54: pvmem reports %lluMB RAM\n",
-            total_ram / (1024 * 1024));
-
+    /*
+     * NOTE: cmn_err() cannot be called here.  setup_lowmem() has not yet
+     * allocated the ring buffers (putbuf/conbuf/errbuf); any cmn_err call
+     * before that causes a NULL-dereference of putbuf and a double panic.
+     * Use ip54_pvmem_total_ram() return value silently; the caller (mlsetup)
+     * will log memory configuration once the buffers are ready.
+     */
     /*
      * Register physical memory with the IRIX VM subsystem.
      * physmem_add() or physstk_add() is the appropriate IRIX call.

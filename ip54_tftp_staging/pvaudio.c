@@ -35,6 +35,8 @@
 #include "sys/sbd.h"
 #include "sys/cpu.h"
 #include "sys/conf.h"
+#include "sys/edt.h"
+#include "sys/hwgraph.h"
 #include "sys/uio.h"
 #include "sys/cred.h"
 
@@ -91,6 +93,7 @@ struct pvaudio_state {
 };
 
 static struct pvaudio_state pvaudio_state;
+static char pvaudio_static_buf[PVAUDIO_RINGBUF_SIZE];
 
 int pvaudiodevflag = 0;
 
@@ -112,18 +115,13 @@ pvaudioopen(dev_t dev, int oflag, int otyp, cred_t *crp)
     /* Reset device */
     PVAUDIO_REG(PVAUDIO_CTRL) = PVAUDIO_CTRL_RESET;
 
-    /* Allocate ring buffer */
-    npages = btoc(PVAUDIO_RINGBUF_SIZE);
-    k0buf  = kvpalloc(npages, VM_DIRECT | VM_NOSLEEP, 0);
-    if (k0buf == NULL) {
-        cmn_err(CE_WARN, "pvaudio: cannot allocate %d pages for ring buffer",
-                npages);
-        return ENOMEM;
-    }
+    /* Use static BSS buffer for ring buffer */
+    k0buf = pvaudio_static_buf;
+    bzero(k0buf, PVAUDIO_RINGBUF_SIZE);
 
     ps->ps_bufphys  = (__uint64_t)kvtophys((caddr_t)k0buf);
     ps->ps_bufk1    = (void *)PHYS_TO_K1(ps->ps_bufphys);
-    ps->ps_bufpages = npages;
+    ps->ps_bufpages = 0;
     ps->ps_bufsize  = PVAUDIO_RINGBUF_SIZE;
     ps->ps_head     = 0;
 
@@ -160,14 +158,11 @@ pvaudioclose(dev_t dev, int oflag, int otyp, cred_t *crp)
 
     PVAUDIO_REG(PVAUDIO_CTRL) = PVAUDIO_CTRL_RESET;
 
-    if (ps->ps_bufk1 != NULL) {
-        caddr_t k0 = (caddr_t)PHYS_TO_K0(ps->ps_bufphys);
-        kvpfree(k0, ps->ps_bufpages);
-        ps->ps_bufk1    = NULL;
-        ps->ps_bufphys  = 0;
-        ps->ps_bufpages = 0;
-        ps->ps_bufsize  = 0;
-    }
+    /* Static buffer - don't free, just clear state */
+    ps->ps_bufk1    = NULL;
+    ps->ps_bufphys  = 0;
+    ps->ps_bufpages = 0;
+    ps->ps_bufsize  = 0;
 
     ps->ps_open = 0;
     return 0;
@@ -297,6 +292,28 @@ pvaudioioctl(dev_t dev, int cmd, caddr_t arg, int mode, cred_t *crp, int *rvalp)
     PVAUDIO_REG(PVAUDIO_CTRL)        = PVAUDIO_CTRL_PLAY;
 
     return 0;
+}
+
+/*
+ * pvaudioedtinit - register /hw/pvaudio character device node via hwgraph.
+ */
+void
+pvaudioedtinit(struct edt *edtp)
+{
+    vertex_hdl_t pvaudio_vhdl;
+    graph_error_t rv;
+
+    if (badaddr((void *)PVAUDIO_BASE, sizeof(__uint32_t))) {
+        return;
+    }
+
+    rv = hwgraph_char_device_add(hwgraph_root, "pvaudio", "pvaudio", &pvaudio_vhdl);
+    if (rv == GRAPH_SUCCESS) {
+        hwgraph_chmod(pvaudio_vhdl, 0666);
+        cmn_err(CE_NOTE, "pvaudio: registered /hw/pvaudio");
+    } else {
+        cmn_err(CE_WARN, "pvaudio: hwgraph_char_device_add failed (%d)", rv);
+    }
 }
 
 #endif /* IP54 */

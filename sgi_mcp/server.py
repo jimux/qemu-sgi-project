@@ -103,11 +103,13 @@ from . import vm_instances
 from . import sgi_fs
 
 # --- Persistent QEMU session support ---
+import bisect
 import os
 import re
 import glob as glob_module
 import shutil
 import socket
+import struct
 import subprocess
 import tempfile
 import threading
@@ -482,6 +484,7 @@ _MACHINE_PROM_MAP = {
     "indigo2-r8k": ("ip26", None),
     "indigo": ("ip20", None),
     "octane": ("ip30", None),
+    "sgi-ip54": ("ip54", "ip54.bin"),
 }
 
 
@@ -640,17 +643,22 @@ def _build_qemu_launch(args: dict) -> tuple[list[str], str, str, str, str, str]:
     ]
     # Always create the ser0 socket chardev. For indy/indigo2, -serial chardev:ser0
     # connects it to the Z85C30. For octane, BRIDGE/IOC3 connects to it directly
-    # via qemu_chr_find("ser0") in sgi_bridge_realize.
-    if machine in ("indy", "indigo2", "indigo2-r10k", "indigo2-r8k", "indigo"):
+    # via qemu_chr_find("ser0") in sgi_bridge_realize. For sgi-ip54, serial_hd(0)
+    # is connected to sgi-pvuart which reads chardev:ser0 via the -serial flag.
+    if machine in ("indy", "indigo2", "indigo2-r10k", "indigo2-r8k", "indigo",
+                   "sgi-ip54"):
         cmd[cmd.index("-serial") + 1] = "chardev:ser0"
+    # sgi-ip54 PROM runs so fast it completes startup before the socket client
+    # connects. Use wait=on so QEMU holds serial output until connected.
+    serial_wait = "on" if machine == "sgi-ip54" else "off"
     cmd.extend(
-        ["-chardev", f"socket,id=ser0,path={serial_sock_path},server=on,wait=off"]
+        ["-chardev", f"socket,id=ser0,path={serial_sock_path},server=on,wait={serial_wait}"]
     )
     if vnc_enabled:
         cmd.extend(["-object", "secret,id=vnc-pw,data=sgi"])
 
     if not autoload:
-        if machine not in ("sgi-o2",):
+        if machine not in ("sgi-o2", "sgi-ip54"):
             cmd.extend(["-global", "sgi-hpc3.autoload=false"])
 
     if debug_flags:
@@ -699,7 +707,17 @@ def _build_qemu_launch(args: dict) -> tuple[list[str], str, str, str, str, str]:
                 "",
                 f"Error: SCSI drive image not found: {drive_path}",
             )
-        if is_cdrom:
+        if machine == "sgi-ip54":
+            # IP54 has no SCSI bus; bootdisk uses sgi-bootdisk via IF_MTD
+            fmt = "qcow2" if drive_file.suffix == ".qcow2" else "raw"
+            ro_opt = ",readonly=on" if is_readonly else ""
+            cmd.extend(
+                [
+                    "-drive",
+                    f"if=mtd,file={drive_file},format={fmt},cache=writethrough,file.locking=off{ro_opt}",
+                ]
+            )
+        elif is_cdrom:
             cmd.extend(
                 [
                     "-drive",
@@ -796,6 +814,7 @@ def _resolve_scsi_drives(args: dict, build_dir: Path, project_root: Path) -> tup
     drive_cmd_args is a list of command-line arguments to append.
     """
     scsi_drives = args.get("scsi_drives", [])
+    machine = args.get("machine", "indy")
     drive_cmd_args = []
     has_qcow2 = False
     next_disk_id = 1
@@ -830,7 +849,19 @@ def _resolve_scsi_drives(args: dict, build_dir: Path, project_root: Path) -> tup
                 drive_file = project_root / drive_path
         if not drive_file.exists():
             return [], False, f"Error: SCSI drive image not found: {drive_path}"
-        if is_cdrom:
+        if machine == "sgi-ip54":
+            # IP54 has no SCSI bus; bootdisk uses sgi-bootdisk via IF_MTD
+            fmt = "qcow2" if drive_file.suffix == ".qcow2" else "raw"
+            if fmt == "qcow2":
+                has_qcow2 = True
+            ro_opt = ",readonly=on" if is_readonly else ""
+            drive_cmd_args.extend(
+                [
+                    "-drive",
+                    f"if=mtd,file={drive_file},format={fmt},cache=writethrough,file.locking=off{ro_opt}",
+                ]
+            )
+        elif is_cdrom:
             drive_cmd_args.extend(
                 [
                     "-drive",
@@ -930,10 +961,13 @@ def _resolve_instance(args: dict) -> dict:
         args = _apply_instance_defaults(args, manifest)
 
     # Inject NVRAM path via extra_args — always last so it cannot be shadowed
-    nvram_global = f"-global sgi-hpc3.nvram-file={nvram_path}"
-    extra = args.get("extra_args", "")
-    if "nvram-file" not in extra:
-        args["extra_args"] = f"{extra} {nvram_global}".strip()
+    # IP54 has no HPC3, so skip NVRAM injection for that machine
+    machine_for_nvram = args.get("machine", manifest.get("machine", "indy") if manifest else "indy")
+    if machine_for_nvram != "sgi-ip54":
+        nvram_global = f"-global sgi-hpc3.nvram-file={nvram_path}"
+        extra = args.get("extra_args", "")
+        if "nvram-file" not in extra:
+            args["extra_args"] = f"{extra} {nvram_global}".strip()
 
     # When using an instance, the NVRAM file is the authority for autoload.
     # The MCP schema defaults autoload=False which would cause _build_qemu_cmd
@@ -1074,7 +1108,7 @@ def _popen_qemu(cmd: list, tmpdir: str) -> tuple:
     stderr_log = os.path.join(tmpdir, "qemu_stderr.txt")
     stderr_f = open(stderr_log, "w")
     try:
-        proc = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=stderr_f)
+        proc = subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=stderr_f)
     finally:
         stderr_f.close()  # Parent closes its handle; child retains its inherited fd
     return proc, stderr_log
@@ -1879,7 +1913,7 @@ async def list_tools() -> list[Tool]:
                         "default": 64,
                     },
                     "timeout": {
-                        "type": "integer",
+                        "type": "number",
                         "description": "Timeout in seconds",
                         "default": 5,
                     },
@@ -1950,7 +1984,7 @@ async def list_tools() -> list[Tool]:
                         "default": 2,
                     },
                     "timeout": {
-                        "type": "integer",
+                        "type": "number",
                         "description": "Total timeout in seconds",
                         "default": 5,
                     },
@@ -2358,7 +2392,7 @@ async def list_tools() -> list[Tool]:
                         "default": 64,
                     },
                     "timeout": {
-                        "type": "integer",
+                        "type": "number",
                         "description": "Total session timeout in seconds",
                         "default": 30,
                     },
@@ -2946,7 +2980,7 @@ async def list_tools() -> list[Tool]:
                         "default": 64,
                     },
                     "timeout": {
-                        "type": "integer",
+                        "type": "number",
                         "description": "Total session timeout in seconds",
                         "default": 300,
                     },
@@ -3040,7 +3074,7 @@ async def list_tools() -> list[Tool]:
                         "default": 64,
                     },
                     "timeout": {
-                        "type": "integer",
+                        "type": "number",
                         "description": "Seconds to collect serial output after restore",
                         "default": 30,
                     },
@@ -3901,7 +3935,7 @@ async def list_tools() -> list[Tool]:
                         "default": False,
                     },
                     "timeout": {
-                        "type": "integer",
+                        "type": "number",
                         "description": "Timeout in seconds",
                         "default": 300,
                     },
@@ -4229,7 +4263,7 @@ async def list_tools() -> list[Tool]:
                         "description": "Path on destination guest to write",
                     },
                     "timeout": {
-                        "type": "integer",
+                        "type": "number",
                         "description": "Timeout per step in seconds",
                         "default": 60,
                     },
@@ -4449,6 +4483,116 @@ async def list_tools() -> list[Tool]:
                 "required": ["image", "host_path", "guest_path"],
             },
         ),
+        # ── XFS Analysis Tools ────────────────────────────────────────
+        Tool(
+            name="xfs_superblock",
+            description="Dump the XFS superblock with full field-by-field annotation and PROM/SASH compatibility analysis. Shows every field at its exact byte offset with raw hex, interpreted value, and validity notes. Essential for diagnosing version mismatches that prevent the IP54 PROM from booting an XFS volume.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "image": {
+                        "type": "string",
+                        "description": "Path to disk image (.img or .qcow2)",
+                    },
+                },
+                "required": ["image"],
+            },
+        ),
+        Tool(
+            name="xfs_inode",
+            description="Dump and annotate a single XFS inode: core fields (mode/uid/gid/size), data fork format and content (inline data, extent list, or B+tree root), and directory entries if it is a directory.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "image": {
+                        "type": "string",
+                        "description": "Path to disk image (.img or .qcow2)",
+                    },
+                    "inode": {
+                        "type": "integer",
+                        "description": "XFS inode number to dump",
+                    },
+                },
+                "required": ["image", "inode"],
+            },
+        ),
+        Tool(
+            name="xfs_path",
+            description="Walk an XFS path component by component with verbose output. Shows each directory lookup: which inode is searched, its format, all entries, and whether the component was found. Pinpoints exactly where path resolution fails.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "image": {
+                        "type": "string",
+                        "description": "Path to disk image (.img or .qcow2)",
+                    },
+                    "path": {
+                        "type": "string",
+                        "description": "Absolute path to walk (e.g. /unix.new, /stand/sash)",
+                    },
+                },
+                "required": ["image", "path"],
+            },
+        ),
+        Tool(
+            name="xfs_block",
+            description="Dump a raw XFS filesystem block by fsblock address (agno|agbno encoding). Auto-detects block type (AGF/AGI, dir2 data/block, V1 leaf 0xfeeb, BMap B+tree, superblock) and annotates the hex dump.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "image": {
+                        "type": "string",
+                        "description": "Path to disk image (.img or .qcow2)",
+                    },
+                    "fsblock": {
+                        "type": "integer",
+                        "description": "XFS filesystem block address (agno << agblklog | agbno)",
+                    },
+                },
+                "required": ["image", "fsblock"],
+            },
+        ),
+        Tool(
+            name="xfs_check",
+            description="Run a comprehensive XFS consistency check: volume header, partition table, superblock magic and version, PROM/SASH compatibility, root inode accessibility, root directory, and path probes for /unix, /unix.new, /stand, /sash. Reports PASS/FAIL for each check.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "image": {
+                        "type": "string",
+                        "description": "Path to disk image (.img or .qcow2)",
+                    },
+                },
+                "required": ["image"],
+            },
+        ),
+        Tool(
+            name="xfs_repair_superblock",
+            description="Patch a single XFS superblock field. Supported fields: versionnum (offset 100, uint16), blocksize (offset 4, uint32), agcount (offset 88, uint32). With dry_run=True (default) shows what would change. With dry_run=False converts qcow2 to raw, patches it, and leaves a .patched.raw file alongside — the original qcow2 is never modified.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "image": {
+                        "type": "string",
+                        "description": "Path to disk image (.img or .qcow2)",
+                    },
+                    "field": {
+                        "type": "string",
+                        "description": "Field to patch: 'versionnum', 'blocksize', or 'agcount'",
+                    },
+                    "value": {
+                        "type": "integer",
+                        "description": "New value to write (e.g. 0x1094 for versionnum)",
+                    },
+                    "dry_run": {
+                        "type": "boolean",
+                        "description": "If true (default), show what would change without writing",
+                        "default": True,
+                    },
+                },
+                "required": ["image", "field", "value"],
+            },
+        ),
         # ── Live IRIX Kernel Introspection (VMI) ──────────────────────
         Tool(
             name="irix_sysinfo",
@@ -4531,15 +4675,85 @@ async def list_tools() -> list[Tool]:
 
 @server.call_tool()
 async def call_tool(name: str, arguments: dict) -> list[TextContent]:
-    """Handle tool calls."""
+    """Handle tool calls.
+
+    Most tool handlers use blocking I/O (subprocess, socket, time.sleep).
+    Run them in a thread pool so they don't block the asyncio event loop,
+    which would prevent the MCP stdio transport from reading/writing and
+    cause "Connection closed" errors on long-running tools.
+
+    Tools that use genuine async (Ghidra bridge) are listed in _ASYNC_TOOLS
+    and dispatched directly on the event loop.
+    """
     try:
-        result = await _handle_tool(name, arguments)
+        if name in _ASYNC_TOOLS:
+            result = await _handle_tool_async(name, arguments)
+        else:
+            try:
+                import anyio
+                result = await anyio.to_thread.run_sync(
+                    lambda: _handle_tool(name, arguments),
+                    abandon_on_cancel=True,
+                )
+            except RuntimeError:
+                # Fallback if anyio task group isn't active
+                loop = asyncio.get_event_loop()
+                result = await loop.run_in_executor(
+                    None, _handle_tool, name, arguments
+                )
         return [TextContent(type="text", text=result)]
     except Exception as e:
         return [TextContent(type="text", text=f"Error: {str(e)}")]
 
 
-async def _handle_tool(name: str, args: dict) -> str:
+# Tools that use genuine async I/O (Ghidra bridge) and must run on the event loop
+_ASYNC_TOOLS = frozenset({
+    "ghidra_analyze", "ghidra_decompile", "ghidra_functions",
+    "ghidra_xrefs", "ghidra_import_symbols", "ghidra_disassemble",
+})
+
+
+async def _handle_tool_async(name: str, args: dict) -> str:
+    """Handle tools that require genuine async I/O (Ghidra bridge)."""
+    if not ghidra_bridge.GHIDRA_AVAILABLE:
+        return "Error: Ghidra not available. Expected analyzeHeadless at: " + str(
+            ghidra_bridge.GHIDRA_ANALYZE_HEADLESS
+        )
+    if name == "ghidra_analyze":
+        return await ghidra_bridge.ghidra_analyze(
+            args["filename"],
+            force=args.get("force", False),
+            timeout=args.get("timeout", 300),
+        )
+    elif name == "ghidra_decompile":
+        return await ghidra_bridge.ghidra_decompile(
+            args["filename"],
+            args["address"],
+            max_functions=args.get("max_functions", 10),
+        )
+    elif name == "ghidra_functions":
+        return await ghidra_bridge.ghidra_functions(
+            args["filename"],
+            filter_str=args.get("filter", ""),
+        )
+    elif name == "ghidra_xrefs":
+        return await ghidra_bridge.ghidra_xrefs(
+            args["filename"],
+            args["address"],
+            direction=args.get("direction", "both"),
+        )
+    elif name == "ghidra_import_symbols":
+        return await ghidra_bridge.ghidra_import_symbols(args["filename"])
+    elif name == "ghidra_disassemble":
+        return await ghidra_bridge.ghidra_disassemble(
+            args["filename"],
+            args["address"],
+            count=args.get("count", 50),
+        )
+    return f"Unknown async tool: {name}"
+
+
+def _handle_tool(name: str, args: dict) -> str:
     """Route tool calls to appropriate handlers."""
 
     # Basic Analysis
@@ -4773,7 +4987,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error: Invalid address: {args['address']}"
 
         # Search for the address as a 32-bit value (big-endian)
-        import struct
+
 
         pattern = struct.pack(">I", addr)
         results = []
@@ -5345,7 +5559,7 @@ async def _handle_tool(name: str, args: dict) -> str:
 
     # QEMU Build Tools
     elif name == "qemu_configure":
-        import subprocess
+
         from pathlib import Path
 
         # Find project root (where .mcp.json is)
@@ -5359,7 +5573,7 @@ async def _handle_tool(name: str, args: dict) -> str:
 
         # Clean build directory if requested
         if args.get("clean", False):
-            import shutil
+
 
             if build_dir.exists():
                 shutil.rmtree(build_dir)
@@ -5411,7 +5625,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error running configure: {e}"
 
     elif name == "qemu_build":
-        import subprocess
+
         from pathlib import Path
 
         build_dir = _find_build_dir()
@@ -5465,7 +5679,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error running ninja: {e}"
 
     elif name == "qemu_create_disk":
-        import subprocess
+
         from pathlib import Path
 
         project_root = Path(__file__).parent.parent
@@ -5510,7 +5724,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error: {e}"
 
     elif name == "qemu_run_sgi":
-        import subprocess
+
 
         args = _resolve_instance(args)
         prom_path, build_dir, project_root, err = _resolve_prom(args)
@@ -5589,16 +5803,18 @@ async def _handle_tool(name: str, args: dict) -> str:
         try:
             # Use Popen to capture output even on timeout
             proc = subprocess.Popen(
-                cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+                cmd, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.PIPE
             )
 
             try:
-                stdout, stderr = proc.communicate(timeout=timeout)
+                stdout_b, stderr_b = proc.communicate(timeout=timeout)
                 timed_out = False
             except subprocess.TimeoutExpired:
                 proc.kill()
-                stdout, stderr = proc.communicate()
+                stdout_b, stderr_b = proc.communicate()
                 timed_out = True
+            stdout = stdout_b.decode("latin-1", errors="replace")
+            stderr = stderr_b.decode("latin-1", errors="replace")
 
             output_lines = []
             output_lines.append(f"**PROM:** `{prom_path.name}`")
@@ -5659,7 +5875,7 @@ async def _handle_tool(name: str, args: dict) -> str:
                 stderr_lines = stderr.strip().split("\n")
 
                 if grep_filter:
-                    import re
+
 
                     pattern = re.compile(grep_filter, re.IGNORECASE)
                     filtered = [l for l in stderr_lines if pattern.search(l)]
@@ -5705,7 +5921,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         "qemu_guest_disasm",
         "qemu_guest_memory",
     ):
-        import subprocess
+
 
         prom_path, build_dir, project_root, err = _resolve_prom(args)
         if err:
@@ -5930,7 +6146,7 @@ async def _handle_tool(name: str, args: dict) -> str:
 
         # Log analysis tools
     elif name == "log_grep":
-        import re
+
         from pathlib import Path
 
         file_path = Path(args["file"])
@@ -5969,7 +6185,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(output)
 
     elif name == "log_context":
-        import re
+
         from pathlib import Path
 
         file_path = Path(args["file"])
@@ -6025,7 +6241,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(output)
 
     elif name == "log_uniq":
-        import re
+
         from pathlib import Path
         from collections import OrderedDict
 
@@ -6097,7 +6313,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         )
 
     elif name == "log_range":
-        import re
+
         from pathlib import Path
 
         file_path = Path(args["file"])
@@ -6146,7 +6362,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(output)
 
     elif name == "qemu_serial_interact":
-        import subprocess
+
 
         args = _resolve_instance(args)
         cmd, serial_sock_path, monitor_sock_path, tmpdir, prom_name, err = (
@@ -6209,7 +6425,8 @@ async def _handle_tool(name: str, args: dict) -> str:
 
         save_log = args.get("save_log")
         if save_log:
-            Path(save_log).write_text(full_transcript)
+            from pathlib import Path as _Path
+            _Path(save_log).write_text(full_transcript)
 
         output_lines = []
         output_lines.append(f"**PROM:** `{prom_name}`")
@@ -6230,11 +6447,11 @@ async def _handle_tool(name: str, args: dict) -> str:
     # --- Persistent QEMU session handlers ---
 
     elif name == "qemu_session_start":
-        import subprocess
-        import time
-        import socket
-        import os
-        import uuid
+
+
+
+
+
 
         # Resolve instance parameter into concrete paths
         args = _resolve_instance(args)
@@ -6304,24 +6521,15 @@ async def _handle_tool(name: str, args: dict) -> str:
         _qemu_bin = str(cmd[0])
 
         try:
-            # Launch QEMU and connect serial socket in a thread pool
-            # to avoid blocking the asyncio event loop during retries
-            def _launch_and_connect():
-                p, _stderr_log = _popen_qemu(cmd, tmpdir)
-                s, err_msg = _connect_serial_retry(
-                    serial_sock_path, p, stderr_log_path=_stderr_log, cmd=cmd
-                )
-                if err_msg:
-                    p.kill()
-                    p.wait(timeout=5)
-                    return None, None, err_msg
-                return p, s, None
-
-            loop = asyncio.get_event_loop()
-            proc, serial_sock, connect_err = await loop.run_in_executor(
-                None, _launch_and_connect
+            # Launch QEMU and connect serial socket.
+            # _handle_tool already runs in a thread pool, so blocking is fine.
+            proc, _stderr_log = _popen_qemu(cmd, tmpdir)
+            serial_sock, connect_err = _connect_serial_retry(
+                serial_sock_path, proc, stderr_log_path=_stderr_log, cmd=cmd
             )
             if connect_err:
+                proc.kill()
+                proc.wait(timeout=5)
                 return connect_err
 
             # Create session
@@ -6344,7 +6552,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             poll_interval = 1.0
             while elapsed < boot_wait:
                 chunk = min(poll_interval, boot_wait - elapsed)
-                await asyncio.sleep(chunk)
+                time.sleep(chunk)
                 elapsed += chunk
                 if not session.is_running():
                     # QEMU died during boot_wait — collect what we got and bail
@@ -6437,8 +6645,8 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error starting session: {e}"
 
     elif name == "qemu_session_send":
-        import time
-        import re
+
+
 
         session_id = args.get("session_id", "")
         if session_id not in _qemu_sessions:
@@ -6563,8 +6771,8 @@ async def _handle_tool(name: str, args: dict) -> str:
             return "\n".join(result_lines)
 
     elif name == "qemu_serial_write_file":
-        import time
-        import re
+
+
 
         session_id = args.get("session_id", "")
         if session_id not in _qemu_sessions:
@@ -6700,9 +6908,9 @@ async def _handle_tool(name: str, args: dict) -> str:
         )
 
     elif name == "qemu_serial_upload_binary":
-        import time
-        import re
-        import os
+
+
+
 
         session_id = args.get("session_id", "")
         host_path = args.get("host_path", "")
@@ -6842,8 +7050,8 @@ async def _handle_tool(name: str, args: dict) -> str:
         return f"✓ Uploaded {host_path} → {guest_path}: {size_info} in {batches_sent} batches"
 
     elif name == "qemu_session_snapshot":
-        import socket
-        import time
+
+
 
         session_id = args.get("session_id", "")
         snapshot_name = args.get("snapshot_name", "")
@@ -6921,8 +7129,8 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error saving snapshot: {e}"
 
     elif name == "qemu_session_monitor":
-        import socket
-        import time
+
+
 
         session_id = args.get("session_id", "")
         command = args.get("command", "")
@@ -7030,9 +7238,9 @@ async def _handle_tool(name: str, args: dict) -> str:
         )
 
     elif name == "newport_screendump":
-        import socket
-        import time
-        import subprocess
+
+
+
         from pathlib import Path
 
         session_id = args.get("session_id", "")
@@ -7250,7 +7458,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             description = args.get("description", "")
             if label:
                 import datetime
-                import shutil
+
 
                 fb_dir = Path(__file__).parent.parent / "framebuffers"
                 fb_dir.mkdir(exist_ok=True)
@@ -7289,8 +7497,8 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error capturing framebuffer: {e}"
 
     elif name == "newport_inspect":
-        import socket
-        import time
+
+
 
         session_id = args.get("session_id", "")
         subsystem = args.get("subsystem", "all")
@@ -7347,8 +7555,8 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error inspecting Newport: {e}"
 
     elif name == "newport_sendkey":
-        import socket
-        import time
+
+
 
         # Character-to-QEMU key name mapping for text mode
         _CHAR_TO_KEY = {
@@ -7485,8 +7693,8 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error sending key: {e}"
 
     elif name == "newport_mouse":
-        import socket
-        import time
+
+
 
         session_id = args.get("session_id", "")
         dx = args.get("dx", 0)
@@ -7679,7 +7887,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             return "\n".join(output)
 
     elif name == "qemu_disk_convert":
-        import subprocess
+
         from pathlib import Path
 
         project_root = Path(__file__).parent.parent
@@ -7764,7 +7972,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error: {e}"
 
     elif name == "qemu_snapshot_save":
-        import subprocess
+
 
         args = _resolve_instance(args)
         if not args.get("scsi_drives"):
@@ -7942,7 +8150,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(output_lines)
 
     elif name == "qemu_snapshot_restore":
-        import subprocess
+
 
         args = _resolve_instance(args)
         if not args.get("scsi_drives") and not args.get("instance"):
@@ -8026,7 +8234,7 @@ async def _handle_tool(name: str, args: dict) -> str:
     # ── IP54 PROM Build Tools ──────────────────────────────────────
 
     elif name == "prom_build":
-        import subprocess
+
         from pathlib import Path
 
         project_root = Path(__file__).parent.parent
@@ -8117,7 +8325,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error running make: {e}"
 
     elif name == "prom_try_compile":
-        import subprocess
+
         from pathlib import Path
 
         project_root = Path(__file__).parent.parent
@@ -8155,7 +8363,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error: {e}"
 
     elif name == "prom_symbols":
-        import subprocess
+
         from pathlib import Path
 
         project_root = Path(__file__).parent.parent
@@ -8204,7 +8412,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error: {e}"
 
     elif name == "prom_disasm":
-        import subprocess
+
         from pathlib import Path
 
         project_root = Path(__file__).parent.parent
@@ -8284,7 +8492,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error: {e}"
 
     elif name == "prom_sections":
-        import subprocess
+
         from pathlib import Path
 
         project_root = Path(__file__).parent.parent
@@ -8333,7 +8541,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(output_lines)
 
     elif name == "prom_preprocess":
-        import subprocess
+
         from pathlib import Path
 
         project_root = Path(__file__).parent.parent
@@ -8719,8 +8927,9 @@ async def _handle_tool(name: str, args: dict) -> str:
             new_nvram = inst_dir / "nvram.bin"
 
             # Thin-provisioned qcow2 backed by source disk (absolute path)
+            qemu_img = str(_find_build_dir() / "qemu-img")
             r = subprocess.run(
-                ["qemu-img", "create",
+                [qemu_img, "create",
                  "-b", str(src_disk.resolve()),
                  "-F", "qcow2", "-f", "qcow2",
                  str(new_disk)],
@@ -8779,8 +8988,9 @@ async def _handle_tool(name: str, args: dict) -> str:
                 return f"Error: disk not found: {disk}"
 
             # Get backing file from qcow2 metadata
+            qemu_img = str(_find_build_dir() / "qemu-img")
             r = subprocess.run(
-                ["qemu-img", "info", "--output", "json", str(disk)],
+                [qemu_img, "info", "--output", "json", str(disk)],
                 capture_output=True, text=True, check=True
             )
             info = json.loads(r.stdout)
@@ -8798,7 +9008,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             # Recreate the thin disk
             disk.unlink()
             r2 = subprocess.run(
-                ["qemu-img", "create",
+                [qemu_img, "create",
                  "-b", backing,
                  "-F", "qcow2", "-f", "qcow2",
                  str(disk)],
@@ -8953,7 +9163,7 @@ async def _handle_tool(name: str, args: dict) -> str:
     # === Boot Harness Tools ===
 
     elif name == "harness_boot":
-        import sys
+
         from pathlib import Path
 
         sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -9039,7 +9249,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(lines)
 
     elif name == "harness_resume":
-        import sys
+
         from pathlib import Path
 
         sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -9112,7 +9322,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(lines)
 
     elif name == "harness_disk":
-        import sys
+
         from pathlib import Path
 
         sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -9184,9 +9394,9 @@ async def _handle_tool(name: str, args: dict) -> str:
             return f"Error: unknown action '{action}'. Use: create, convert, info, snapshots, delete_snapshot, overlay"
 
     elif name == "qemu_scsi_trace":
-        import os
-        import sys
-        import tempfile
+
+
+
         from pathlib import Path
 
         sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -9313,10 +9523,10 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(output_lines)
 
     elif name == "qemu_boot_milestones":
-        import os
-        import sys
-        import time
-        import tempfile
+
+
+
+
         from pathlib import Path
 
         sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -9439,7 +9649,7 @@ async def _handle_tool(name: str, args: dict) -> str:
                 pass
 
     elif name == "harness_install":
-        import sys
+
         import importlib
         from pathlib import Path
         from io import StringIO
@@ -9580,7 +9790,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(output_lines)
 
     elif name == "harness_addon":
-        import sys
+
         from pathlib import Path
 
         instance_name = args.get("instance")
@@ -9750,7 +9960,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(output_lines)
 
     elif name == "harness_addon_live":
-        import sys
+
         from pathlib import Path
 
         session_id = args.get("session_id")
@@ -9905,13 +10115,13 @@ async def _handle_tool(name: str, args: dict) -> str:
     # ── IRIX Kernel Introspection Tools ──────────────────────────────
 
     elif name == "irix_kernel_symbols":
-        import struct
-        import re
-        import subprocess
-        import time
-        import socket
-        import tempfile
-        import os
+
+
+
+
+
+
+
         from pathlib import Path
 
         source = args.get("source", "ram")
@@ -10465,12 +10675,12 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(output_lines)
 
     elif name == "irix_pc_sample":
-        import subprocess
-        import time
-        import socket
-        import tempfile
-        import os
-        import re
+
+
+
+
+
+
         from pathlib import Path
 
         sample_interval_ms = args.get("sample_interval_ms", 500)
@@ -10505,7 +10715,7 @@ async def _handle_tool(name: str, args: dict) -> str:
             """Find the function containing PC using bisect."""
             if not func_addrs:
                 return f"0x{pc:08x}"
-            import bisect
+
 
             idx = bisect.bisect_right(func_addrs, pc) - 1
             if idx < 0:
@@ -10775,13 +10985,13 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(output_lines)
 
     elif name == "irix_kernel_inspect":
-        import struct
-        import subprocess
-        import time
-        import socket
-        import tempfile
-        import os
-        import re
+
+
+
+
+
+
+
         from pathlib import Path
 
         inspect_targets = args.get(
@@ -11017,7 +11227,7 @@ async def _handle_tool(name: str, args: dict) -> str:
                             sorted_syms = sorted(
                                 [(a, n) for n, a in symbols.items()], key=lambda x: x[0]
                             )
-                            import bisect
+
 
                             addrs = [s[0] for s in sorted_syms]
                             idx = bisect.bisect_right(addrs, pc) - 1
@@ -11360,14 +11570,14 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(output_lines)
 
     elif name == "irix_quick_inspect":
-        import struct
-        import subprocess
-        import time
-        import socket
-        import tempfile
-        import os
-        import re
-        import bisect
+
+
+
+
+
+
+
+
         from pathlib import Path
 
         symbols_file = args.get("symbols_file", "")
@@ -11847,71 +12057,11 @@ async def _handle_tool(name: str, args: dict) -> str:
 
         return "\n".join(output_lines)
 
-    # Ghidra Integration
-    elif name == "ghidra_analyze":
-        if not ghidra_bridge.GHIDRA_AVAILABLE:
-            return "Error: Ghidra not available. Expected analyzeHeadless at: " + str(
-                ghidra_bridge.GHIDRA_ANALYZE_HEADLESS
-            )
-        return await ghidra_bridge.ghidra_analyze(
-            args["filename"],
-            force=args.get("force", False),
-            timeout=args.get("timeout", 300),
-        )
-
-    elif name == "ghidra_decompile":
-        if not ghidra_bridge.GHIDRA_AVAILABLE:
-            return "Error: Ghidra not available. Expected analyzeHeadless at: " + str(
-                ghidra_bridge.GHIDRA_ANALYZE_HEADLESS
-            )
-        return await ghidra_bridge.ghidra_decompile(
-            args["filename"],
-            args["address"],
-            max_functions=args.get("max_functions", 10),
-        )
-
-    elif name == "ghidra_functions":
-        if not ghidra_bridge.GHIDRA_AVAILABLE:
-            return "Error: Ghidra not available. Expected analyzeHeadless at: " + str(
-                ghidra_bridge.GHIDRA_ANALYZE_HEADLESS
-            )
-        return await ghidra_bridge.ghidra_functions(
-            args["filename"],
-            filter_str=args.get("filter", ""),
-        )
-
-    elif name == "ghidra_xrefs":
-        if not ghidra_bridge.GHIDRA_AVAILABLE:
-            return "Error: Ghidra not available. Expected analyzeHeadless at: " + str(
-                ghidra_bridge.GHIDRA_ANALYZE_HEADLESS
-            )
-        return await ghidra_bridge.ghidra_xrefs(
-            args["filename"],
-            args["address"],
-            direction=args.get("direction", "both"),
-        )
-
-    elif name == "ghidra_import_symbols":
-        if not ghidra_bridge.GHIDRA_AVAILABLE:
-            return "Error: Ghidra not available. Expected analyzeHeadless at: " + str(
-                ghidra_bridge.GHIDRA_ANALYZE_HEADLESS
-            )
-        return await ghidra_bridge.ghidra_import_symbols(args["filename"])
-
-    elif name == "ghidra_disassemble":
-        if not ghidra_bridge.GHIDRA_AVAILABLE:
-            return "Error: Ghidra not available. Expected analyzeHeadless at: " + str(
-                ghidra_bridge.GHIDRA_ANALYZE_HEADLESS
-            )
-        return await ghidra_bridge.ghidra_disassemble(
-            args["filename"],
-            args["address"],
-            count=args.get("count", 50),
-        )
+    # Ghidra tools are handled by _handle_tool_async (dispatched from call_tool)
 
     # --- External Library Tools ---
     elif name == "library_scan":
-        import sys
+
 
         sys.path.insert(0, str(Path(__file__).parent.parent))
         from pyirix_qemu.catalog.library import LibraryScanner
@@ -11938,7 +12088,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(lines)
 
     elif name == "library_search":
-        import sys
+
 
         sys.path.insert(0, str(Path(__file__).parent.parent))
         from pyirix_qemu.catalog.library import LibraryIndex
@@ -11982,7 +12132,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(lines)
 
     elif name == "library_stage":
-        import sys
+
 
         sys.path.insert(0, str(Path(__file__).parent.parent))
         from pyirix_qemu.catalog.library import LibraryEntry, stage_file
@@ -12009,7 +12159,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return f"Staged `{filename}` ({size_mb:.1f} MB) → `{staged_path}`"
 
     elif name == "library_info":
-        import sys
+
 
         sys.path.insert(0, str(Path(__file__).parent.parent))
         from pyirix_qemu.catalog.library import LibraryIndex
@@ -12116,10 +12266,64 @@ async def _handle_tool(name: str, args: dict) -> str:
             mode=args.get("mode"),
         )
 
+    # ── XFS Analysis Tools handlers ─────────────────────────────────────
+
+    elif name == "xfs_superblock":
+        image = args.get("image", "")
+        if not image:
+            return "Error: image is required"
+        return sgi_fs.xfs_superblock(image)
+
+    elif name == "xfs_inode":
+        image = args.get("image", "")
+        inode = args.get("inode")
+        if not image:
+            return "Error: image is required"
+        if inode is None:
+            return "Error: inode is required"
+        return sgi_fs.xfs_inode(image, int(inode))
+
+    elif name == "xfs_path":
+        image = args.get("image", "")
+        path = args.get("path", "")
+        if not image:
+            return "Error: image is required"
+        if not path:
+            return "Error: path is required"
+        return sgi_fs.xfs_path(image, path)
+
+    elif name == "xfs_block":
+        image = args.get("image", "")
+        fsblock = args.get("fsblock")
+        if not image:
+            return "Error: image is required"
+        if fsblock is None:
+            return "Error: fsblock is required"
+        return sgi_fs.xfs_block(image, int(fsblock))
+
+    elif name == "xfs_check":
+        image = args.get("image", "")
+        if not image:
+            return "Error: image is required"
+        return sgi_fs.xfs_check(image)
+
+    elif name == "xfs_repair_superblock":
+        image = args.get("image", "")
+        field = args.get("field", "")
+        value = args.get("value")
+        if not image:
+            return "Error: image is required"
+        if not field:
+            return "Error: field is required"
+        if value is None:
+            return "Error: value is required"
+        dry_run = args.get("dry_run", True)
+        return sgi_fs.xfs_repair_superblock(image, field, int(value), dry_run=bool(dry_run))
+
     # ── Live IRIX Kernel Introspection (VMI) handlers ──────────────────
 
     elif name == "irix_sysinfo":
-        import struct
+
 
         session_id = args.get("session_id", "")
         symbols_file = args.get("symbols_file", "")
@@ -12234,7 +12438,7 @@ async def _handle_tool(name: str, args: dict) -> str:
                             except socket.timeout:
                                 pass
                             reg_text = resp.decode("utf-8", errors="replace")
-                            import re
+
 
                             m = re.search(
                                 r"pc[=\s]+(0x[\da-fA-F]+)", reg_text, re.IGNORECASE
@@ -12301,7 +12505,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(output_lines) if output_lines else "*No data collected*"
 
     elif name == "irix_ps":
-        import struct
+
 
         session_id = args.get("session_id", "")
         symbols_file = args.get("symbols_file", "")
@@ -12659,7 +12863,7 @@ async def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(output_lines) if output_lines else "*No processes found*"
 
     elif name == "irix_netstat":
-        import struct
+
 
         session_id = args.get("session_id", "")
         symbols_file = args.get("symbols_file", "")
@@ -12891,13 +13095,46 @@ async def _handle_tool(name: str, args: dict) -> str:
 
 async def main():
     """Run the MCP server."""
-    async with stdio_server() as (read_stream, write_stream):
-        await server.run(
-            read_stream, write_stream, server.create_initialization_options()
-        )
+    try:
+        async with stdio_server() as (read_stream, write_stream):
+            await server.run(
+                read_stream, write_stream, server.create_initialization_options()
+            )
+    except (BaseExceptionGroup, ExceptionGroup) as eg:
+        # When the MCP client disconnects while a tool call is in progress,
+        # the write stream closes and anyio raises ClosedResourceError inside
+        # a task group ExceptionGroup.  This is expected — suppress it so
+        # the server exits cleanly instead of crashing with a traceback.
+        import anyio
+        real_errors = []
+        for exc in eg.exceptions:
+            if isinstance(exc, (anyio.ClosedResourceError, BrokenPipeError)):
+                continue
+            if isinstance(exc, (BaseExceptionGroup, ExceptionGroup)):
+                # Nested groups from MCP session internals
+                has_only_closed = all(
+                    isinstance(e, (anyio.ClosedResourceError, BrokenPipeError))
+                    or (isinstance(e, (BaseExceptionGroup, ExceptionGroup))
+                        and all(isinstance(ee, (anyio.ClosedResourceError, BrokenPipeError))
+                                for ee in e.exceptions))
+                    for e in exc.exceptions
+                )
+                if has_only_closed:
+                    continue
+            real_errors.append(exc)
+        if real_errors:
+            raise BaseExceptionGroup("mcp errors", real_errors) from None
 
 
 if __name__ == "__main__":
-    import asyncio
 
-    asyncio.run(main())
+
+    try:
+        asyncio.run(main())
+    except BaseException:
+        import traceback
+        with open("/tmp/sgi_mcp_crash.log", "a") as _f:
+            import datetime
+            _f.write(f"\n--- {datetime.datetime.now()} ---\n")
+            traceback.print_exc(file=_f)
+        raise

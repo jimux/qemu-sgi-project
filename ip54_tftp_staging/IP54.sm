@@ -12,7 +12,7 @@ INCLUDE: nolocks
 INCLUDE: numa, os, disp, mem, zero, sharena
 INCLUDE: ksync
 INCLUDE: kmem
-INCLUDE: io, gentty, ptc, sduart, cn, stream
+INCLUDE: io, gentty, ptc, pvuart_cn, cn, stream
 INCLUDE: pckm
 INCLUDE: specfs, pipefs, proc, fifofs, hwgfs
 
@@ -176,9 +176,10 @@ USE: gfx
 USE: kdsp
 
 * ======= IP54 Paravirtual drivers =======
-USE: if_pvnet
-USE: pvfb
-USE: pvaudio
+INCLUDE: pvdisk
+INCLUDE: if_pvnet
+INCLUDE: pvfb
+INCLUDE: pvaudio
 USE: bsd
 
 * ======= Root and swap devices =======
