@@ -106,7 +106,8 @@ class RunResult:
 class IRIXSession:
     def __init__(self, machine="sgi-ip54", ram_mb=256, boot_wait=30,
                  prom="/workspace/PROM_library/bins/cpu/ip54/ip54.bin",
-                 instance="ip54-test", extra_args="", echo=True):
+                 instance="ip54-test", extra_args="", echo=True,
+                 debug_flags=None, log_file=None):
         self.machine = machine
         self.ram_mb = ram_mb
         self.boot_wait = boot_wait
@@ -114,6 +115,8 @@ class IRIXSession:
         self.instance = instance
         self.extra_args = extra_args
         self.echo = echo
+        self.debug_flags = debug_flags   # e.g. "unimp" — opens QEMU's -D logfile
+        self.log_file = log_file         # path receiving QEMU -d/-D + qemu_log()
         self.sid = None
         self.have_shell = False
 
@@ -125,6 +128,10 @@ class IRIXSession:
             args["instance"] = self.instance
         if self.extra_args:
             args["extra_args"] = self.extra_args
+        if self.debug_flags:
+            args["debug_flags"] = self.debug_flags
+        if self.log_file:
+            args["log_file"] = self.log_file
         r = _tool("qemu_session_start", args)
         self._p(r)
         m = re.search(r"`([0-9a-f]{4,})`", r)
