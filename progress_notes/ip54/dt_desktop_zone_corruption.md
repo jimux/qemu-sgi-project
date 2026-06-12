@@ -308,3 +308,15 @@ in order of preference:
 2. Drop the guest-memory write entirely if the SW2 assertion + CP0 Compare path
    alone drive clock() (test: remove the write, confirm timekeeping) — removes
    the hardcode forever.
+
+### Timekeeping note (post-fix)
+After correcting the pvclock address, measured guest:host clock ratio = **0.473**
+(guest advances ~45s per 95s wall). This is **TCG emulation speed**, not a tick-
+accounting bug: the emulated R10000 runs at ~0.47x real-time on this host and
+QEMU's virtual clock tracks guest execution, so the guest sees ~47 of every 100
+host-seconds' worth of 100Hz ticks. The guest's internal time is consistent
+(100 ticks = 1 guest-second). Confirmed not tick-loss: switching the
+cause_ip5_count write from `=1` to accumulating `+=` (capped) made NO difference
+to the ratio, and the early-boot backlog it allowed drained in a burst →
+stack-overflow panic. So `=1` is retained. (A faster host or a JIT/KVM target
+would raise the ratio; the slip is acceptable for the desktop milestone.)
