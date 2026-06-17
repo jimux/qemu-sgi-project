@@ -1,0 +1,3 @@
+[submodule "irix-ip54"]
+	path = irix-ip54
+	url = ./irix-ip54
