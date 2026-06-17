@@ -19,7 +19,12 @@ import json
 import bisect
 import subprocess
 
-SYMS_JSON = "/workspace/ip54_kernel_symbols_disk.json"
+# WARNING: ip54_kernel_symbols_disk.json is STALE vs the golden kernel — every
+# address is off (splx, idev*, qcntl* all wrong), which makes gdb breakpoints
+# silently hit WRONG addresses.  ip54_kernel_symbols_golden.json is regenerated
+# from the actual golden /unix (gen_golden_syms.py).  When the kernel is rebuilt,
+# regenerate it.  See memory kernel_symbol_drift.
+SYMS_JSON = "/workspace/ip54_kernel_symbols_golden.json"
 
 
 class SymbolDB:
@@ -32,8 +37,14 @@ class SymbolDB:
             funcs = sorted((s["address"] & 0xffffffff, s["name"])
                            for s in d if s.get("type") == "FUNC")
             byname = {s["name"]: (s["address"] & 0xffffffff) for s in d}
-            SymbolDB._cache[path] = (funcs, [a for a, _ in funcs], byname)
-        self.funcs, self.addrs, self.byname = SymbolDB._cache[path]
+            addrs = [a for a, _ in funcs]
+            # Derive the kernel-text range from the symbols themselves rather
+            # than hardcoding 0x88300000 (too narrow for padded/stripped builds).
+            text_lo = addrs[0] if addrs else 0x88000000
+            text_hi = (addrs[-1] + 0x20000) if addrs else 0x88300000
+            SymbolDB._cache[path] = (funcs, addrs, byname, text_lo, text_hi)
+        (self.funcs, self.addrs, self.byname,
+         self.text_lo, self.text_hi) = SymbolDB._cache[path]
 
     def addr(self, name):
         a = self.byname.get(name)
@@ -51,13 +62,19 @@ class SymbolDB:
 
     def is_kernel_text(self, addr):
         a = addr & 0xffffffff
-        return 0x88000000 <= a <= 0x88300000
+        return self.text_lo <= a <= self.text_hi
 
 
 class GuestGDB:
-    def __init__(self, port=1234, syms=SYMS_JSON):
+    def __init__(self, port=1234, syms=SYMS_JSON, replay=False, kernel_elf=None):
+        """port: gdbstub TCP port.  replay: True if the QEMU session was started
+        with rr=replay (enables reverse-* commands; see replay_debugging_ip54).
+        kernel_elf: path to a kernel ELF whose symbols are loaded INTO gdb via
+        add-symbol-file, so backtraces/`info symbol` resolve names natively."""
         self.port = port
         self.sdb = SymbolDB(syms)
+        self.replay = replay
+        self.kernel_elf = kernel_elf
 
     @staticmethod
     def _sx(addr):
@@ -77,21 +94,67 @@ class GuestGDB:
             return f"*0x{self._sx(int(bp, 16)):x}"
         return f"*0x{self._sx(self.sdb.addr(bp)):x}"
 
-    def catch(self, breakpoints, timeout=180, post_cmds=None, cmdfile="/workspace/_gdb_catch.txt"):
-        """Connect, set hbreak(s), continue (blocks until a bp hits or timeout),
-        then dump registers + a stack scan.  Returns gdb's stdout."""
+    def _resolve_data(self, expr):
+        """Build a gdb watchpoint target for a 32-bit kernel word.  Accepts an
+        int/hex address or a data-symbol name; returns `*(unsigned int *)0xVA`
+        with the VA sign-extended for the n64 ABI."""
+        if isinstance(expr, int):
+            va = self._sx(expr)
+        elif expr.startswith("0x"):
+            va = self._sx(int(expr, 16))
+        else:
+            va = self._sx(self.sdb.addr(expr))
+        return f"*(unsigned int *)0x{va:x}"
+
+    def _preamble(self, connect=True):
+        """The standard n64/big-endian gdb setup (see `set mips abi n64` note in
+        catch()).  Loads kernel ELF symbols if kernel_elf was given."""
         cmds = [
             "set pagination off",
             "set confirm off",
             "set architecture mips:isa64",
-            # gdb's MIPS pointer width follows the ABI, not the ISA: the default
-            # o32/n32 ABI keeps addresses 32-bit, so gdb zero-extends KSEG0 VAs
-            # into unmapped xkphys ("Cannot access memory") and breakpoint
-            # planting (a memory write) silently fails.  n64 = 64-bit pointers.
             "set mips abi n64",
             "set endian big",
-            f"target remote :{self.port}",
         ]
+        if self.kernel_elf:
+            # .text of the disk kernel lives at KSEG0 0x88000000 (sign-extended).
+            cmds.append(
+                f"add-symbol-file {self.kernel_elf} 0x{self._sx(0x88000000):x}")
+        if connect:
+            cmds.append(f"target remote :{self.port}")
+        return cmds
+
+    _STOP_DUMP = [
+        'echo \\n==== STOPPED ====\\n',
+        "info registers",
+        'echo \\n==== code at $pc ====\\n',
+        "x/8i $pc",
+    ]
+
+    def _run(self, cmds, timeout=120, cmdfile="/workspace/_gdb_run.txt"):
+        """Write cmds to a batch file and run gdb-multiarch, tolerating a
+        timeout (a blocked `continue`)."""
+        cmds = list(cmds) + ["detach", "quit", ""]
+        with open(cmdfile, "w") as f:
+            f.write("\n".join(cmds))
+        try:
+            r = subprocess.run(["gdb-multiarch", "-nx", "-batch", "-x", cmdfile],
+                               capture_output=True, text=True, timeout=timeout)
+            out, err = r.stdout, r.stderr
+        except subprocess.TimeoutExpired as e:
+            out = e.stdout.decode() if isinstance(e.stdout, bytes) else (e.stdout or "")
+            err = e.stderr.decode() if isinstance(e.stderr, bytes) else (e.stderr or "")
+            out += "\n[GDB TIMEOUT after %ds]" % timeout
+        return out + ("\n[GDB STDERR]\n" + err if err.strip() else "")
+
+    def catch(self, breakpoints, timeout=180, post_cmds=None, cmdfile="/workspace/_gdb_catch.txt"):
+        """Connect, set hbreak(s), continue (blocks until a bp hits or timeout),
+        then dump registers + a stack scan.  Returns gdb's stdout."""
+        # gdb's MIPS pointer width follows the ABI, not the ISA: the default
+        # o32/n32 ABI keeps addresses 32-bit, so gdb zero-extends KSEG0 VAs into
+        # unmapped xkphys ("Cannot access memory") and breakpoint planting (a
+        # memory write) silently fails.  _preamble() sets `mips abi n64`.
+        cmds = self._preamble()
         for bp in breakpoints:
             cmds.append(f"hbreak {self._resolve(bp)}")
         cmds.append("continue")
@@ -124,10 +187,7 @@ class GuestGDB:
     def read_word(self, addr, timeout=30, cmdfile="/workspace/_gdb_rw.txt"):
         """One-shot: connect, read a 32-bit word, detach (does NOT stop a
         running guest for long)."""
-        cmds = [
-            "set pagination off", "set confirm off",
-            "set architecture mips:isa64", "set mips abi n64", "set endian big",
-            f"target remote :{self.port}",
+        cmds = self._preamble() + [
             f"x/1xw 0x{addr & 0xffffffffffffffff:x}",
             "detach", "quit", "",
         ]
@@ -136,6 +196,68 @@ class GuestGDB:
         r = subprocess.run(["gdb-multiarch", "-nx", "-batch", "-x", cmdfile],
                            capture_output=True, text=True, timeout=timeout)
         return r.stdout
+
+    def watch(self, expr, kind="w", timeout=180, post_cmds=None):
+        """Set a HARDWARE watchpoint on a 32-bit kernel word and continue until
+        it triggers, then dump registers + code at $pc.
+
+        kind: 'w' write (watch), 'r' read (rwatch), 'a' access (awatch).
+        The gdbstub plants these via the Z2/Z3/Z4 packets.
+
+        KNOWN LIMITATION (validated 2026-06-12 on this sgi-ip54 build): gdb
+        hardware watchpoints PLANT but never FIRE here — even on `lbolt`, which
+        the kernel writes 100Hz.  Kernel data lives in MIPS KSEG0/KSEG1
+        (unmapped, direct-mapped) and this QEMU's TCG watchpoint check does not
+        appear to cover those accesses.  Breakpoints (catch) and reverse-stepi
+        DO work.  For reliable "trap any write to phys addr X" use a TCG memory
+        plugin (qemu_plugin_register_vcpu_mem_cb; CONFIG_PLUGIN is enabled), or
+        reverse-debug from the corrupted state.  This method is kept for the day
+        the QEMU watchpoint path is fixed.  See [[replay_debugging_ip54]]."""
+        verb = {"w": "watch", "r": "rwatch", "a": "awatch"}[kind]
+        cmds = self._preamble()
+        cmds.append(f"{verb} {self._resolve_data(expr)}")
+        cmds.append("continue")
+        cmds += self._STOP_DUMP
+        cmds += (post_cmds or [])
+        return self._run(cmds, timeout=timeout, cmdfile="/workspace/_gdb_watch.txt")
+
+    def catch_if(self, bp, condition, timeout=180, post_cmds=None):
+        """Conditional breakpoint: stop at `bp` only when `condition` holds
+        (e.g. catch_if("schedule", "$a0 == 0")).  Uses a soft breakpoint so the
+        condition can be evaluated; hbreak doesn't take conditions on all stubs."""
+        cmds = self._preamble()
+        cmds.append(f"break {self._resolve(bp)} if {condition}")
+        cmds.append("continue")
+        cmds += self._STOP_DUMP
+        cmds += (post_cmds or [])
+        return self._run(cmds, timeout=timeout, cmdfile="/workspace/_gdb_condbp.txt")
+
+    def script(self, body, timeout=180, cmdfile="/workspace/_gdb_script.txt"):
+        """Escape hatch: run an arbitrary list of gdb commands after the standard
+        n64 preamble (connect + symbols).  Use for composed reverse-debugging,
+        e.g. body=["break panic","continue", ...,"reverse-continue","bt"]."""
+        return self._run(self._preamble() + list(body), timeout=timeout,
+                         cmdfile=cmdfile)
+
+    def reverse_step(self, n=1):
+        """Reverse-execute n instructions.  Requires a replay-mode session.
+        Returns the gdb command strings for composition in script(); raises if
+        this session isn't a replay session."""
+        self._require_replay("reverse_step")
+        return [f"reverse-stepi {n}", "info registers pc"]
+
+    def reverse_continue(self):
+        """Run backward to the most recent prior breakpoint/watchpoint hit
+        (replay only).  Returns gdb command strings for use in script()."""
+        self._require_replay("reverse_continue")
+        return ["reverse-continue", "info registers pc"]
+
+    def _require_replay(self, what):
+        if not self.replay:
+            raise RuntimeError(
+                f"{what} requires a replay-mode session (start QEMU with "
+                f"rr=replay,rrsnapshot=... and pass replay=True).  gdb's "
+                f"reverse-* commands only work against a replaying QEMU.")
 
     def symbolize_dump(self, out):
         """Post-process a catch() dump: annotate every kseg0 word in the stack

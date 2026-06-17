@@ -472,6 +472,203 @@ def _vmi_lookup_func(symbols: dict, addr: int) -> str:
     return f"{name}+0x{offset:x}" if offset else name
 
 
+# MIPS Cause.ExcCode -> human name (bits 6:2 of CP0 Cause)
+_MIPS_EXCCODE = {
+    0: "Int (interrupt)",
+    1: "Mod (TLB modification)",
+    2: "TLBL (TLB miss on load/ifetch)",
+    3: "TLBS (TLB miss on store)",
+    4: "AdEL (address error on load/ifetch)",
+    5: "AdES (address error on store)",
+    6: "IBE (bus error, ifetch)",
+    7: "DBE (bus error, data)",
+    8: "Sys (syscall)",
+    9: "Bp (breakpoint)",
+    10: "RI (reserved instruction)",
+    11: "CpU (coprocessor unusable)",
+    12: "Ov (arithmetic overflow)",
+    13: "Tr (trap)",
+    14: "VCEI (virtual coherency, ifetch)",
+    15: "FPE (floating point)",
+    23: "WATCH (watchpoint)",
+    31: "VCED (virtual coherency, data)",
+}
+
+
+def _crash_sym(symbols: dict, addr: int) -> str:
+    """Symbolize, masking 64-bit sign-extended KSEG0 addrs (0xffffffff88..) to low 32."""
+    if addr is None:
+        return ""
+    return _vmi_lookup_func(symbols, addr & 0xFFFFFFFF)
+
+
+def _crash_parse_regs(dump: str) -> dict:
+    """Pull register values out of a panic / qemu-registers / FWCB dump.
+
+    Handles `name=0x..`, `name: 0x..`, `name 0x..` and qemu's GPR blocks. Keys are
+    lower-cased; common aliases are normalized (pc->epc, badva->badvaddr, sr->status).
+    """
+    regs: dict[str, int] = {}
+    alias = {
+        "pc": "epc", "badva": "badvaddr", "badvaddr": "badvaddr", "sr": "status",
+        "epc": "epc", "errorepc": "errorepc", "ra": "ra", "sp": "sp", "gp": "gp",
+        "cause": "cause", "status": "status", "hi": "hi", "lo": "lo",
+    }
+    pat = re.compile(r"\b([A-Za-z_$][A-Za-z0-9_]{0,9})\s*[=:\s]\s*(0x[0-9a-fA-F]+)")
+    for m in pat.finditer(dump):
+        key = m.group(1).lstrip("$").lower()
+        val = int(m.group(2), 16)
+        key = alias.get(key, key)
+        # First occurrence wins for named regs; GPRs (r0..r31, a0.. etc) kept as-is.
+        if key not in regs:
+            regs[key] = val
+    return regs
+
+
+def _crash_disasm_elf(kernel_elf: str, vaddr: int, n: int = 12):
+    """Disassemble n instructions around a KSEG0 vaddr using the kernel ELF + capstone.
+
+    Maps vaddr->file offset via program headers (p_vaddr/p_offset). Returns a list of
+    (addr, mnemonic, opstr) or None if it can't map / capstone is missing.
+    """
+    if not CAPSTONE_AVAILABLE:
+        return None
+    from pathlib import Path
+    p = Path(kernel_elf)
+    if not p.is_absolute():
+        p = Path(__file__).parent.parent / kernel_elf
+    if not p.exists():
+        return None
+    data = p.read_bytes()
+    if data[:4] != b"\x7fELF":
+        return None
+    is64 = data[4] == 2
+    be = data[5] == 2
+    endc = ">" if be else "<"
+    import struct as _st
+    if is64:
+        e_phoff = _st.unpack_from(endc + "Q", data, 0x20)[0]
+        e_phentsize = _st.unpack_from(endc + "H", data, 0x36)[0]
+        e_phnum = _st.unpack_from(endc + "H", data, 0x38)[0]
+    else:
+        e_phoff = _st.unpack_from(endc + "I", data, 0x1C)[0]
+        e_phentsize = _st.unpack_from(endc + "H", data, 0x2A)[0]
+        e_phnum = _st.unpack_from(endc + "H", data, 0x2C)[0]
+    v = vaddr & 0xFFFFFFFF
+    foff = None
+    seg_vaddr = None
+    for i in range(e_phnum):
+        ph = e_phoff + i * e_phentsize
+        if is64:
+            p_offset = _st.unpack_from(endc + "Q", data, ph + 8)[0]
+            p_vaddr = _st.unpack_from(endc + "Q", data, ph + 16)[0] & 0xFFFFFFFF
+            p_filesz = _st.unpack_from(endc + "Q", data, ph + 32)[0]
+        else:
+            p_offset = _st.unpack_from(endc + "I", data, ph + 4)[0]
+            p_vaddr = _st.unpack_from(endc + "I", data, ph + 8)[0] & 0xFFFFFFFF
+            p_filesz = _st.unpack_from(endc + "I", data, ph + 16)[0]
+        if p_vaddr <= v < p_vaddr + p_filesz:
+            foff = p_offset + (v - p_vaddr)
+            seg_vaddr = v
+            break
+    if foff is None:
+        return None
+    start = max(0, foff - (n // 2) * 4)
+    blob = data[start:start + n * 4]
+    import capstone
+    md = capstone.Cs(capstone.CS_ARCH_MIPS,
+                     capstone.CS_MODE_MIPS64 if is64 else capstone.CS_MODE_MIPS32)
+    md.mode |= capstone.CS_MODE_BIG_ENDIAN if be else capstone.CS_MODE_LITTLE_ENDIAN
+    base = seg_vaddr - (foff - start)
+    out = []
+    for ins in md.disasm(blob, base):
+        out.append((ins.address, ins.mnemonic, ins.op_str))
+    return out
+
+
+def _irix_crash_analyze(dump: str, symbols: dict, kernel_elf: str = "") -> str:
+    """Symbolize a panic/FWCB/register dump: fault regs, Cause decode, eframe backtrace."""
+    regs = _crash_parse_regs(dump)
+    L = ["# IRIX crash analysis", ""]
+
+    epc = regs.get("epc")
+    ra = regs.get("ra")
+    badv = regs.get("badvaddr")
+    cause = regs.get("cause")
+    sp = regs.get("sp")
+    status = regs.get("status")
+
+    # --- Fault summary --------------------------------------------------------
+    L.append("## Fault")
+    if cause is not None:
+        exc = (cause >> 2) & 0x1F
+        name = _MIPS_EXCCODE.get(exc, f"unknown({exc})")
+        bd = " [in branch delay slot]" if (cause & 0x80000000) else ""
+        ip = (cause >> 8) & 0xFF
+        L.append(f"- Cause   = 0x{cause:08x}  ExcCode={exc} {name}{bd}  IP=0x{ip:02x}")
+    if status is not None:
+        L.append(f"- Status  = 0x{status:08x}  "
+                 f"(KSU={(status >> 3) & 3} EXL={(status >> 1) & 1} ERL={(status >> 2) & 1} IE={status & 1})")
+    if epc is not None:
+        L.append(f"- EPC     = 0x{epc & 0xFFFFFFFF:08x}  {_crash_sym(symbols, epc) or '<no symbol>'}")
+    if ra is not None:
+        L.append(f"- RA      = 0x{ra & 0xFFFFFFFF:08x}  {_crash_sym(symbols, ra) or '<no symbol>'}")
+    if badv is not None:
+        b = badv & 0xFFFFFFFF
+        region = ("user/KUSEG" if b < 0x80000000 else
+                  "KSEG0 (cached)" if b < 0xA0000000 else
+                  "KSEG1 (uncached)" if b < 0xC0000000 else "KSEG2/mapped")
+        bsym = _crash_sym(symbols, badv)
+        L.append(f"- BadVAddr= 0x{b:08x}  [{region}]" + (f"  {bsym}" if bsym else ""))
+        if b == 0 or b < 0x1000:
+            L.append("  ^ NULL-ish address — likely a NULL pointer deref")
+    if sp is not None:
+        L.append(f"- SP      = 0x{sp & 0xFFFFFFFF:08x}")
+    L.append("")
+
+    # --- Backtrace (eframe level) --------------------------------------------
+    L.append("## Backtrace (eframe)")
+    frame = 0
+    for label, val in (("EPC", epc), ("RA", ra)):
+        if val is not None:
+            s = _crash_sym(symbols, val) or "<no symbol>"
+            L.append(f"  #{frame}  0x{val & 0xFFFFFFFF:08x}  {s}   ({label})")
+            frame += 1
+    L.append("  (deeper frames need stack memory — pass a live session to walk SP)")
+    L.append("")
+
+    # --- Other GPRs that point into kernel text ------------------------------
+    code_ptrs = []
+    for k, v in regs.items():
+        if k in ("epc", "ra", "badvaddr", "cause", "status", "sp", "errorepc", "hi", "lo"):
+            continue
+        s = _crash_sym(symbols, v)
+        if s:
+            code_ptrs.append((k, v & 0xFFFFFFFF, s))
+    if code_ptrs:
+        L.append("## GPRs pointing into kernel text")
+        for k, v, s in code_ptrs:
+            L.append(f"- {k:5s} = 0x{v:08x}  {s}")
+        L.append("")
+
+    # --- Disasm around EPC ----------------------------------------------------
+    if kernel_elf and epc is not None:
+        dis = _crash_disasm_elf(kernel_elf, epc, 12)
+        if dis:
+            L.append(f"## Disassembly around EPC (from {kernel_elf})")
+            for addr, mn, op in dis:
+                marker = " <== EPC" if (addr & 0xFFFFFFFF) == (epc & 0xFFFFFFFF) else ""
+                L.append(f"  0x{addr & 0xFFFFFFFF:08x}:  {mn:8s} {op}{marker}")
+            L.append("")
+        else:
+            L.append(f"(could not disassemble EPC from {kernel_elf} — not mapped / no capstone)")
+            L.append("")
+
+    if not regs:
+        L.append("_No registers parsed. Expected hex tokens like `epc=0x..`, `ra 0x..`, `BadVAddr: 0x..`._")
+    return "\n".join(L)
+
+
 # Cached calibration data keyed by kernel version string
 _vmi_calibration_cache: dict[str, dict] = {}
 
@@ -714,7 +911,10 @@ def _build_qemu_launch(args: dict) -> tuple[list[str], str, str, str, str, str]:
             cmd.extend(
                 [
                     "-drive",
-                    f"if=mtd,file={drive_file},format={fmt},cache=writethrough,file.locking=off{ro_opt}",
+                    # writeback: pvdisk does 512-byte PIO writes; writethrough
+                    # would fsync each one. Crash consistency is covered by the
+                    # golden-backup workflow.
+                    f"if=mtd,file={drive_file},format={fmt},cache=writeback,file.locking=off{ro_opt}",
                 ]
             )
         elif is_cdrom:
@@ -739,7 +939,43 @@ def _build_qemu_launch(args: dict) -> tuple[list[str], str, str, str, str, str]:
     if snapshot:
         cmd.extend(["-loadvm", snapshot])
 
+    # Deterministic record/replay + gdb (validated on sgi-ip54; see
+    # progress_notes/ip54/replay_debugging.md). Emitted before extra_args so a
+    # caller can still override via extra_args if needed.
+    icount_shift = str(args.get("icount_shift", "") or "")
+    rr_mode = args.get("rr_mode", "off") or "off"
+    rrfile = args.get("rrfile", "") or ""
+    rrsnapshot = args.get("rrsnapshot", "") or ""
+    if rr_mode != "off" and not icount_shift:
+        # record/replay is meaningless without icount; default to the IP54 value
+        icount_shift = "7"
+    if icount_shift:
+        icount = f"shift={icount_shift},sleep=off"
+        if rr_mode in ("record", "replay"):
+            icount += f",rr={rr_mode}"
+            if rrfile:
+                icount += f",rrfile={rrfile}"
+            if rrsnapshot:
+                icount += f",rrsnapshot={rrsnapshot}"
+        cmd.extend(["-icount", icount])
+
+    gdb_port = args.get("gdb_port")
+    if gdb_port:
+        cmd.extend(["-gdb", f"tcp::{int(gdb_port)}"])
+    if args.get("start_stopped"):
+        cmd.append("-S")
+
     extra_args = args.get("extra_args", "")
+    if extra_args and rr_mode in ("record", "replay") and "-nic user" in extra_args \
+            and "filter-replay" not in extra_args:
+        # For deterministic networking the NIC's netdev must be named and have a
+        # filter-replay attached. `-nic user,...` (NOT `-netdev`) is what binds
+        # to the sysbus pvnet NIC; id=n0 makes it filter-able. (validated: a bare
+        # `-netdev` leaves pvnet with "no peer".) See replay_debugging_ip54.
+        import re as _re
+        extra_args = _re.sub(r"-nic user,", "-nic user,id=n0,", extra_args, count=1)
+        extra_args += " -object filter-replay,id=replay,netdev=n0"
+
     if extra_args:
         cmd.extend(extra_args.split())
 
@@ -858,7 +1094,10 @@ def _resolve_scsi_drives(args: dict, build_dir: Path, project_root: Path) -> tup
             drive_cmd_args.extend(
                 [
                     "-drive",
-                    f"if=mtd,file={drive_file},format={fmt},cache=writethrough,file.locking=off{ro_opt}",
+                    # writeback: pvdisk does 512-byte PIO writes; writethrough
+                    # would fsync each one. Crash consistency is covered by the
+                    # golden-backup workflow.
+                    f"if=mtd,file={drive_file},format={fmt},cache=writeback,file.locking=off{ro_opt}",
                 ]
             )
         elif is_cdrom:
@@ -2526,6 +2765,33 @@ async def list_tools() -> list[Tool]:
                     "instance": {
                         "type": "string",
                         "description": "VM instance name — uses instance disk/NVRAM, overrides scsi_drives and machine/ram_mb from manifest",
+                    },
+                    "icount_shift": {
+                        "type": "string",
+                        "description": "Enable deterministic icount with this shift (e.g. '7' or 'auto'). Use '7' for sgi-ip54; 'auto' THROTTLES to realtime — pair with sleep via rr_mode. Required for record/replay.",
+                    },
+                    "rr_mode": {
+                        "type": "string",
+                        "enum": ["off", "record", "replay"],
+                        "description": "Deterministic record/replay mode (needs icount_shift + rrfile). 'record' logs nondeterministic inputs; 'replay' re-executes them. For sgi-ip54 the pvclock path is already replay-safe.",
+                        "default": "off",
+                    },
+                    "rrfile": {
+                        "type": "string",
+                        "description": "Path to the record/replay event log (used with rr_mode record/replay).",
+                    },
+                    "rrsnapshot": {
+                        "type": "string",
+                        "description": "Named VM snapshot taken at record start / restored at replay start. REQUIRED for gdb reverse-execution (the auto start_debugging path asserts on sgi-ip54). Saved into the disk overlay — use a disposable fork.",
+                    },
+                    "gdb_port": {
+                        "type": "integer",
+                        "description": "Start the gdbstub on tcp::<port> (connect with gdb-multiarch; see pyirix_qemu/guest_gdb.py).",
+                    },
+                    "start_stopped": {
+                        "type": "boolean",
+                        "description": "Start QEMU halted (-S) so gdb can attach before the first instruction. Pair with gdb_port + rr_mode=replay for reverse-debugging.",
+                        "default": False,
                     },
                 },
                 "required": [],
@@ -4449,7 +4715,7 @@ async def list_tools() -> list[Tool]:
         ),
         Tool(
             name="fs_inject",
-            description="Add a file from host into an EFS partition on an SGI disk image. Rebuilds the EFS partition. XFS write is not supported. Supports raw .img and QEMU .qcow2 formats.",
+            description="Add a file from host into an EFS or XFS partition on an SGI disk image. EFS rebuilds the partition; XFS (V1) writes in place via pyirix.xfs — creates or overwrites the guest path. Supports raw .img and QEMU .qcow2 formats (NOTE: writing a qcow2 flattens its backing chain). VM must be shut down first.",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -4666,6 +4932,32 @@ async def list_tools() -> list[Tool]:
                     },
                 },
                 "required": ["session_id"],
+            },
+        ),
+        Tool(
+            name="irix_crash_analyze",
+            description="Symbolize an IRIX panic / FWCB-reboot / qemu-registers dump. Parses EPC/RA/BadVAddr/Cause/Status, decodes the MIPS exception code, walks the eframe-level backtrace (EPC->RA), flags NULL-ish faults and GPRs that point into kernel text, and optionally disassembles around the EPC from a kernel ELF. Supersedes the ad-hoc PROM panic probes (old Layer 2).",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "dump": {
+                        "type": "string",
+                        "description": "The panic/register dump text (paste directly).",
+                    },
+                    "dump_file": {
+                        "type": "string",
+                        "description": "Path to a file containing the dump (alternative to 'dump').",
+                    },
+                    "symbols_file": {
+                        "type": "string",
+                        "description": "Symbol table JSON (list of {name,address}). Default: ip54_kernel_symbols_golden.json",
+                        "default": "ip54_kernel_symbols_golden.json",
+                    },
+                    "kernel_elf": {
+                        "type": "string",
+                        "description": "Optional kernel ELF for disassembly around the EPC (e.g. a golden /unix copy).",
+                    },
+                },
             },
         ),
     ]
@@ -7279,8 +7571,37 @@ def _handle_tool(name: str, args: dict) -> str:
                 mon_sock.sendall(f"screendump {ppm_path}\n".encode())
             else:
                 # Use our fb-dump property (dumps raw VRAM through compositing pipeline)
-                # Use stable QOM path /machine/newport (set in sgi_indy.c)
+                # Indy: /machine/newport; IP54: scan /machine/unattached for sgi-pvrex3
                 newport_path = "/machine/newport"
+
+                if session.machine in ("sgi-ip54", "sgi-ip55"):
+                    # IP54 has pvrex3 under /machine/unattached — scan for it
+                    mon_sock.sendall(b"qom-list /machine/unattached\n")
+                    time.sleep(0.5)
+                    scan_resp = b""
+                    try:
+                        while True:
+                            chunk = mon_sock.recv(4096)
+                            if not chunk:
+                                break
+                            scan_resp += chunk
+                    except socket.timeout:
+                        pass
+                    scan_text = scan_resp.decode("latin-1", errors="replace")
+                    import re as _re
+                    device_matches = _re.findall(r'(device\[\d+\])', scan_text)
+                    for dev_name in device_matches:
+                        dev_path = f"/machine/unattached/{dev_name}"
+                        mon_sock.sendall(f"qom-get {dev_path} type\n".encode())
+                        time.sleep(0.3)
+                        type_resp = b""
+                        try:
+                            type_resp = mon_sock.recv(4096)
+                        except socket.timeout:
+                            pass
+                        if "sgi-pvrex3" in type_resp.decode("latin-1", errors="replace"):
+                            newport_path = dev_path
+                            break
 
                 # Trigger the fb-dump via qom-set
                 cmd = f"qom-set {newport_path} fb-dump {ppm_path}\n"
@@ -7369,7 +7690,7 @@ def _handle_tool(name: str, args: dict) -> str:
                 except socket.timeout:
                     pass
                 # Get XMAP state (mode table, cursor/popup cmap)
-                diag_sock.sendall(b"qom-get /machine/newport diag-xmap\n")
+                diag_sock.sendall(f"qom-get {newport_path} diag-xmap\n".encode())
                 time.sleep(0.3)
                 xmap_resp = b""
                 try:
@@ -7381,7 +7702,7 @@ def _handle_tool(name: str, args: dict) -> str:
                 except socket.timeout:
                     pass
                 # Get CMAP summary
-                diag_sock.sendall(b"qom-get /machine/newport diag-cmap\n")
+                diag_sock.sendall(f"qom-get {newport_path} diag-cmap\n".encode())
                 time.sleep(0.3)
                 cmap_resp = b""
                 try:
@@ -7530,7 +7851,38 @@ def _handle_tool(name: str, args: dict) -> str:
             except socket.timeout:
                 pass
 
-            cmd = f"qom-get /machine/newport {prop_name}\n"
+            # Indy: /machine/newport; IP54: scan /machine/unattached for sgi-pvrex3
+            newport_path = "/machine/newport"
+
+            if session.machine in ("sgi-ip54", "sgi-ip55"):
+                mon_sock.sendall(b"qom-list /machine/unattached\n")
+                time.sleep(0.5)
+                scan_resp = b""
+                try:
+                    while True:
+                        chunk = mon_sock.recv(4096)
+                        if not chunk:
+                            break
+                        scan_resp += chunk
+                except socket.timeout:
+                    pass
+                scan_text = scan_resp.decode("latin-1", errors="replace")
+                import re as _re
+                device_matches = _re.findall(r'(device\[\d+\])', scan_text)
+                for dev_name in device_matches:
+                    dev_path = f"/machine/unattached/{dev_name}"
+                    mon_sock.sendall(f"qom-get {dev_path} type\n".encode())
+                    time.sleep(0.3)
+                    type_resp = b""
+                    try:
+                        type_resp = mon_sock.recv(4096)
+                    except socket.timeout:
+                        pass
+                    if "sgi-pvrex3" in type_resp.decode("latin-1", errors="replace"):
+                        newport_path = dev_path
+                        break
+
+            cmd = f"qom-get {newport_path} {prop_name}\n"
             mon_sock.sendall(cmd.encode())
             time.sleep(0.5)
 
@@ -7545,9 +7897,9 @@ def _handle_tool(name: str, args: dict) -> str:
                 pass
             mon_sock.close()
 
-            text = response.decode("latin-1", errors="replace")
+            resp_text = response.decode("latin-1", errors="replace")
             # Strip monitor prompt lines
-            lines = text.split("\n")
+            lines = resp_text.split("\n")
             result_lines = [l for l in lines if not l.strip().startswith("(qemu)")]
             return f"**Newport {subsystem} diagnostics:**\n```\n{''.join(l + chr(10) for l in result_lines).strip()}\n```"
 
@@ -12063,6 +12415,8 @@ def _handle_tool(name: str, args: dict) -> str:
     elif name == "library_scan":
 
 
+        from pathlib import Path  # _handle_tool has later local Path imports -> Path is
+        # function-local throughout; rebind here so this branch's Path() works.
         sys.path.insert(0, str(Path(__file__).parent.parent))
         from pyirix_qemu.catalog.library import LibraryScanner
 
@@ -12089,7 +12443,8 @@ def _handle_tool(name: str, args: dict) -> str:
 
     elif name == "library_search":
 
-
+        from pathlib import Path  # _handle_tool has later local Path imports -> Path is
+        # function-local throughout; rebind here so this branch's Path() works.
         sys.path.insert(0, str(Path(__file__).parent.parent))
         from pyirix_qemu.catalog.library import LibraryIndex
 
@@ -12133,7 +12488,8 @@ def _handle_tool(name: str, args: dict) -> str:
 
     elif name == "library_stage":
 
-
+        from pathlib import Path  # _handle_tool has later local Path imports -> Path is
+        # function-local throughout; rebind here so this branch's Path() works.
         sys.path.insert(0, str(Path(__file__).parent.parent))
         from pyirix_qemu.catalog.library import LibraryEntry, stage_file
 
@@ -12861,6 +13217,26 @@ def _handle_tool(name: str, args: dict) -> str:
             mon_sock.close()
 
         return "\n".join(output_lines) if output_lines else "*No processes found*"
+
+    elif name == "irix_crash_analyze":
+        dump = args.get("dump", "")
+        dump_file = args.get("dump_file", "")
+        if not dump and dump_file:
+            dpath = dump_file
+            if not os.path.isabs(dpath):
+                dpath = os.path.join(os.path.dirname(os.path.dirname(__file__)), dump_file)
+            if not os.path.exists(dpath):
+                return f"Error: dump_file not found: {dump_file}"
+            with open(dpath, errors="replace") as _f:
+                dump = _f.read()
+        if not dump.strip():
+            return "Error: provide 'dump' (text) or 'dump_file' (path) with a panic/register dump."
+        symbols_file = args.get("symbols_file", "ip54_kernel_symbols_golden.json")
+        symbols = _vmi_load_symbols(symbols_file)
+        if not symbols:
+            return (f"Error: no symbols loaded from {symbols_file}. "
+                    f"Generate the golden symbol JSON first.")
+        return _irix_crash_analyze(dump, symbols, args.get("kernel_elf", ""))
 
     elif name == "irix_netstat":
 

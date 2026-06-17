@@ -1484,14 +1484,63 @@ def _xfs_extract_recursive(f, part_offset, sb, ino_num, path,
             stats['errors'] += 1
 
 
-def fs_inject(image_path, host_path, guest_path, uid=0, gid=0, mode=None):
-    """Add a file from host into an EFS partition.
+def _fs_inject_xfs(image_path, host_path, guest_path, uid, gid, mode):
+    """Inject a file into an XFS partition via pyirix.xfs (V1 XFS write
+    support, validated by tests/test_xfs_write.py).  Creates or
+    overwrites guest_path.  NOTE: on qcow2 images this flattens any
+    backing chain (convert-to-raw round trip in open_disk_image)."""
+    from pyirix.xfs.image import (open_disk_image as xfs_open_disk_image,
+                                  find_xfs_partition as xfs_find_part)
+    from pyirix.xfs.superblock import read_superblock as xfs_read_sb
+    from pyirix.xfs.operations import (resolve_path as xfs_resolve_path,
+                                       create_file as xfs_create_file,
+                                       write_file as xfs_write_file)
 
-    Uses a rebuild approach: extract all files, add the new one, rebuild.
-    Only works for EFS — XFS write is not supported.
+    with open(host_path, 'rb') as hf:
+        data = hf.read()
+
+    with xfs_open_disk_image(image_path, writable=True) as f:
+        part = xfs_find_part(f)
+        if not part:
+            return "Error: No XFS partition found"
+        part_offset, _part_size = part
+        sb = xfs_read_sb(f, part_offset)
+        if sb is None:
+            return "Error: Cannot read XFS superblock"
+        existing = xfs_resolve_path(f, part_offset, sb, guest_path)
+        if existing is not None:
+            xfs_write_file(f, part_offset, sb, guest_path, data)
+            return (f"Overwrote {guest_path} ({len(data)} bytes) in XFS "
+                    f"partition of {image_path}")
+        ino = xfs_create_file(f, part_offset, sb, guest_path, data,
+                              mode=(mode if mode else 0o644),
+                              uid=uid, gid=gid)
+        return (f"Created {guest_path} (inode {ino}, {len(data)} bytes) in "
+                f"XFS partition of {image_path}")
+
+
+def fs_inject(image_path, host_path, guest_path, uid=0, gid=0, mode=None):
+    """Add a file from host into an EFS or XFS partition.
+
+    EFS uses a rebuild approach: extract all files, add the new one,
+    rebuild.  XFS delegates to pyirix.xfs.operations (in-place write).
     """
     if not os.path.exists(host_path):
         return f"Error: Host file not found: {host_path}"
+
+    # XFS-only images (no EFS data partition) take the pyirix.xfs path.
+    try:
+        with open_disk_image(image_path) as probe:
+            has_efs = find_efs_partition(probe) is not None
+            has_xfs = find_xfs_partition(probe) is not None
+    except Exception as e:
+        return f"Error: cannot open image: {e}"
+    if has_xfs and not has_efs:
+        try:
+            return _fs_inject_xfs(image_path, host_path, guest_path,
+                                  uid, gid, mode)
+        except Exception as e:
+            return f"Error: XFS inject failed: {e}"
 
     # Import EFSBuilder for rebuild
     import sys
