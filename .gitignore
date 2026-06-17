@@ -22,13 +22,11 @@ software_library/
 mame/
 qemu/
 qemu-irix/
-qemu-sgi-repo/
 netbsd_source/
 pyirix/
 ip32prom-decompiler/
 mipspro-nag-suppress/
 irix-655/
-irix-ip54/
 
 # Ghidra and analysis state
 ghidra_projects/

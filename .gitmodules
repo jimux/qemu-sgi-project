@@ -1,3 +1,6 @@
 [submodule "irix-ip54"]
 	path = irix-ip54
 	url = ./irix-ip54
+[submodule "qemu-sgi-repo"]
+	path = qemu-sgi-repo
+	url = ./qemu-sgi-repo
