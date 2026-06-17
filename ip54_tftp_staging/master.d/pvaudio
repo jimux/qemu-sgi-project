@@ -1,8 +1,0 @@
-*#ident "$Revision: 1.0 $"
-*
-* pvaudio - IP54 Paravirtual PCM Audio Driver
-*
-*FLAG	PREFIX	SOFT	#DEV	DEPENDENCIES
-cs	pvaudio	-	-
-
-$$$

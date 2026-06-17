@@ -1,0 +1,1 @@
+../irix-ip54/m/irix/kern/master.d
