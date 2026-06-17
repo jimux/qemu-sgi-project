@@ -11,6 +11,7 @@ Notes are organized by platform, with cross-platform material at the root.
 
 | File | Contents |
 |------|----------|
+| [`irix_sgi_field_guide.md`](irix_sgi_field_guide.md) | **What we learned about IRIX & SGI hardware in general** — cracked black boxes and undocumented behavior across all platforms (firmware, interrupts, timekeeping, graphics, storage, build system, debugging) |
 | [`lessons_learned.md`](lessons_learned.md) | Hardware gotchas, QEMU framework pitfalls, MAME translation, debugging techniques |
 | [`multi_platform_status.md`](multi_platform_status.md) | IP20/IP22/IP24/IP26/IP28 machine types, PROM test matrix, hardware differences |
 | [`sgi_graphics_architectures.md`](sgi_graphics_architectures.md) | Comparative analysis of Newport, IMPACT, InfiniteReality, CRM, and other SGI graphics |

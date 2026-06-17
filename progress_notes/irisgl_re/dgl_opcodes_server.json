@@ -1,0 +1,1643 @@
+{
+"0x0": {
+"fn": null
+},
+"0x1": {
+"fn": "gversion"
+},
+"0x2": {
+"fn": "pagecolor"
+},
+"0x3": {
+"fn": "textcolor"
+},
+"0x4": {
+"fn": "textport"
+},
+"0x5": {
+"fn": "arc"
+},
+"0x6": {
+"fn": "arcf"
+},
+"0x7": {
+"fn": "arcfi"
+},
+"0x8": {
+"fn": "arci"
+},
+"0x9": {
+"fn": "attachcursor"
+},
+"0xa": {
+"fn": "backbuffer"
+},
+"0xb": {
+"fn": "bbox2"
+},
+"0xc": {
+"fn": "bbox2i"
+},
+"0xd": {
+"fn": "blink"
+},
+"0xe": {
+"fn": "callobj"
+},
+"0xf": {
+"fn": "charstr"
+},
+"0x10": {
+"fn": "circ"
+},
+"0x11": {
+"fn": "circf"
+},
+"0x12": {
+"fn": "circfi"
+},
+"0x13": {
+"fn": "circi"
+},
+"0x14": {
+"fn": "clear"
+},
+"0x15": {
+"fn": "clearhitcode"
+},
+"0x16": {
+"fn": "closeobj"
+},
+"0x17": {
+"fn": "cmov"
+},
+"0x18": {
+"fn": "cmov2"
+},
+"0x19": {
+"fn": "cmov2i"
+},
+"0x1a": {
+"fn": "cmovi"
+},
+"0x1b": {
+"fn": "color"
+},
+"0x1c": {
+"fn": "cursoff"
+},
+"0x1d": {
+"fn": "curson"
+},
+"0x1e": {
+"fn": "curveit"
+},
+"0x1f": {
+"fn": "defcursor"
+},
+"0x20": {
+"fn": "deflinestyle"
+},
+"0x21": {
+"fn": "defrasterfont"
+},
+"0x22": {
+"fn": "delobj"
+},
+"0x23": {
+"fn": "doublebuffer"
+},
+"0x24": {
+"fn": "draw"
+},
+"0x25": {
+"fn": "draw2"
+},
+"0x26": {
+"fn": "draw2i"
+},
+"0x27": {
+"fn": "drawi"
+},
+"0x28": {
+"fn": "editobj"
+},
+"0x29": {
+"fn": "endpick"
+},
+"0x2a": {
+"fn": "endselect"
+},
+"0x2b": {
+"fn": "finish"
+},
+"0x2c": {
+"fn": "font"
+},
+"0x2d": {
+"fn": "frontbuffer"
+},
+"0x2e": {
+"fn": "gconfig"
+},
+"0x2f": {
+"fn": "genobj"
+},
+"0x30": {
+"fn": "gentag"
+},
+"0x31": {
+"fn": "getbuffer"
+},
+"0x32": {
+"fn": "getbutton"
+},
+"0x33": {
+"fn": "getcmmode"
+},
+"0x34": {
+"fn": "getcolor"
+},
+"0x35": {
+"fn": "getcursor"
+},
+"0x36": {
+"fn": "getdepth"
+},
+"0x37": {
+"fn": "getdisplaymode"
+},
+"0x38": {
+"fn": "getfont"
+},
+"0x39": {
+"fn": "getheight"
+},
+"0x3a": {
+"fn": "gethitcode"
+},
+"0x3b": {
+"fn": "getlsbackup"
+},
+"0x3c": {
+"fn": "getlstyle"
+},
+"0x3d": {
+"fn": "getlwidth"
+},
+"0x3e": {
+"fn": "getmap"
+},
+"0x3f": {
+"fn": "getmatrix"
+},
+"0x40": {
+"fn": "getplanes"
+},
+"0x41": {
+"fn": "getresetls"
+},
+"0x42": {
+"fn": "getscrmask"
+},
+"0x43": {
+"fn": "getvaluator"
+},
+"0x44": {
+"fn": "getviewport"
+},
+"0x45": {
+"fn": "getwritemask"
+},
+"0x46": {
+"fn": "gflush"
+},
+"0x47": {
+"fn": "ginit"
+},
+"0x48": {
+"fn": "greset"
+},
+"0x49": {
+"fn": null
+},
+"0x4a": {
+"fn": null
+},
+"0x4b": {
+"fn": null
+},
+"0x4c": {
+"fn": "isobj"
+},
+"0x4d": {
+"fn": "istag"
+},
+"0x4e": {
+"fn": "linewidth"
+},
+"0x4f": {
+"fn": "loadmatrix"
+},
+"0x50": {
+"fn": "lookat"
+},
+"0x51": {
+"fn": "lsbackup"
+},
+"0x52": {
+"fn": "makeobj"
+},
+"0x53": {
+"fn": "maketag"
+},
+"0x54": {
+"fn": "mapcolor"
+},
+"0x55": {
+"fn": "mapw"
+},
+"0x56": {
+"fn": "mapw2"
+},
+"0x57": {
+"fn": "move"
+},
+"0x58": {
+"fn": "move2"
+},
+"0x59": {
+"fn": "move2i"
+},
+"0x5a": {
+"fn": "movei"
+},
+"0x5b": {
+"fn": "multimap"
+},
+"0x5c": {
+"fn": "multmatrix"
+},
+"0x5d": {
+"fn": "noise"
+},
+"0x5e": {
+"fn": "onemap"
+},
+"0x5f": {
+"fn": "ortho"
+},
+"0x60": {
+"fn": "ortho2"
+},
+"0x61": {
+"fn": "perspective"
+},
+"0x62": {
+"fn": "pick"
+},
+"0x63": {
+"fn": "picksize"
+},
+"0x64": {
+"fn": "pnt"
+},
+"0x65": {
+"fn": "pnt2"
+},
+"0x66": {
+"fn": "pnt2i"
+},
+"0x67": {
+"fn": "pnti"
+},
+"0x68": {
+"fn": "polarview"
+},
+"0x69": {
+"fn": "polf"
+},
+"0x6a": {
+"fn": "polf2"
+},
+"0x6b": {
+"fn": "polf2i"
+},
+"0x6c": {
+"fn": "polfi"
+},
+"0x6d": {
+"fn": "poly"
+},
+"0x6e": {
+"fn": "poly2"
+},
+"0x6f": {
+"fn": "poly2i"
+},
+"0x70": {
+"fn": "polyi"
+},
+"0x71": {
+"fn": "popattributes"
+},
+"0x72": {
+"fn": "popmatrix"
+},
+"0x73": {
+"fn": "popviewport"
+},
+"0x74": {
+"fn": "pushattributes"
+},
+"0x75": {
+"fn": "pushmatrix"
+},
+"0x76": {
+"fn": "pushviewport"
+},
+"0x77": {
+"fn": "qenter"
+},
+"0x78": {
+"fn": "qread"
+},
+"0x79": {
+"fn": "qreset"
+},
+"0x7a": {
+"fn": "qtest"
+},
+"0x7b": {
+"fn": "readpixels"
+},
+"0x7c": {
+"fn": null
+},
+"0x7d": {
+"fn": "rect"
+},
+"0x7e": {
+"fn": "rectf"
+},
+"0x7f": {
+"fn": "rectfi"
+},
+"0x80": {
+"fn": "recti"
+},
+"0x81": {
+"fn": "resetls"
+},
+"0x82": {
+"fn": null
+},
+"0x83": {
+"fn": null
+},
+"0x84": {
+"fn": null
+},
+"0x85": {
+"fn": null
+},
+"0x86": {
+"fn": "rotate"
+},
+"0x87": {
+"fn": "scale"
+},
+"0x88": {
+"fn": "scrmask"
+},
+"0x89": {
+"fn": "gselect"
+},
+"0x8a": {
+"fn": "setcursor"
+},
+"0x8b": {
+"fn": "setdepth"
+},
+"0x8c": {
+"fn": "setlinestyle"
+},
+"0x8d": {
+"fn": "setmap"
+},
+"0x8e": {
+"fn": "setvaluator"
+},
+"0x8f": {
+"fn": "singlebuffer"
+},
+"0x90": {
+"fn": "strwidth"
+},
+"0x91": {
+"fn": "swapbuffers"
+},
+"0x92": {
+"fn": "swapinterval"
+},
+"0x93": {
+"fn": "gsync"
+},
+"0x94": {
+"fn": "tie"
+},
+"0x95": {
+"fn": "translate"
+},
+"0x96": {
+"fn": "viewport"
+},
+"0x97": {
+"fn": "window"
+},
+"0x98": {
+"fn": "writemask"
+},
+"0x99": {
+"fn": "writepixels"
+},
+"0x9a": {
+"fn": null
+},
+"0x9b": {
+"fn": "tpon"
+},
+"0x9c": {
+"fn": "tpoff"
+},
+"0x9d": {
+"fn": "textwritemask"
+},
+"0x9e": {
+"fn": "gexit"
+},
+"0x9f": {
+"fn": "clkon"
+},
+"0xa0": {
+"fn": "clkoff"
+},
+"0xa1": {
+"fn": "lampon"
+},
+"0xa2": {
+"fn": "lampoff"
+},
+"0xa3": {
+"fn": "setbell"
+},
+"0xa4": {
+"fn": "ringbell"
+},
+"0xa5": {
+"fn": "arcfs"
+},
+"0xa6": {
+"fn": "arcs"
+},
+"0xa7": {
+"fn": "bbox2s"
+},
+"0xa8": {
+"fn": "blankscreen"
+},
+"0xa9": {
+"fn": "blkqread"
+},
+"0xaa": {
+"fn": "getmcolor"
+},
+"0xab": {
+"fn": "chunksize"
+},
+"0xac": {
+"fn": "circfs"
+},
+"0xad": {
+"fn": "circs"
+},
+"0xae": {
+"fn": "cmov2s"
+},
+"0xaf": {
+"fn": "cmovs"
+},
+"0xb0": {
+"fn": "compactify"
+},
+"0xb1": {
+"fn": "qdevice"
+},
+"0xb2": {
+"fn": "unqdevice"
+},
+"0xb3": {
+"fn": "curvebasis"
+},
+"0xb4": {
+"fn": "curveprecision"
+},
+"0xb5": {
+"fn": "crv"
+},
+"0xb6": {
+"fn": "gettp"
+},
+"0xb7": {
+"fn": "gbegin"
+},
+"0xb8": {
+"fn": "textinit"
+},
+"0xb9": {
+"fn": "crvn"
+},
+"0xba": {
+"fn": "defbasis"
+},
+"0xbb": {
+"fn": "deltag"
+},
+"0xbc": {
+"fn": "depthcue"
+},
+"0xbd": {
+"fn": "draw2s"
+},
+"0xbe": {
+"fn": "draws"
+},
+"0xbf": {
+"fn": "endfeedback"
+},
+"0xc0": {
+"fn": "feedback"
+},
+"0xc1": {
+"fn": "getcpos"
+},
+"0xc2": {
+"fn": "getdcm"
+},
+"0xc3": {
+"fn": "getgpos"
+},
+"0xc4": {
+"fn": "getlsrepeat"
+},
+"0xc5": {
+"fn": "getmonitor"
+},
+"0xc6": {
+"fn": "getopenobj"
+},
+"0xc7": {
+"fn": "getzbuffer"
+},
+"0xc8": {
+"fn": "gewrite"
+},
+"0xc9": {
+"fn": "initnames"
+},
+"0xca": {
+"fn": "loadname"
+},
+"0xcb": {
+"fn": "lsrepeat"
+},
+"0xcc": {
+"fn": "move2s"
+},
+"0xcd": {
+"fn": "moves"
+},
+"0xce": {
+"fn": "newtag"
+},
+"0xcf": {
+"fn": "passthrough"
+},
+"0xd0": {
+"fn": "patchbasis"
+},
+"0xd1": {
+"fn": "patchprecision"
+},
+"0xd2": {
+"fn": "patch"
+},
+"0xd3": {
+"fn": "pclos"
+},
+"0xd4": {
+"fn": "pdr"
+},
+"0xd5": {
+"fn": "pdr2"
+},
+"0xd6": {
+"fn": "pdri"
+},
+"0xd7": {
+"fn": "pdr2i"
+},
+"0xd8": {
+"fn": "pdrs"
+},
+"0xd9": {
+"fn": "pdr2s"
+},
+"0xda": {
+"fn": "polf2s"
+},
+"0xdb": {
+"fn": "polfs"
+},
+"0xdc": {
+"fn": "poly2s"
+},
+"0xdd": {
+"fn": "polys"
+},
+"0xde": {
+"fn": "pmv"
+},
+"0xdf": {
+"fn": "pmv2"
+},
+"0xe0": {
+"fn": "pmvi"
+},
+"0xe1": {
+"fn": "pmv2i"
+},
+"0xe2": {
+"fn": "pmvs"
+},
+"0xe3": {
+"fn": "pmv2s"
+},
+"0xe4": {
+"fn": "pnt2s"
+},
+"0xe5": {
+"fn": "pnts"
+},
+"0xe6": {
+"fn": "popname"
+},
+"0xe7": {
+"fn": "pushname"
+},
+"0xe8": {
+"fn": "rdr"
+},
+"0xe9": {
+"fn": "rdr2"
+},
+"0xea": {
+"fn": "rdri"
+},
+"0xeb": {
+"fn": "rdr2i"
+},
+"0xec": {
+"fn": "rdrs"
+},
+"0xed": {
+"fn": "rdr2s"
+},
+"0xee": {
+"fn": "rectcopy"
+},
+"0xef": {
+"fn": "rmv"
+},
+"0xf0": {
+"fn": "rmv2"
+},
+"0xf1": {
+"fn": "rmvi"
+},
+"0xf2": {
+"fn": "rmv2i"
+},
+"0xf3": {
+"fn": "rmvs"
+},
+"0xf4": {
+"fn": "rmv2s"
+},
+"0xf5": {
+"fn": "rpdr"
+},
+"0xf6": {
+"fn": "rpdr2"
+},
+"0xf7": {
+"fn": "rpdri"
+},
+"0xf8": {
+"fn": "rpdr2i"
+},
+"0xf9": {
+"fn": "rpdrs"
+},
+"0xfa": {
+"fn": "rpdr2s"
+},
+"0xfb": {
+"fn": "rpmv"
+},
+"0xfc": {
+"fn": "rpmv2"
+},
+"0xfd": {
+"fn": "rpmvi"
+},
+"0xfe": {
+"fn": "rpmv2i"
+},
+"0xff": {
+"fn": "rpmvs"
+},
+"0x100": {
+"fn": "rpmv2s"
+},
+"0x101": {
+"fn": "setdblights"
+},
+"0x102": {
+"fn": "setmonitor"
+},
+"0x103": {
+"fn": "setshade"
+},
+"0x104": {
+"fn": "shaderange"
+},
+"0x105": {
+"fn": "spclos"
+},
+"0x106": {
+"fn": "splf"
+},
+"0x107": {
+"fn": "splf2"
+},
+"0x108": {
+"fn": "splfi"
+},
+"0x109": {
+"fn": "splf2i"
+},
+"0x10a": {
+"fn": "splfs"
+},
+"0x10b": {
+"fn": "splf2s"
+},
+"0x10c": {
+"fn": "xfpt"
+},
+"0x10d": {
+"fn": "xfpti"
+},
+"0x10e": {
+"fn": "xfpts"
+},
+"0x10f": {
+"fn": "xfpt2"
+},
+"0x110": {
+"fn": "xfpt2i"
+},
+"0x111": {
+"fn": "xfpt2s"
+},
+"0x112": {
+"fn": "xfpt4"
+},
+"0x113": {
+"fn": "xfpt4i"
+},
+"0x114": {
+"fn": "xfpt4s"
+},
+"0x115": {
+"fn": "zbuffer"
+},
+"0x116": {
+"fn": "charst"
+},
+"0x117": {
+"fn": "strwid"
+},
+"0x118": {
+"fn": "defpattern"
+},
+"0x119": {
+"fn": "getpattern"
+},
+"0x11a": {
+"fn": "setpattern"
+},
+"0x11b": {
+"fn": "objinsert"
+},
+"0x11c": {
+"fn": "objdelete"
+},
+"0x11d": {
+"fn": "objreplace"
+},
+"0x11e": {
+"fn": "zclear"
+},
+"0x11f": {
+"fn": "curorigin"
+},
+"0x120": {
+"fn": "pagewritemask"
+},
+"0x121": {
+"fn": "patchcurves"
+},
+"0x122": {
+"fn": "dbtext"
+},
+"0x123": {
+"fn": "backface"
+},
+"0x124": {
+"fn": "cyclemap"
+},
+"0x125": {
+"fn": "minsize"
+},
+"0x126": {
+"fn": "maxsize"
+},
+"0x127": {
+"fn": "keepaspect"
+},
+"0x128": {
+"fn": "prefsize"
+},
+"0x129": {
+"fn": "stepunit"
+},
+"0x12a": {
+"fn": "fudge"
+},
+"0x12b": {
+"fn": "prefposition"
+},
+"0x12c": {
+"fn": "getport"
+},
+"0x12d": {
+"fn": "getpor"
+},
+"0x12e": {
+"fn": "getsize"
+},
+"0x12f": {
+"fn": "getorigin"
+},
+"0x130": {
+"fn": "screenspace"
+},
+"0x131": {
+"fn": "reshapeviewport"
+},
+"0x132": {
+"fn": "winopen"
+},
+"0x133": {
+"fn": "winope"
+},
+"0x134": {
+"fn": "winclose"
+},
+"0x135": {
+"fn": "winset"
+},
+"0x136": {
+"fn": "winget"
+},
+"0x137": {
+"fn": "winpush"
+},
+"0x138": {
+"fn": "winpop"
+},
+"0x139": {
+"fn": "winattach"
+},
+"0x13a": {
+"fn": "winmove"
+},
+"0x13b": {
+"fn": "winposition"
+},
+"0x13c": {
+"fn": "wintitle"
+},
+"0x13d": {
+"fn": "wintit"
+},
+"0x13e": {
+"fn": "rects"
+},
+"0x13f": {
+"fn": "rectfs"
+},
+"0x140": {
+"fn": "foreground"
+},
+"0x141": {
+"fn": "devport"
+},
+"0x142": {
+"fn": "getdev"
+},
+"0x143": {
+"fn": "ismex"
+},
+"0x144": {
+"fn": "rcrv"
+},
+"0x145": {
+"fn": "rcrvn"
+},
+"0x146": {
+"fn": "rpatch"
+},
+"0x147": {
+"fn": "getothermonitor"
+},
+"0x148": {
+"fn": "blanktime"
+},
+"0x149": {
+"fn": "isqueued"
+},
+"0x14a": {
+"fn": "rot"
+},
+"0x14b": {
+"fn": "addtopup"
+},
+"0x14c": {
+"fn": "addtop"
+},
+"0x14d": {
+"fn": "dopup"
+},
+"0x14e": {
+"fn": "freepup"
+},
+"0x14f": {
+"fn": "newpup"
+},
+"0x150": {
+"fn": "fullscrn"
+},
+"0x151": {
+"fn": "endfullscrn"
+},
+"0x152": {
+"fn": "getshade"
+},
+"0x153": {
+"fn": "winconstraints"
+},
+"0x154": {
+"fn": "noport"
+},
+"0x155": {
+"fn": "noborder"
+},
+"0x156": {
+"fn": "imakebackground"
+},
+"0x157": {
+"fn": "setfastcom"
+},
+"0x158": {
+"fn": "setslowcom"
+},
+"0x159": {
+"fn": null
+},
+"0x15a": {
+"fn": "cmode"
+},
+"0x15b": {
+"fn": "concave"
+},
+"0x15c": {
+"fn": "curstype"
+},
+"0x15d": {
+"fn": "drawmode"
+},
+"0x15e": {
+"fn": "getdrawmode"
+},
+"0x15f": {
+"fn": "gammaramp"
+},
+"0x160": {
+"fn": "shademodel"
+},
+"0x161": {
+"fn": "overlay"
+},
+"0x162": {
+"fn": "underlay"
+},
+"0x163": {
+"fn": "getvideo"
+},
+"0x164": {
+"fn": "setvideo"
+},
+"0x166": {
+"fn": "getsm"
+},
+"0x167": {
+"fn": "getbackface"
+},
+"0x168": {
+"fn": "getdescender"
+},
+"0x169": {
+"fn": "getmmode"
+},
+"0x16a": {
+"fn": "lmbind"
+},
+"0x16b": {
+"fn": "lmdef"
+},
+"0x16c": {
+"fn": "mmode"
+},
+"0x16d": {
+"fn": "normal"
+},
+"0x16e": {
+"fn": "bgnclosedline"
+},
+"0x16f": {
+"fn": "bgnline"
+},
+"0x170": {
+"fn": "bgnpoint"
+},
+"0x171": {
+"fn": "bgnpolygon"
+},
+"0x172": {
+"fn": "bgntmesh"
+},
+"0x173": {
+"fn": "blendfunction"
+},
+"0x174": {
+"fn": "c3f"
+},
+"0x175": {
+"fn": "c3i"
+},
+"0x176": {
+"fn": "c3s"
+},
+"0x177": {
+"fn": "c4f"
+},
+"0x178": {
+"fn": "c4i"
+},
+"0x179": {
+"fn": "c4s"
+},
+"0x17a": {
+"fn": "cpack"
+},
+"0x17b": {
+"fn": "czclear"
+},
+"0x17c": {
+"fn": "endclosedline"
+},
+"0x17d": {
+"fn": "endline"
+},
+"0x17e": {
+"fn": "endpoint"
+},
+"0x17f": {
+"fn": "endpolygon"
+},
+"0x180": {
+"fn": "endtmesh"
+},
+"0x181": {
+"fn": "glcompat"
+},
+"0x182": {
+"fn": null
+},
+"0x183": {
+"fn": "lsetdepth"
+},
+"0x184": {
+"fn": "lshaderange"
+},
+"0x185": {
+"fn": "gl_lrectread"
+},
+"0x186": {
+"fn": "gl_lrectwrite"
+},
+"0x187": {
+"fn": "n3f"
+},
+"0x188": {
+"fn": "readsource"
+},
+"0x189": {
+"fn": "rectread"
+},
+"0x18a": {
+"fn": "rectwrite"
+},
+"0x18b": {
+"fn": "rectzoom"
+},
+"0x18c": {
+"fn": "smoothline"
+},
+"0x18d": {
+"fn": "swaptmesh"
+},
+"0x18e": {
+"fn": "v2d"
+},
+"0x18f": {
+"fn": "v2f"
+},
+"0x190": {
+"fn": "v2i"
+},
+"0x191": {
+"fn": "v2s"
+},
+"0x192": {
+"fn": "v3d"
+},
+"0x193": {
+"fn": "v3f"
+},
+"0x194": {
+"fn": "v3i"
+},
+"0x195": {
+"fn": "v3s"
+},
+"0x196": {
+"fn": "v4d"
+},
+"0x197": {
+"fn": "v4f"
+},
+"0x198": {
+"fn": "v4i"
+},
+"0x199": {
+"fn": "v4s"
+},
+"0x19a": {
+"fn": "wmpack"
+},
+"0x19b": {
+"fn": "zdraw"
+},
+"0x19c": {
+"fn": "zfunction"
+},
+"0x19d": {
+"fn": "zsource"
+},
+"0x19e": {
+"fn": "zwritemask"
+},
+"0x19f": {
+"fn": "windepth"
+},
+"0x1a0": {
+"fn": "iconsize"
+},
+"0x1a1": {
+"fn": "icontitle"
+},
+"0x1a2": {
+"fn": "iconti"
+},
+"0x1a3": {
+"fn": "swinopen"
+},
+"0x1a7": {
+"fn": "pntsmooth"
+},
+"0x1a8": {
+"fn": "linesmooth"
+},
+"0x1a9": {
+"fn": "subpixel"
+},
+"0x1aa": {
+"fn": "sbox"
+},
+"0x1ab": {
+"fn": "sboxf"
+},
+"0x1ac": {
+"fn": "sboxfi"
+},
+"0x1ad": {
+"fn": "sboxi"
+},
+"0x1ae": {
+"fn": "sboxs"
+},
+"0x1af": {
+"fn": "sboxfs"
+},
+"0x1b0": {
+"fn": "bgnsurface"
+},
+"0x1b1": {
+"fn": "endsurface"
+},
+"0x1b2": {
+"fn": "bgntrim"
+},
+"0x1b3": {
+"fn": "endtrim"
+},
+"0x1b4": {
+"fn": "nurbssurface"
+},
+"0x1b5": {
+"fn": "nurbscurve"
+},
+"0x1b6": {
+"fn": "pwlcurve"
+},
+"0x1b7": {
+"fn": "setnurbsproperty"
+},
+"0x1b8": {
+"fn": "getnurbsproperty"
+},
+"0x1b9": {
+"fn": "lmcolor"
+},
+"0x1ba": {
+"fn": "videocmd"
+},
+"0x1bb": {
+"fn": "logicop"
+},
+"0x1bc": {
+"fn": "colorf"
+},
+"0x1bd": {
+"fn": "setpup"
+},
+"0x1be": {
+"fn": "getgdesc"
+},
+"0x1bf": {
+"fn": "frontface"
+},
+"0x1c0": {
+"fn": "scrnselect"
+},
+"0x1c1": {
+"fn": "getwscrn"
+},
+"0x1c2": {
+"fn": "scrnattach"
+},
+"0x1c3": {
+"fn": "pupmode"
+},
+"0x1c4": {
+"fn": "endpupmode"
+},
+"0x1c5": {
+"fn": "qcontrol"
+},
+"0x1c6": {
+"fn": "qgetfd"
+},
+"0x1c7": {
+"fn": "gl_sincos"
+},
+"0x1c8": {
+"fn": "gl_readscreen"
+},
+"0x1c9": {
+"fn": "gl_resetls"
+},
+"0x1ca": {
+"fn": "gl_setdisplay"
+},
+"0x1cb": {
+"fn": "gl_misc"
+},
+"0x1cc": {
+"fn": "bgnqstrip"
+},
+"0x1cd": {
+"fn": "endqstrip"
+},
+"0x1ce": {
+"fn": "gl_scrrect"
+},
+"0x1cf": {
+"fn": "nmode"
+},
+"0x1d0": {
+"fn": "t2f"
+},
+"0x1d1": {
+"fn": "t2d"
+},
+"0x1d2": {
+"fn": "t2i"
+},
+"0x1d3": {
+"fn": "t2s"
+},
+"0x1d4": {
+"fn": "sclear"
+},
+"0x1d5": {
+"fn": "acbuf"
+},
+"0x1d6": {
+"fn": "acsize"
+},
+"0x1d7": {
+"fn": "clipplane"
+},
+"0x1d8": {
+"fn": "fogvertex"
+},
+"0x1d9": {
+"fn": "getscrbox"
+},
+"0x1da": {
+"fn": "scrbox"
+},
+"0x1db": {
+"fn": "stensize"
+},
+"0x1dc": {
+"fn": "stencil"
+},
+"0x1dd": {
+"fn": "swritemask"
+},
+"0x1de": {
+"fn": "pixmode"
+},
+"0x1df": {
+"fn": "polymode"
+},
+"0x1e0": {
+"fn": "afunction"
+},
+"0x1e1": {
+"fn": "tevbind"
+},
+"0x1e2": {
+"fn": "texbind"
+},
+"0x1e3": {
+"fn": "mswapbuffers"
+},
+"0x1e4": {
+"fn": "polysmooth"
+},
+"0x1e5": {
+"fn": "scrsubdivide"
+},
+"0x1e6": {
+"fn": "tevdef"
+},
+"0x1e7": {
+"fn": "texdef2d"
+},
+"0x1e8": {
+"fn": "texgen"
+},
+"0x1e9": {
+"fn": "getsb"
+},
+"0x1ea": {
+"fn": "linewidthf"
+},
+"0x1eb": {
+"fn": "pntsize"
+},
+"0x1ec": {
+"fn": "pntsizef"
+},
+"0x1ed": {
+"fn": "readdisplay"
+},
+"0x1ef": {
+"fn": "bgncurve"
+},
+"0x1f0": {
+"fn": "endcurve"
+},
+"0x1f1": {
+"fn": "pixmodef"
+},
+"0x1f6": {
+"fn": "gl_glx_getconfig"
+},
+"0x1f7": {
+"fn": "gl_glx_link"
+},
+"0x1f8": {
+"fn": "gl_glx_unlink"
+},
+"0x1f9": {
+"fn": "gl_glx_winset"
+},
+"0x1fa": {
+"fn": "dither"
+},
+"0x1fb": {
+"fn": "deflfont"
+},
+"0x1fc": {
+"fn": "lcharstr"
+},
+"0x1fd": {
+"fn": "lchstr"
+},
+"0x1fe": {
+"fn": "lstrwidth"
+},
+"0x1ff": {
+"fn": "lstwid"
+},
+"0x200": {
+"fn": "gl_pixmode_misc"
+},
+"0x201": {
+"fn": "t3d"
+},
+"0x202": {
+"fn": "t3i"
+},
+"0x203": {
+"fn": "t3s"
+},
+"0x204": {
+"fn": "t4f"
+},
+"0x205": {
+"fn": "t4d"
+},
+"0x206": {
+"fn": "t4i"
+},
+"0x207": {
+"fn": "t4s"
+},
+"0x208": {
+"fn": "mssize"
+},
+"0x209": {
+"fn": "mssample"
+},
+"0x20a": {
+"fn": "texdef3d"
+},
+"0x20b": {
+"fn": "monobuffer"
+},
+"0x20c": {
+"fn": "stereobuffer"
+},
+"0x20d": {
+"fn": "leftbuffer"
+},
+"0x20e": {
+"fn": "rightbuffer"
+},
+"0x20f": {
+"fn": "zbsize"
+},
+"0x210": {
+"fn": "blendcolor"
+},
+"0x211": {
+"fn": "msalpha"
+},
+"0x212": {
+"fn": "msmask"
+},
+"0x213": {
+"fn": "mspattern"
+},
+"0x214": {
+"fn": "multisample"
+},
+"0x215": {
+"fn": "t3f"
+},
+"0x216": {
+"fn": "getgconfig"
+},
+"0x217": {
+"fn": "gl_ms_init_pixels"
+},
+"0x235": {
+"fn": "hgram"
+},
+"0x236": {
+"fn": "minmax"
+},
+"0x237": {
+"fn": "pixeltransfer"
+},
+"0x238": {
+"fn": "gl_rectzoomoffset"
+},
+"0x239": {
+"fn": "getmultisample"
+},
+"0x23a": {
+"fn": "tlutdef"
+},
+"0x23b": {
+"fn": "tlutbind"
+},
+"0x23c": {
+"fn": "subtexload"
+},
+"0x23d": {
+"fn": "gl_gl_lrectproc"
+},
+"0x23e": {
+"fn": "convolve"
+},
+"0x23f": {
+"fn": "ildraw"
+},
+"0x240": {
+"fn": "ilbuffer"
+},
+"0x241": {
+"fn": "displacepolygon"
+},
+"0x242": {
+"fn": null
+},
+"0x243": {
+"fn": "fbsubtexload"
+},
+"0x244": {
+"fn": "readcomponent"
+},
+"0x245": {
+"fn": "gethgram"
+},
+"0x246": {
+"fn": "getminmax"
+},
+"0x247": {
+"fn": "istexloaded"
+},
+"0x248": {
+"fn": "pixelmap"
+}
+}

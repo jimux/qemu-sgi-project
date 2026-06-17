@@ -1,0 +1,3032 @@
+{
+"0x0001": {
+"call": "gversion",
+"sym": "gl_d_gversion",
+"cmd_words": 3
+},
+"0x0002": {
+"call": "pagecolor",
+"sym": "gl_d_pagecolor",
+"cmd_words": 2
+},
+"0x0003": {
+"call": "textcolor",
+"sym": "gl_d_textcolor",
+"cmd_words": 2
+},
+"0x0004": {
+"call": "textport",
+"sym": "gl_d_textport",
+"cmd_words": 3
+},
+"0x0005": {
+"call": "arc",
+"sym": "gl_d_arc",
+"cmd_words": 5
+},
+"0x0006": {
+"call": "arcf",
+"sym": "gl_d_arcf",
+"cmd_words": 5
+},
+"0x0007": {
+"call": "arcfi",
+"sym": "gl_d_arcfi",
+"cmd_words": 5
+},
+"0x0008": {
+"call": "arci",
+"sym": "gl_d_arci",
+"cmd_words": 5
+},
+"0x0009": {
+"call": "attachcursor",
+"sym": "gl_d_attachcursor",
+"cmd_words": 2
+},
+"0x000a": {
+"call": "backbuffer",
+"sym": "gl_d_backbuffer",
+"cmd_words": 2
+},
+"0x000b": {
+"call": "bbox2",
+"sym": "gl_d_bbox2",
+"cmd_words": 6
+},
+"0x000c": {
+"call": "bbox2i",
+"sym": "gl_d_bbox2i",
+"cmd_words": 6
+},
+"0x000d": {
+"call": "blink",
+"sym": "gl_d_blink",
+"cmd_words": 4
+},
+"0x000e": {
+"call": "callobj",
+"sym": "gl_d_callobj",
+"cmd_words": 2
+},
+"0x000f": {
+"call": "charstr",
+"sym": "gl_d_charstr",
+"cmd_words": null
+},
+"0x0010": {
+"call": "circ",
+"sym": "gl_d_circ",
+"cmd_words": 4
+},
+"0x0011": {
+"call": "circf",
+"sym": "gl_d_circf",
+"cmd_words": 4
+},
+"0x0012": {
+"call": "circfi",
+"sym": "gl_d_circfi",
+"cmd_words": 4
+},
+"0x0013": {
+"call": "circi",
+"sym": "gl_d_circi",
+"cmd_words": 4
+},
+"0x0014": {
+"call": "clear",
+"sym": "gl_d_clear",
+"cmd_words": 1
+},
+"0x0015": {
+"call": "clearhitcode",
+"sym": "gl_d_clearhitcode",
+"cmd_words": 1
+},
+"0x0016": {
+"call": "closeobj",
+"sym": "gl_d_closeobj",
+"cmd_words": 1
+},
+"0x0017": {
+"call": "cmov",
+"sym": "gl_d_cmov",
+"cmd_words": 4
+},
+"0x0018": {
+"call": "cmov2",
+"sym": "gl_d_cmov2",
+"cmd_words": 3
+},
+"0x0019": {
+"call": "cmov2i",
+"sym": "gl_d_cmov2i",
+"cmd_words": 3
+},
+"0x001a": {
+"call": "cmovi",
+"sym": "gl_d_cmovi",
+"cmd_words": 4
+},
+"0x001b": {
+"call": "color",
+"sym": "gl_d_color",
+"cmd_words": 2
+},
+"0x001c": {
+"call": "cursoff",
+"sym": "gl_d_cursoff",
+"cmd_words": 1
+},
+"0x001d": {
+"call": "curson",
+"sym": "gl_d_curson",
+"cmd_words": 1
+},
+"0x001e": {
+"call": "curveit",
+"sym": "gl_d_curveit",
+"cmd_words": 2
+},
+"0x001f": {
+"call": "defcursor",
+"sym": "gl_d_defcursor",
+"cmd_words": 0
+},
+"0x0020": {
+"call": "deflinestyle",
+"sym": "gl_d_deflinestyle",
+"cmd_words": 2
+},
+"0x0021": {
+"call": "defrasterfont",
+"sym": "gl_d_defrasterfont",
+"cmd_words": null
+},
+"0x0022": {
+"call": "delobj",
+"sym": "gl_d_delobj",
+"cmd_words": 2
+},
+"0x0023": {
+"call": "doublebuffer",
+"sym": "gl_d_doublebuffer",
+"cmd_words": 1
+},
+"0x0024": {
+"call": "draw",
+"sym": "gl_d_draw",
+"cmd_words": 4
+},
+"0x0025": {
+"call": "draw2",
+"sym": "gl_d_draw2",
+"cmd_words": 3
+},
+"0x0026": {
+"call": "draw2i",
+"sym": "gl_d_draw2i",
+"cmd_words": 3
+},
+"0x0027": {
+"call": "drawi",
+"sym": "gl_d_drawi",
+"cmd_words": 4
+},
+"0x0028": {
+"call": "editobj",
+"sym": "gl_d_editobj",
+"cmd_words": 2
+},
+"0x0029": {
+"call": "endpick",
+"sym": "gl_d_endpick",
+"cmd_words": 3
+},
+"0x002a": {
+"call": "endselect",
+"sym": "gl_d_endselect",
+"cmd_words": 3
+},
+"0x002b": {
+"call": "finish",
+"sym": "gl_d_finish",
+"cmd_words": 1
+},
+"0x002c": {
+"call": "font",
+"sym": "gl_d_font",
+"cmd_words": 2
+},
+"0x002d": {
+"call": "frontbuffer",
+"sym": "gl_d_frontbuffer",
+"cmd_words": 2
+},
+"0x002e": {
+"call": "gconfig",
+"sym": "gl_d_gconfig",
+"cmd_words": 1
+},
+"0x002f": {
+"call": "genobj",
+"sym": "gl_d_genobj",
+"cmd_words": 1
+},
+"0x0030": {
+"call": "gentag",
+"sym": "gl_d_gentag",
+"cmd_words": 1
+},
+"0x0031": {
+"call": "getbuffer",
+"sym": "gl_d_getbuffer",
+"cmd_words": 1
+},
+"0x0032": {
+"call": "getbutton",
+"sym": "gl_d_getbutton",
+"cmd_words": 2
+},
+"0x0033": {
+"call": "getcmmode",
+"sym": "gl_d_getcmmode",
+"cmd_words": 1
+},
+"0x0034": {
+"call": "getcolor",
+"sym": "gl_d_getcolor",
+"cmd_words": 1
+},
+"0x0035": {
+"call": "getcursor",
+"sym": "gl_d_getcursor",
+"cmd_words": 1
+},
+"0x0036": {
+"call": "getdepth",
+"sym": "gl_d_getdepth",
+"cmd_words": 1
+},
+"0x0037": {
+"call": "getdisplaymode",
+"sym": "gl_d_getdisplaymode",
+"cmd_words": 1
+},
+"0x0038": {
+"call": "getfont",
+"sym": "gl_d_getfont",
+"cmd_words": 1
+},
+"0x0039": {
+"call": "getheight",
+"sym": "gl_d_getheight",
+"cmd_words": 1
+},
+"0x003a": {
+"call": "gethitcode",
+"sym": "gl_d_gethitcode",
+"cmd_words": 1
+},
+"0x003b": {
+"call": "getlsbackup",
+"sym": "gl_d_getlsbackup",
+"cmd_words": 1
+},
+"0x003c": {
+"call": "getlstyle",
+"sym": "gl_d_getlstyle",
+"cmd_words": 1
+},
+"0x003d": {
+"call": "getlwidth",
+"sym": "gl_d_getlwidth",
+"cmd_words": 1
+},
+"0x003e": {
+"call": "getmap",
+"sym": "gl_d_getmap",
+"cmd_words": 1
+},
+"0x003f": {
+"call": "getmatrix",
+"sym": "gl_d_getmatrix",
+"cmd_words": 3
+},
+"0x0040": {
+"call": "getplanes",
+"sym": "gl_d_getplanes",
+"cmd_words": 1
+},
+"0x0041": {
+"call": "getresetls",
+"sym": "gl_d_getresetls",
+"cmd_words": 1
+},
+"0x0042": {
+"call": "getscrmask",
+"sym": "gl_d_getscrmask",
+"cmd_words": 1
+},
+"0x0043": {
+"call": "getvaluator",
+"sym": "gl_d_getvaluator",
+"cmd_words": 2
+},
+"0x0044": {
+"call": "getviewport",
+"sym": "gl_d_getviewport",
+"cmd_words": 1
+},
+"0x0045": {
+"call": "getwritemask",
+"sym": "gl_d_getwritemask",
+"cmd_words": 1
+},
+"0x0046": {
+"call": "gflush",
+"sym": "gl_d_gflush",
+"cmd_words": 1
+},
+"0x0047": {
+"call": "ginit",
+"sym": "gl_d_ginit",
+"cmd_words": 1
+},
+"0x0048": {
+"call": "greset",
+"sym": "gl_d_greset",
+"cmd_words": 1
+},
+"0x0049": {
+"call": "gRGBcolor",
+"sym": "gl_d_gRGBcolor",
+"cmd_words": 1
+},
+"0x004a": {
+"call": "gRGBcursor",
+"sym": "gl_d_gRGBcursor",
+"cmd_words": 1
+},
+"0x004b": {
+"call": "gRGBmask",
+"sym": "gl_d_gRGBmask",
+"cmd_words": 1
+},
+"0x004c": {
+"call": "isobj",
+"sym": "gl_d_isobj",
+"cmd_words": 2
+},
+"0x004d": {
+"call": "istag",
+"sym": "gl_d_istag",
+"cmd_words": 2
+},
+"0x004e": {
+"call": "linewidth",
+"sym": "gl_d_linewidth",
+"cmd_words": 2
+},
+"0x004f": {
+"call": "loadmatrix",
+"sym": "gl_d_loadmatrix",
+"cmd_words": 0
+},
+"0x0050": {
+"call": "lookat",
+"sym": "gl_d_lookat",
+"cmd_words": 8
+},
+"0x0051": {
+"call": "lsbackup",
+"sym": "gl_d_lsbackup",
+"cmd_words": 2
+},
+"0x0052": {
+"call": "makeobj",
+"sym": "gl_d_makeobj",
+"cmd_words": 2
+},
+"0x0053": {
+"call": "maketag",
+"sym": "gl_d_maketag",
+"cmd_words": 2
+},
+"0x0054": {
+"call": "mapcolor",
+"sym": "gl_d_mapcolor",
+"cmd_words": 3
+},
+"0x0055": {
+"call": "mapw",
+"sym": "gl_d_mapw",
+"cmd_words": 3
+},
+"0x0056": {
+"call": "mapw2",
+"sym": "gl_d_mapw2",
+"cmd_words": 3
+},
+"0x0057": {
+"call": "move",
+"sym": "gl_d_move",
+"cmd_words": 4
+},
+"0x0058": {
+"call": "move2",
+"sym": "gl_d_move2",
+"cmd_words": 3
+},
+"0x0059": {
+"call": "move2i",
+"sym": "gl_d_move2i",
+"cmd_words": 3
+},
+"0x005a": {
+"call": "movei",
+"sym": "gl_d_movei",
+"cmd_words": 4
+},
+"0x005b": {
+"call": "multimap",
+"sym": "gl_d_multimap",
+"cmd_words": 1
+},
+"0x005c": {
+"call": "multmatrix",
+"sym": "gl_d_multmatrix",
+"cmd_words": 0
+},
+"0x005d": {
+"call": "noise",
+"sym": "gl_d_noise",
+"cmd_words": 2
+},
+"0x005e": {
+"call": "onemap",
+"sym": "gl_d_onemap",
+"cmd_words": 1
+},
+"0x005f": {
+"call": "ortho",
+"sym": "gl_d_ortho",
+"cmd_words": 7
+},
+"0x0060": {
+"call": "ortho2",
+"sym": "gl_d_ortho2",
+"cmd_words": 5
+},
+"0x0061": {
+"call": "perspective",
+"sym": "gl_d_perspective",
+"cmd_words": 5
+},
+"0x0062": {
+"call": "pick",
+"sym": "gl_d_pick",
+"cmd_words": 4
+},
+"0x0063": {
+"call": "picksize",
+"sym": "gl_d_picksize",
+"cmd_words": 2
+},
+"0x0064": {
+"call": "pnt",
+"sym": "gl_d_pnt",
+"cmd_words": 4
+},
+"0x0065": {
+"call": "pnt2",
+"sym": "gl_d_pnt2",
+"cmd_words": 3
+},
+"0x0066": {
+"call": "pnt2i",
+"sym": "gl_d_pnt2i",
+"cmd_words": 3
+},
+"0x0067": {
+"call": "pnti",
+"sym": "gl_d_pnti",
+"cmd_words": 4
+},
+"0x0068": {
+"call": "polarview",
+"sym": "gl_d_polarview",
+"cmd_words": 4
+},
+"0x0069": {
+"call": "polf",
+"sym": "gl_d_polf",
+"cmd_words": null
+},
+"0x006a": {
+"call": "polf2",
+"sym": "gl_d_polf2",
+"cmd_words": null
+},
+"0x006b": {
+"call": "polf2i",
+"sym": "gl_d_polf2i",
+"cmd_words": null
+},
+"0x006c": {
+"call": "polfi",
+"sym": "gl_d_polfi",
+"cmd_words": null
+},
+"0x006d": {
+"call": "poly",
+"sym": "gl_d_poly",
+"cmd_words": null
+},
+"0x006e": {
+"call": "poly2",
+"sym": "gl_d_poly2",
+"cmd_words": null
+},
+"0x006f": {
+"call": "poly2i",
+"sym": "gl_d_poly2i",
+"cmd_words": null
+},
+"0x0070": {
+"call": "polyi",
+"sym": "gl_d_polyi",
+"cmd_words": null
+},
+"0x0071": {
+"call": "popattributes",
+"sym": "gl_d_popattributes",
+"cmd_words": 1
+},
+"0x0072": {
+"call": "popmatrix",
+"sym": "gl_d_popmatrix",
+"cmd_words": 1
+},
+"0x0073": {
+"call": "popviewport",
+"sym": "gl_d_popviewport",
+"cmd_words": 1
+},
+"0x0074": {
+"call": "pushattributes",
+"sym": "gl_d_pushattributes",
+"cmd_words": 1
+},
+"0x0075": {
+"call": "pushmatrix",
+"sym": "gl_d_pushmatrix",
+"cmd_words": 1
+},
+"0x0076": {
+"call": "pushviewport",
+"sym": "gl_d_pushviewport",
+"cmd_words": 1
+},
+"0x0077": {
+"call": "qenter",
+"sym": "gl_d_qenter",
+"cmd_words": 2
+},
+"0x0078": {
+"call": "qread",
+"sym": "gl_dgl_qread",
+"cmd_words": 1
+},
+"0x0079": {
+"call": "qreset",
+"sym": "gl_d_qreset",
+"cmd_words": 1
+},
+"0x007a": {
+"call": "qtest",
+"sym": "gl_dgl_qtest",
+"cmd_words": 1
+},
+"0x007b": {
+"call": "readpixels",
+"sym": "gl_d_readpixels",
+"cmd_words": 4
+},
+"0x007c": {
+"call": "readRGB",
+"sym": "gl_d_readRGB",
+"cmd_words": 8
+},
+"0x007d": {
+"call": "rect",
+"sym": "gl_d_rect",
+"cmd_words": 5
+},
+"0x007e": {
+"call": "rectf",
+"sym": "gl_d_rectf",
+"cmd_words": 5
+},
+"0x007f": {
+"call": "rectfi",
+"sym": "gl_d_rectfi",
+"cmd_words": 5
+},
+"0x0080": {
+"call": "recti",
+"sym": "gl_d_recti",
+"cmd_words": 5
+},
+"0x0081": {
+"call": "resetls",
+"sym": "gl_d_resetls",
+"cmd_words": 2
+},
+"0x0082": {
+"call": "RGBcolor",
+"sym": "gl_d_RGBcolor",
+"cmd_words": 3
+},
+"0x0083": {
+"call": "RGBcursor",
+"sym": "gl_d_RGBcursor",
+"cmd_words": 5
+},
+"0x0084": {
+"call": "RGBmode",
+"sym": "gl_d_RGBmode",
+"cmd_words": 1
+},
+"0x0085": {
+"call": "RGBwritemask",
+"sym": "gl_d_RGBwritemask",
+"cmd_words": 3
+},
+"0x0086": {
+"call": "rotate",
+"sym": "gl_d_rotate",
+"cmd_words": 2
+},
+"0x0087": {
+"call": "scale",
+"sym": "gl_d_scale",
+"cmd_words": 4
+},
+"0x0088": {
+"call": "scrmask",
+"sym": "gl_d_scrmask",
+"cmd_words": 3
+},
+"0x0089": {
+"call": "gselect",
+"sym": "gl_d_gselect",
+"cmd_words": 4
+},
+"0x008a": {
+"call": "setcursor",
+"sym": "gl_d_setcursor",
+"cmd_words": 3
+},
+"0x008b": {
+"call": "setdepth",
+"sym": "gl_d_setdepth",
+"cmd_words": 2
+},
+"0x008c": {
+"call": "setlinestyle",
+"sym": "gl_d_setlinestyle",
+"cmd_words": 2
+},
+"0x008d": {
+"call": "setmap",
+"sym": "gl_d_setmap",
+"cmd_words": 2
+},
+"0x008e": {
+"call": "setvaluator",
+"sym": "gl_d_setvaluator",
+"cmd_words": 3
+},
+"0x008f": {
+"call": "singlebuffer",
+"sym": "gl_d_singlebuffer",
+"cmd_words": 1
+},
+"0x0090": {
+"call": "strwidth",
+"sym": "gl_d_strwidth",
+"cmd_words": null
+},
+"0x0091": {
+"call": "swapbuffers",
+"sym": "gl_d_swapbuffers",
+"cmd_words": 1
+},
+"0x0092": {
+"call": "swapinterval",
+"sym": "gl_d_swapinterval",
+"cmd_words": 2
+},
+"0x0093": {
+"call": "gsync",
+"sym": "gl_d_gsync",
+"cmd_words": 1
+},
+"0x0094": {
+"call": "tie",
+"sym": "gl_d_tie",
+"cmd_words": 3
+},
+"0x0095": {
+"call": "translate",
+"sym": "gl_d_translate",
+"cmd_words": 4
+},
+"0x0096": {
+"call": "viewport",
+"sym": "gl_d_viewport",
+"cmd_words": 3
+},
+"0x0097": {
+"call": "window",
+"sym": "gl_d_window",
+"cmd_words": 7
+},
+"0x0098": {
+"call": "writemask",
+"sym": "gl_d_writemask",
+"cmd_words": 2
+},
+"0x0099": {
+"call": "writepixels",
+"sym": "gl_d_writepixels",
+"cmd_words": null
+},
+"0x009a": {
+"call": "writeRGB",
+"sym": "gl_d_writeRGB",
+"cmd_words": null
+},
+"0x009b": {
+"call": "tpon",
+"sym": "gl_d_tpon",
+"cmd_words": 1
+},
+"0x009c": {
+"call": "tpoff",
+"sym": "gl_d_tpoff",
+"cmd_words": 1
+},
+"0x009d": {
+"call": "textwritemask",
+"sym": "gl_d_textwritemask",
+"cmd_words": 2
+},
+"0x009e": {
+"call": "gexit",
+"sym": "gl_d_gexit",
+"cmd_words": 1
+},
+"0x009f": {
+"call": "clkon",
+"sym": "gl_d_clkon",
+"cmd_words": 1
+},
+"0x00a0": {
+"call": "clkoff",
+"sym": "gl_d_clkoff",
+"cmd_words": 1
+},
+"0x00a1": {
+"call": "lampon",
+"sym": "gl_d_lampon",
+"cmd_words": 2
+},
+"0x00a2": {
+"call": "lampoff",
+"sym": "gl_d_lampoff",
+"cmd_words": 2
+},
+"0x00a3": {
+"call": "setbell",
+"sym": "gl_d_setbell",
+"cmd_words": 2
+},
+"0x00a4": {
+"call": "ringbell",
+"sym": "gl_d_ringbell",
+"cmd_words": 1
+},
+"0x00a5": {
+"call": "arcfs",
+"sym": "gl_d_arcfs",
+"cmd_words": 4
+},
+"0x00a6": {
+"call": "arcs",
+"sym": "gl_d_arcs",
+"cmd_words": 4
+},
+"0x00a7": {
+"call": "bbox2s",
+"sym": "gl_d_bbox2s",
+"cmd_words": 4
+},
+"0x00a8": {
+"call": "blankscreen",
+"sym": "gl_d_blankscreen",
+"cmd_words": 2
+},
+"0x00a9": {
+"call": "blkqread",
+"sym": "gl_dgl_blkqread",
+"cmd_words": 4
+},
+"0x00aa": {
+"call": "getmcolor",
+"sym": "gl_d_getmcolor",
+"cmd_words": 2
+},
+"0x00ab": {
+"call": "chunksize",
+"sym": "gl_d_chunksize",
+"cmd_words": 2
+},
+"0x00ac": {
+"call": "circfs",
+"sym": "gl_d_circfs",
+"cmd_words": 3
+},
+"0x00ad": {
+"call": "circs",
+"sym": "gl_d_circs",
+"cmd_words": 3
+},
+"0x00ae": {
+"call": "cmov2s",
+"sym": "gl_d_cmov2s",
+"cmd_words": 2
+},
+"0x00af": {
+"call": "cmovs",
+"sym": "gl_d_cmovs",
+"cmd_words": 3
+},
+"0x00b0": {
+"call": "compactify",
+"sym": "gl_d_compactify",
+"cmd_words": 2
+},
+"0x00b1": {
+"call": "qdevice",
+"sym": "gl_d_qdevice",
+"cmd_words": 2
+},
+"0x00b2": {
+"call": "unqdevice",
+"sym": "gl_d_unqdevice",
+"cmd_words": 2
+},
+"0x00b3": {
+"call": "curvebasis",
+"sym": "gl_d_curvebasis",
+"cmd_words": 2
+},
+"0x00b4": {
+"call": "curveprecision",
+"sym": "gl_d_curveprecision",
+"cmd_words": 2
+},
+"0x00b5": {
+"call": "crv",
+"sym": "gl_d_crv",
+"cmd_words": 0
+},
+"0x00b6": {
+"call": "gettp",
+"sym": "gl_d_gettp",
+"cmd_words": 1
+},
+"0x00b7": {
+"call": "gbegin",
+"sym": "gl_d_gbegin",
+"cmd_words": 1
+},
+"0x00b8": {
+"call": "textinit",
+"sym": "gl_d_textinit",
+"cmd_words": 1
+},
+"0x00b9": {
+"call": "crvn",
+"sym": "gl_d_crvn",
+"cmd_words": null
+},
+"0x00ba": {
+"call": "defbasis",
+"sym": "gl_d_defbasis",
+"cmd_words": 0
+},
+"0x00bb": {
+"call": "deltag",
+"sym": "gl_d_deltag",
+"cmd_words": 2
+},
+"0x00bc": {
+"call": "depthcue",
+"sym": "gl_d_depthcue",
+"cmd_words": 2
+},
+"0x00bd": {
+"call": "draw2s",
+"sym": "gl_d_draw2s",
+"cmd_words": 2
+},
+"0x00be": {
+"call": "draws",
+"sym": "gl_d_draws",
+"cmd_words": 3
+},
+"0x00bf": {
+"call": "endfeedback",
+"sym": "gl_dgl_endfeedback",
+"cmd_words": 3
+},
+"0x00c0": {
+"call": "feedback",
+"sym": "gl_dgl_feedback",
+"cmd_words": 4
+},
+"0x00c1": {
+"call": "getcpos",
+"sym": "gl_d_getcpos",
+"cmd_words": 1
+},
+"0x00c2": {
+"call": "getdcm",
+"sym": "gl_d_getdcm",
+"cmd_words": 1
+},
+"0x00c3": {
+"call": "getgpos",
+"sym": "gl_d_getgpos",
+"cmd_words": 1
+},
+"0x00c4": {
+"call": "getlsrepeat",
+"sym": "gl_d_getlsrepeat",
+"cmd_words": 1
+},
+"0x00c5": {
+"call": "getmonitor",
+"sym": "gl_d_getmonitor",
+"cmd_words": 1
+},
+"0x00c6": {
+"call": "getopenobj",
+"sym": "gl_d_getopenobj",
+"cmd_words": 1
+},
+"0x00c7": {
+"call": "getzbuffer",
+"sym": "gl_d_getzbuffer",
+"cmd_words": 1
+},
+"0x00c8": {
+"call": "gewrite",
+"sym": "gl_d_gewrite",
+"cmd_words": null
+},
+"0x00c9": {
+"call": "initnames",
+"sym": "gl_d_initnames",
+"cmd_words": 1
+},
+"0x00ca": {
+"call": "loadname",
+"sym": "gl_d_loadname",
+"cmd_words": 2
+},
+"0x00cb": {
+"call": "lsrepeat",
+"sym": "gl_d_lsrepeat",
+"cmd_words": 2
+},
+"0x00cc": {
+"call": "move2s",
+"sym": "gl_d_move2s",
+"cmd_words": 2
+},
+"0x00cd": {
+"call": "moves",
+"sym": "gl_d_moves",
+"cmd_words": 3
+},
+"0x00ce": {
+"call": "newtag",
+"sym": "gl_d_newtag",
+"cmd_words": 4
+},
+"0x00cf": {
+"call": "passthrough",
+"sym": "gl_d_passthrough",
+"cmd_words": 2
+},
+"0x00d0": {
+"call": "patchbasis",
+"sym": "gl_d_patchbasis",
+"cmd_words": 3
+},
+"0x00d1": {
+"call": "patchprecision",
+"sym": "gl_d_patchprecision",
+"cmd_words": 3
+},
+"0x00d2": {
+"call": "patch",
+"sym": "gl_d_patch",
+"cmd_words": 0
+},
+"0x00d3": {
+"call": "pclos",
+"sym": "gl_d_pclos",
+"cmd_words": 1
+},
+"0x00d4": {
+"call": "pdr",
+"sym": "gl_d_pdr",
+"cmd_words": 4
+},
+"0x00d5": {
+"call": "pdr2",
+"sym": "gl_d_pdr2",
+"cmd_words": 3
+},
+"0x00d6": {
+"call": "pdri",
+"sym": "gl_d_pdri",
+"cmd_words": 4
+},
+"0x00d7": {
+"call": "pdr2i",
+"sym": "gl_d_pdr2i",
+"cmd_words": 3
+},
+"0x00d8": {
+"call": "pdrs",
+"sym": "gl_d_pdrs",
+"cmd_words": 3
+},
+"0x00d9": {
+"call": "pdr2s",
+"sym": "gl_d_pdr2s",
+"cmd_words": 2
+},
+"0x00da": {
+"call": "polf2s",
+"sym": "gl_d_polf2s",
+"cmd_words": null
+},
+"0x00db": {
+"call": "polfs",
+"sym": "gl_d_polfs",
+"cmd_words": null
+},
+"0x00dc": {
+"call": "poly2s",
+"sym": "gl_d_poly2s",
+"cmd_words": null
+},
+"0x00dd": {
+"call": "polys",
+"sym": "gl_d_polys",
+"cmd_words": null
+},
+"0x00de": {
+"call": "pmv",
+"sym": "gl_d_pmv",
+"cmd_words": 4
+},
+"0x00df": {
+"call": "pmv2",
+"sym": "gl_d_pmv2",
+"cmd_words": 3
+},
+"0x00e0": {
+"call": "pmvi",
+"sym": "gl_d_pmvi",
+"cmd_words": 4
+},
+"0x00e1": {
+"call": "pmv2i",
+"sym": "gl_d_pmv2i",
+"cmd_words": 3
+},
+"0x00e2": {
+"call": "pmvs",
+"sym": "gl_d_pmvs",
+"cmd_words": 3
+},
+"0x00e3": {
+"call": "pmv2s",
+"sym": "gl_d_pmv2s",
+"cmd_words": 2
+},
+"0x00e4": {
+"call": "pnt2s",
+"sym": "gl_d_pnt2s",
+"cmd_words": 2
+},
+"0x00e5": {
+"call": "pnts",
+"sym": "gl_d_pnts",
+"cmd_words": 3
+},
+"0x00e6": {
+"call": "popname",
+"sym": "gl_d_popname",
+"cmd_words": 1
+},
+"0x00e7": {
+"call": "pushname",
+"sym": "gl_d_pushname",
+"cmd_words": 2
+},
+"0x00e8": {
+"call": "rdr",
+"sym": "gl_d_rdr",
+"cmd_words": 4
+},
+"0x00e9": {
+"call": "rdr2",
+"sym": "gl_d_rdr2",
+"cmd_words": 3
+},
+"0x00ea": {
+"call": "rdri",
+"sym": "gl_d_rdri",
+"cmd_words": 4
+},
+"0x00eb": {
+"call": "rdr2i",
+"sym": "gl_d_rdr2i",
+"cmd_words": 3
+},
+"0x00ec": {
+"call": "rdrs",
+"sym": "gl_d_rdrs",
+"cmd_words": 3
+},
+"0x00ed": {
+"call": "rdr2s",
+"sym": "gl_d_rdr2s",
+"cmd_words": 2
+},
+"0x00ee": {
+"call": "rectcopy",
+"sym": "gl_d_rectcopy",
+"cmd_words": 4
+},
+"0x00ef": {
+"call": "rmv",
+"sym": "gl_d_rmv",
+"cmd_words": 4
+},
+"0x00f0": {
+"call": "rmv2",
+"sym": "gl_d_rmv2",
+"cmd_words": 3
+},
+"0x00f1": {
+"call": "rmvi",
+"sym": "gl_d_rmvi",
+"cmd_words": 4
+},
+"0x00f2": {
+"call": "rmv2i",
+"sym": "gl_d_rmv2i",
+"cmd_words": 3
+},
+"0x00f3": {
+"call": "rmvs",
+"sym": "gl_d_rmvs",
+"cmd_words": 3
+},
+"0x00f4": {
+"call": "rmv2s",
+"sym": "gl_d_rmv2s",
+"cmd_words": 2
+},
+"0x00f5": {
+"call": "rpdr",
+"sym": "gl_d_rpdr",
+"cmd_words": 4
+},
+"0x00f6": {
+"call": "rpdr2",
+"sym": "gl_d_rpdr2",
+"cmd_words": 3
+},
+"0x00f7": {
+"call": "rpdri",
+"sym": "gl_d_rpdri",
+"cmd_words": 4
+},
+"0x00f8": {
+"call": "rpdr2i",
+"sym": "gl_d_rpdr2i",
+"cmd_words": 3
+},
+"0x00f9": {
+"call": "rpdrs",
+"sym": "gl_d_rpdrs",
+"cmd_words": 3
+},
+"0x00fa": {
+"call": "rpdr2s",
+"sym": "gl_d_rpdr2s",
+"cmd_words": 2
+},
+"0x00fb": {
+"call": "rpmv",
+"sym": "gl_d_rpmv",
+"cmd_words": 4
+},
+"0x00fc": {
+"call": "rpmv2",
+"sym": "gl_d_rpmv2",
+"cmd_words": 3
+},
+"0x00fd": {
+"call": "rpmvi",
+"sym": "gl_d_rpmvi",
+"cmd_words": 4
+},
+"0x00fe": {
+"call": "rpmv2i",
+"sym": "gl_d_rpmv2i",
+"cmd_words": 3
+},
+"0x00ff": {
+"call": "rpmvs",
+"sym": "gl_d_rpmvs",
+"cmd_words": 3
+},
+"0x0100": {
+"call": "rpmv2s",
+"sym": "gl_d_rpmv2s",
+"cmd_words": 2
+},
+"0x0101": {
+"call": "setdblights",
+"sym": "gl_d_setdblights",
+"cmd_words": 2
+},
+"0x0102": {
+"call": "setmonitor",
+"sym": "gl_d_setmonitor",
+"cmd_words": 2
+},
+"0x0103": {
+"call": "setshade",
+"sym": "gl_d_setshade",
+"cmd_words": 2
+},
+"0x0104": {
+"call": "shaderange",
+"sym": "gl_d_shaderange",
+"cmd_words": 3
+},
+"0x0105": {
+"call": "spclos",
+"sym": "gl_d_spclos",
+"cmd_words": 1
+},
+"0x0106": {
+"call": "splf",
+"sym": "gl_d_splf",
+"cmd_words": null
+},
+"0x0107": {
+"call": "splf2",
+"sym": "gl_d_splf2",
+"cmd_words": null
+},
+"0x0108": {
+"call": "splfi",
+"sym": "gl_d_splfi",
+"cmd_words": null
+},
+"0x0109": {
+"call": "splf2i",
+"sym": "gl_d_splf2i",
+"cmd_words": null
+},
+"0x010a": {
+"call": "splfs",
+"sym": "gl_d_splfs",
+"cmd_words": null
+},
+"0x010b": {
+"call": "splf2s",
+"sym": "gl_d_splf2s",
+"cmd_words": null
+},
+"0x010c": {
+"call": "xfpt",
+"sym": "gl_d_xfpt",
+"cmd_words": 4
+},
+"0x010d": {
+"call": "xfpti",
+"sym": "gl_d_xfpti",
+"cmd_words": 4
+},
+"0x010e": {
+"call": "xfpts",
+"sym": "gl_d_xfpts",
+"cmd_words": 3
+},
+"0x010f": {
+"call": "xfpt2",
+"sym": "gl_d_xfpt2",
+"cmd_words": 3
+},
+"0x0110": {
+"call": "xfpt2i",
+"sym": "gl_d_xfpt2i",
+"cmd_words": 3
+},
+"0x0111": {
+"call": "xfpt2s",
+"sym": "gl_d_xfpt2s",
+"cmd_words": 2
+},
+"0x0112": {
+"call": "xfpt4",
+"sym": "gl_d_xfpt4",
+"cmd_words": 5
+},
+"0x0113": {
+"call": "xfpt4i",
+"sym": "gl_d_xfpt4i",
+"cmd_words": 5
+},
+"0x0114": {
+"call": "xfpt4s",
+"sym": "gl_d_xfpt4s",
+"cmd_words": 3
+},
+"0x0115": {
+"call": "zbuffer",
+"sym": "gl_d_zbuffer",
+"cmd_words": 2
+},
+"0x0116": {
+"call": "charst",
+"sym": "gl_d_charst",
+"cmd_words": null
+},
+"0x0117": {
+"call": "strwid",
+"sym": "gl_d_strwid",
+"cmd_words": null
+},
+"0x0118": {
+"call": "defpattern",
+"sym": "gl_d_defpattern",
+"cmd_words": null
+},
+"0x0119": {
+"call": "getpattern",
+"sym": "gl_d_getpattern",
+"cmd_words": 1
+},
+"0x011a": {
+"call": "setpattern",
+"sym": "gl_d_setpattern",
+"cmd_words": 2
+},
+"0x011b": {
+"call": "objinsert",
+"sym": "gl_d_objinsert",
+"cmd_words": 2
+},
+"0x011c": {
+"call": "objdelete",
+"sym": "gl_d_objdelete",
+"cmd_words": 3
+},
+"0x011d": {
+"call": "objreplace",
+"sym": "gl_d_objreplace",
+"cmd_words": 2
+},
+"0x011e": {
+"call": "zclear",
+"sym": "gl_d_zclear",
+"cmd_words": 1
+},
+"0x011f": {
+"call": "curorigin",
+"sym": "gl_d_curorigin",
+"cmd_words": 3
+},
+"0x0120": {
+"call": "pagewritemask",
+"sym": "gl_d_pagewritemask",
+"cmd_words": 2
+},
+"0x0121": {
+"call": "patchcurves",
+"sym": "gl_d_patchcurves",
+"cmd_words": 3
+},
+"0x0122": {
+"call": "dbtext",
+"sym": "gl_d_dbtext",
+"cmd_words": 4
+},
+"0x0123": {
+"call": "backface",
+"sym": "gl_d_backface",
+"cmd_words": 2
+},
+"0x0124": {
+"call": "cyclemap",
+"sym": "gl_d_cyclemap",
+"cmd_words": 3
+},
+"0x0125": {
+"call": "minsize",
+"sym": "gl_d_minsize",
+"cmd_words": 3
+},
+"0x0126": {
+"call": "maxsize",
+"sym": "gl_d_maxsize",
+"cmd_words": 3
+},
+"0x0127": {
+"call": "keepaspect",
+"sym": "gl_d_keepaspect",
+"cmd_words": 3
+},
+"0x0128": {
+"call": "prefsize",
+"sym": "gl_d_prefsize",
+"cmd_words": 3
+},
+"0x0129": {
+"call": "stepunit",
+"sym": "gl_d_stepunit",
+"cmd_words": 3
+},
+"0x012a": {
+"call": "fudge",
+"sym": "gl_d_fudge",
+"cmd_words": 3
+},
+"0x012b": {
+"call": "prefposition",
+"sym": "gl_d_prefposition",
+"cmd_words": 5
+},
+"0x012c": {
+"call": "getport",
+"sym": "gl_dgl_getport",
+"cmd_words": null
+},
+"0x012d": {
+"call": "getpor",
+"sym": "gl_d_getpor",
+"cmd_words": null
+},
+"0x012e": {
+"call": "getsize",
+"sym": "gl_d_getsize",
+"cmd_words": 1
+},
+"0x012f": {
+"call": "getorigin",
+"sym": "gl_d_getorigin",
+"cmd_words": 1
+},
+"0x0130": {
+"call": "screenspace",
+"sym": "gl_d_screenspace",
+"cmd_words": 1
+},
+"0x0131": {
+"call": "reshapeviewport",
+"sym": "gl_d_reshapeviewport",
+"cmd_words": 1
+},
+"0x0132": {
+"call": "winopen",
+"sym": "gl_dgl_winopen",
+"cmd_words": null
+},
+"0x0133": {
+"call": "winope",
+"sym": "gl_dgl_winope",
+"cmd_words": null
+},
+"0x0134": {
+"call": "winclose",
+"sym": "gl_dgl_winclose",
+"cmd_words": 2
+},
+"0x0135": {
+"call": "winset",
+"sym": "gl_dgl_winset",
+"cmd_words": 2
+},
+"0x0136": {
+"call": "winget",
+"sym": "gl_d_winget",
+"cmd_words": 1
+},
+"0x0137": {
+"call": "winpush",
+"sym": "gl_d_winpush",
+"cmd_words": 1
+},
+"0x0138": {
+"call": "winpop",
+"sym": "gl_d_winpop",
+"cmd_words": 1
+},
+"0x0139": {
+"call": "winattach",
+"sym": "gl_d_winattach",
+"cmd_words": 1
+},
+"0x013a": {
+"call": "winmove",
+"sym": "gl_d_winmove",
+"cmd_words": 3
+},
+"0x013b": {
+"call": "winposition",
+"sym": "gl_d_winposition",
+"cmd_words": 5
+},
+"0x013c": {
+"call": "wintitle",
+"sym": "gl_d_wintitle",
+"cmd_words": null
+},
+"0x013d": {
+"call": "wintit",
+"sym": "gl_d_wintit",
+"cmd_words": null
+},
+"0x013e": {
+"call": "rects",
+"sym": "gl_d_rects",
+"cmd_words": 3
+},
+"0x013f": {
+"call": "rectfs",
+"sym": "gl_d_rectfs",
+"cmd_words": 3
+},
+"0x0140": {
+"call": "foreground",
+"sym": "gl_dgl_foreground",
+"cmd_words": 1
+},
+"0x0141": {
+"call": "devport",
+"sym": "gl_d_devport",
+"cmd_words": 3
+},
+"0x0142": {
+"call": "getdev",
+"sym": "gl_d_getdev",
+"cmd_words": null
+},
+"0x0143": {
+"call": "ismex",
+"sym": "gl_d_ismex",
+"cmd_words": 1
+},
+"0x0144": {
+"call": "rcrv",
+"sym": "gl_d_rcrv",
+"cmd_words": 0
+},
+"0x0145": {
+"call": "rcrvn",
+"sym": "gl_d_rcrvn",
+"cmd_words": null
+},
+"0x0146": {
+"call": "rpatch",
+"sym": "gl_d_rpatch",
+"cmd_words": 0
+},
+"0x0147": {
+"call": "getothermonitor",
+"sym": "gl_d_getothermonitor",
+"cmd_words": 1
+},
+"0x0148": {
+"call": "blanktime",
+"sym": "gl_d_blanktime",
+"cmd_words": 2
+},
+"0x0149": {
+"call": "isqueued",
+"sym": "gl_d_isqueued",
+"cmd_words": 2
+},
+"0x014a": {
+"call": "rot",
+"sym": "gl_d_rot",
+"cmd_words": 3
+},
+"0x014b": {
+"call": "addtopup",
+"sym": "gl_dgl_addtopup",
+"cmd_words": 1
+},
+"0x014c": {
+"call": "addtop",
+"sym": "gl_dgl_addtop",
+"cmd_words": null
+},
+"0x014d": {
+"call": "dopup",
+"sym": "gl_d_dopup",
+"cmd_words": 2
+},
+"0x014e": {
+"call": "freepup",
+"sym": "gl_d_freepup",
+"cmd_words": 2
+},
+"0x014f": {
+"call": "newpup",
+"sym": "gl_d_newpup",
+"cmd_words": 1
+},
+"0x0150": {
+"call": "fullscrn",
+"sym": "gl_d_fullscrn",
+"cmd_words": 1
+},
+"0x0151": {
+"call": "endfullscrn",
+"sym": "gl_d_endfullscrn",
+"cmd_words": 1
+},
+"0x0152": {
+"call": "getshade",
+"sym": "gl_d_getshade",
+"cmd_words": 1
+},
+"0x0153": {
+"call": "winconstraints",
+"sym": "gl_d_winconstraints",
+"cmd_words": 1
+},
+"0x0154": {
+"call": "noport",
+"sym": "gl_d_noport",
+"cmd_words": 1
+},
+"0x0155": {
+"call": "noborder",
+"sym": "gl_d_noborder",
+"cmd_words": 1
+},
+"0x0156": {
+"call": "imakebackground",
+"sym": "gl_d_imakebackground",
+"cmd_words": 1
+},
+"0x0157": {
+"call": "setfastcom",
+"sym": "gl_d_setfastcom",
+"cmd_words": 1
+},
+"0x0158": {
+"call": "setslowcom",
+"sym": "gl_d_setslowcom",
+"cmd_words": 1
+},
+"0x0159": {
+"call": "RGBrange",
+"sym": "gl_d_RGBrange",
+"cmd_words": 5
+},
+"0x015a": {
+"call": "cmode",
+"sym": "gl_d_cmode",
+"cmd_words": 1
+},
+"0x015b": {
+"call": "concave",
+"sym": "gl_d_concave",
+"cmd_words": 2
+},
+"0x015c": {
+"call": "curstype",
+"sym": "gl_d_curstype",
+"cmd_words": 2
+},
+"0x015d": {
+"call": "drawmode",
+"sym": "gl_d_drawmode",
+"cmd_words": 2
+},
+"0x015e": {
+"call": "getdrawmode",
+"sym": "gl_d_getdrawmode",
+"cmd_words": 1
+},
+"0x015f": {
+"call": "gammaramp",
+"sym": "gl_d_gammaramp",
+"cmd_words": 0
+},
+"0x0160": {
+"call": "shademodel",
+"sym": "gl_d_shademodel",
+"cmd_words": 2
+},
+"0x0161": {
+"call": "overlay",
+"sym": "gl_d_overlay",
+"cmd_words": 2
+},
+"0x0162": {
+"call": "underlay",
+"sym": "gl_d_underlay",
+"cmd_words": 2
+},
+"0x0163": {
+"call": "getvideo",
+"sym": "gl_d_getvideo",
+"cmd_words": 2
+},
+"0x0164": {
+"call": "setvideo",
+"sym": "gl_d_setvideo",
+"cmd_words": 3
+},
+"0x0166": {
+"call": "getsm",
+"sym": "gl_d_getsm",
+"cmd_words": 1
+},
+"0x0167": {
+"call": "getbackface",
+"sym": "gl_d_getbackface",
+"cmd_words": 1
+},
+"0x0168": {
+"call": "getdescender",
+"sym": "gl_d_getdescender",
+"cmd_words": 1
+},
+"0x0169": {
+"call": "getmmode",
+"sym": "gl_d_getmmode",
+"cmd_words": 1
+},
+"0x016a": {
+"call": "lmbind",
+"sym": "gl_d_lmbind",
+"cmd_words": 2
+},
+"0x016b": {
+"call": "lmdef",
+"sym": "gl_dgl_lmdef",
+"cmd_words": null
+},
+"0x016c": {
+"call": "mmode",
+"sym": "gl_d_mmode",
+"cmd_words": 2
+},
+"0x016d": {
+"call": "normal",
+"sym": "gl_d_normal",
+"cmd_words": 4
+},
+"0x016e": {
+"call": "bgnclosedline",
+"sym": "gl_d_bgnclosedline",
+"cmd_words": 1
+},
+"0x016f": {
+"call": "bgnline",
+"sym": "gl_d_bgnline",
+"cmd_words": 1
+},
+"0x0170": {
+"call": "bgnpoint",
+"sym": "gl_d_bgnpoint",
+"cmd_words": 1
+},
+"0x0171": {
+"call": "bgnpolygon",
+"sym": "gl_d_bgnpolygon",
+"cmd_words": 1
+},
+"0x0172": {
+"call": "bgntmesh",
+"sym": "gl_d_bgntmesh",
+"cmd_words": 1
+},
+"0x0173": {
+"call": "blendfunction",
+"sym": "gl_d_blendfunction",
+"cmd_words": 3
+},
+"0x0174": {
+"call": "c3f",
+"sym": "gl_d_c3f",
+"cmd_words": 4
+},
+"0x0175": {
+"call": "c3i",
+"sym": "gl_d_c3i",
+"cmd_words": 4
+},
+"0x0176": {
+"call": "c3s",
+"sym": "gl_d_c3s",
+"cmd_words": 3
+},
+"0x0177": {
+"call": "c4f",
+"sym": "gl_d_c4f",
+"cmd_words": 5
+},
+"0x0178": {
+"call": "c4i",
+"sym": "gl_d_c4i",
+"cmd_words": 5
+},
+"0x0179": {
+"call": "c4s",
+"sym": "gl_d_c4s",
+"cmd_words": 3
+},
+"0x017a": {
+"call": "cpack",
+"sym": "gl_d_cpack",
+"cmd_words": 2
+},
+"0x017b": {
+"call": "czclear",
+"sym": "gl_d_czclear",
+"cmd_words": 3
+},
+"0x017c": {
+"call": "endclosedline",
+"sym": "gl_d_endclosedline",
+"cmd_words": 1
+},
+"0x017d": {
+"call": "endline",
+"sym": "gl_d_endline",
+"cmd_words": 1
+},
+"0x017e": {
+"call": "endpoint",
+"sym": "gl_d_endpoint",
+"cmd_words": 1
+},
+"0x017f": {
+"call": "endpolygon",
+"sym": "gl_d_endpolygon",
+"cmd_words": 1
+},
+"0x0180": {
+"call": "endtmesh",
+"sym": "gl_d_endtmesh",
+"cmd_words": 1
+},
+"0x0181": {
+"call": "glcompat",
+"sym": "gl_d_glcompat",
+"cmd_words": 3
+},
+"0x0182": {
+"call": "lRGBrange",
+"sym": "gl_d_lRGBrange",
+"cmd_words": 6
+},
+"0x0183": {
+"call": "lsetdepth",
+"sym": "gl_d_lsetdepth",
+"cmd_words": 3
+},
+"0x0184": {
+"call": "lshaderange",
+"sym": "gl_d_lshaderange",
+"cmd_words": 4
+},
+"0x0185": {
+"call": "lrectread",
+"sym": "gl_dgl_lrectread",
+"cmd_words": 5
+},
+"0x0186": {
+"call": "lrectwrite",
+"sym": "gl_dgl_lrectwrite",
+"cmd_words": null
+},
+"0x0187": {
+"call": "n3f",
+"sym": "gl_d_n3f",
+"cmd_words": 4
+},
+"0x0188": {
+"call": "readsource",
+"sym": "gl_d_readsource",
+"cmd_words": 2
+},
+"0x0189": {
+"call": "rectread",
+"sym": "gl_d_rectread",
+"cmd_words": 5
+},
+"0x018a": {
+"call": "rectwrite",
+"sym": "gl_d_rectwrite",
+"cmd_words": null
+},
+"0x018b": {
+"call": "rectzoom",
+"sym": "gl_d_rectzoom",
+"cmd_words": 3
+},
+"0x018c": {
+"call": "smoothline",
+"sym": "gl_d_smoothline",
+"cmd_words": 2
+},
+"0x018d": {
+"call": "swaptmesh",
+"sym": "gl_d_swaptmesh",
+"cmd_words": 1
+},
+"0x018f": {
+"call": "v2f",
+"sym": "gl_d_v2f",
+"cmd_words": 3
+},
+"0x0190": {
+"call": "v2i",
+"sym": "gl_d_v2i",
+"cmd_words": 3
+},
+"0x0191": {
+"call": "v2s",
+"sym": "gl_d_v2s",
+"cmd_words": 2
+},
+"0x0193": {
+"call": "v3f",
+"sym": "gl_d_v3f",
+"cmd_words": 4
+},
+"0x0194": {
+"call": "v3i",
+"sym": "gl_d_v3i",
+"cmd_words": 4
+},
+"0x0195": {
+"call": "v3s",
+"sym": "gl_d_v3s",
+"cmd_words": 3
+},
+"0x0197": {
+"call": "v4f",
+"sym": "gl_d_v4f",
+"cmd_words": 5
+},
+"0x0198": {
+"call": "v4i",
+"sym": "gl_d_v4i",
+"cmd_words": 5
+},
+"0x0199": {
+"call": "v4s",
+"sym": "gl_d_v4s",
+"cmd_words": 3
+},
+"0x019a": {
+"call": "wmpack",
+"sym": "gl_d_wmpack",
+"cmd_words": 2
+},
+"0x019b": {
+"call": "zdraw",
+"sym": "gl_d_zdraw",
+"cmd_words": 2
+},
+"0x019c": {
+"call": "zfunction",
+"sym": "gl_d_zfunction",
+"cmd_words": 2
+},
+"0x019d": {
+"call": "zsource",
+"sym": "gl_d_zsource",
+"cmd_words": 2
+},
+"0x019e": {
+"call": "zwritemask",
+"sym": "gl_d_zwritemask",
+"cmd_words": 2
+},
+"0x019f": {
+"call": "windepth",
+"sym": "gl_dgl_windepth",
+"cmd_words": 2
+},
+"0x01a0": {
+"call": "iconsize",
+"sym": "gl_d_iconsize",
+"cmd_words": 3
+},
+"0x01a1": {
+"call": "icontitle",
+"sym": "gl_d_icontitle",
+"cmd_words": null
+},
+"0x01a2": {
+"call": "iconti",
+"sym": "gl_d_iconti",
+"cmd_words": null
+},
+"0x01a3": {
+"call": "swinopen",
+"sym": "gl_dgl_swinopen",
+"cmd_words": 2
+},
+"0x01a7": {
+"call": "pntsmooth",
+"sym": "gl_d_pntsmooth",
+"cmd_words": 2
+},
+"0x01a8": {
+"call": "linesmooth",
+"sym": "gl_d_linesmooth",
+"cmd_words": 2
+},
+"0x01a9": {
+"call": "subpixel",
+"sym": "gl_d_subpixel",
+"cmd_words": 2
+},
+"0x01aa": {
+"call": "sbox",
+"sym": "gl_d_sbox",
+"cmd_words": 5
+},
+"0x01ab": {
+"call": "sboxf",
+"sym": "gl_d_sboxf",
+"cmd_words": 5
+},
+"0x01ac": {
+"call": "sboxfi",
+"sym": "gl_d_sboxfi",
+"cmd_words": 5
+},
+"0x01ad": {
+"call": "sboxi",
+"sym": "gl_d_sboxi",
+"cmd_words": 5
+},
+"0x01ae": {
+"call": "sboxs",
+"sym": "gl_d_sboxs",
+"cmd_words": 3
+},
+"0x01af": {
+"call": "sboxfs",
+"sym": "gl_d_sboxfs",
+"cmd_words": 3
+},
+"0x01b0": {
+"call": "bgnsurface",
+"sym": "gl_d_bgnsurface",
+"cmd_words": 1
+},
+"0x01b1": {
+"call": "endsurface",
+"sym": "gl_d_endsurface",
+"cmd_words": 1
+},
+"0x01b2": {
+"call": "bgntrim",
+"sym": "gl_d_bgntrim",
+"cmd_words": 1
+},
+"0x01b3": {
+"call": "endtrim",
+"sym": "gl_d_endtrim",
+"cmd_words": 1
+},
+"0x01b4": {
+"call": "nurbssurface",
+"sym": "gl_d_nurbssurface",
+"cmd_words": null
+},
+"0x01b7": {
+"call": "setnurbsproperty",
+"sym": "gl_d_setnurbsproperty",
+"cmd_words": 3
+},
+"0x01b8": {
+"call": "getnurbsproperty",
+"sym": "gl_d_getnurbsproperty",
+"cmd_words": 2
+},
+"0x01b9": {
+"call": "lmcolor",
+"sym": "gl_d_lmcolor",
+"cmd_words": 2
+},
+"0x01ba": {
+"call": "videocmd",
+"sym": "gl_d_videocmd",
+"cmd_words": 2
+},
+"0x01bb": {
+"call": "logicop",
+"sym": "gl_d_logicop",
+"cmd_words": 2
+},
+"0x01bc": {
+"call": "colorf",
+"sym": "gl_d_colorf",
+"cmd_words": 2
+},
+"0x01bd": {
+"call": "setpup",
+"sym": "gl_d_setpup",
+"cmd_words": 4
+},
+"0x01be": {
+"call": "getgdesc",
+"sym": "gl_d_getgdesc",
+"cmd_words": 2
+},
+"0x01bf": {
+"call": "frontface",
+"sym": "gl_d_frontface",
+"cmd_words": 2
+},
+"0x01c0": {
+"call": "scrnselect",
+"sym": "gl_d_scrnselect",
+"cmd_words": 2
+},
+"0x01c1": {
+"call": "getwscrn",
+"sym": "gl_d_getwscrn",
+"cmd_words": 1
+},
+"0x01c2": {
+"call": "scrnattach",
+"sym": "gl_d_scrnattach",
+"cmd_words": 2
+},
+"0x01c3": {
+"call": "pupmode",
+"sym": "gl_d_pupmode",
+"cmd_words": 1
+},
+"0x01c4": {
+"call": "endpupmode",
+"sym": "gl_d_endpupmode",
+"cmd_words": 1
+},
+"0x01c5": {
+"call": "qcontrol",
+"sym": "gl_d_qcontrol",
+"cmd_words": null
+},
+"0x01c6": {
+"call": "qgetfd",
+"sym": "gl_dgl_qgetfd",
+"cmd_words": 1
+},
+"0x01cc": {
+"call": "bgnqstrip",
+"sym": "gl_d_bgnqstrip",
+"cmd_words": 1
+},
+"0x01cd": {
+"call": "endqstrip",
+"sym": "gl_d_endqstrip",
+"cmd_words": 1
+},
+"0x01cf": {
+"call": "nmode",
+"sym": "gl_d_nmode",
+"cmd_words": 2
+},
+"0x01d0": {
+"call": "t2f",
+"sym": "gl_d_t2f",
+"cmd_words": 3
+},
+"0x01d2": {
+"call": "t2i",
+"sym": "gl_d_t2i",
+"cmd_words": 3
+},
+"0x01d3": {
+"call": "t2s",
+"sym": "gl_d_t2s",
+"cmd_words": 2
+},
+"0x01d4": {
+"call": "sclear",
+"sym": "gl_d_sclear",
+"cmd_words": 2
+},
+"0x01d5": {
+"call": "acbuf",
+"sym": "gl_d_acbuf",
+"cmd_words": 3
+},
+"0x01d6": {
+"call": "acsize",
+"sym": "gl_d_acsize",
+"cmd_words": 2
+},
+"0x01d7": {
+"call": "clipplane",
+"sym": "gl_d_clipplane",
+"cmd_words": null
+},
+"0x01d8": {
+"call": "fogvertex",
+"sym": "gl_d_fogvertex",
+"cmd_words": 0
+},
+"0x01d9": {
+"call": "getscrbox",
+"sym": "gl_d_getscrbox",
+"cmd_words": 1
+},
+"0x01da": {
+"call": "scrbox",
+"sym": "gl_d_scrbox",
+"cmd_words": 2
+},
+"0x01db": {
+"call": "stensize",
+"sym": "gl_d_stensize",
+"cmd_words": 2
+},
+"0x01dc": {
+"call": "stencil",
+"sym": "gl_d_stencil",
+"cmd_words": 8
+},
+"0x01dd": {
+"call": "swritemask",
+"sym": "gl_d_swritemask",
+"cmd_words": 2
+},
+"0x01de": {
+"call": "pixmode",
+"sym": "gl_d_pixmode",
+"cmd_words": 3
+},
+"0x01df": {
+"call": "polymode",
+"sym": "gl_d_polymode",
+"cmd_words": 2
+},
+"0x01e0": {
+"call": "afunction",
+"sym": "gl_d_afunction",
+"cmd_words": 3
+},
+"0x01e1": {
+"call": "tevbind",
+"sym": "gl_d_tevbind",
+"cmd_words": 3
+},
+"0x01e2": {
+"call": "texbind",
+"sym": "gl_d_texbind",
+"cmd_words": 3
+},
+"0x01e3": {
+"call": "mswapbuffers",
+"sym": "gl_d_mswapbuffers",
+"cmd_words": 2
+},
+"0x01e4": {
+"call": "polysmooth",
+"sym": "gl_d_polysmooth",
+"cmd_words": 2
+},
+"0x01e5": {
+"call": "scrsubdivide",
+"sym": "gl_d_scrsubdivide",
+"cmd_words": null
+},
+"0x01e6": {
+"call": "tevdef",
+"sym": "gl_dgl_tevdef",
+"cmd_words": null
+},
+"0x01e7": {
+"call": "texdef2d",
+"sym": "gl_dgl_texdef2d",
+"cmd_words": null
+},
+"0x01e8": {
+"call": "texgen",
+"sym": "gl_d_texgen",
+"cmd_words": null
+},
+"0x01e9": {
+"call": "getsb",
+"sym": "gl_d_getsb",
+"cmd_words": 1
+},
+"0x01ea": {
+"call": "linewidthf",
+"sym": "gl_d_linewidthf",
+"cmd_words": 2
+},
+"0x01eb": {
+"call": "pntsize",
+"sym": "gl_d_pntsize",
+"cmd_words": 2
+},
+"0x01ec": {
+"call": "pntsizef",
+"sym": "gl_d_pntsizef",
+"cmd_words": 2
+},
+"0x01ed": {
+"call": "readdisplay",
+"sym": "gl_d_readdisplay",
+"cmd_words": 6
+},
+"0x01ef": {
+"call": "bgncurve",
+"sym": "gl_d_bgncurve",
+"cmd_words": 1
+},
+"0x01f0": {
+"call": "endcurve",
+"sym": "gl_d_endcurve",
+"cmd_words": 1
+},
+"0x01f1": {
+"call": "pixmodef",
+"sym": "gl_d_pixmodef",
+"cmd_words": 3
+},
+"0x01fa": {
+"call": "dither",
+"sym": "gl_d_dither",
+"cmd_words": 2
+},
+"0x01fb": {
+"call": "deflfont",
+"sym": "gl_d_deflfont",
+"cmd_words": null
+},
+"0x01fc": {
+"call": "lcharstr",
+"sym": "gl_d_lcharstr",
+"cmd_words": null
+},
+"0x01fd": {
+"call": "lchstr",
+"sym": "gl_d_lchstr",
+"cmd_words": 1
+},
+"0x01fe": {
+"call": "lstrwidth",
+"sym": "gl_d_lstrwidth",
+"cmd_words": null
+},
+"0x01ff": {
+"call": "lstwid",
+"sym": "gl_d_lstwid",
+"cmd_words": 1
+},
+"0x0202": {
+"call": "t3i",
+"sym": "gl_d_t3i",
+"cmd_words": 4
+},
+"0x0203": {
+"call": "t3s",
+"sym": "gl_d_t3s",
+"cmd_words": 3
+},
+"0x0204": {
+"call": "t4f",
+"sym": "gl_d_t4f",
+"cmd_words": 5
+},
+"0x0206": {
+"call": "t4i",
+"sym": "gl_d_t4i",
+"cmd_words": 5
+},
+"0x0207": {
+"call": "t4s",
+"sym": "gl_d_t4s",
+"cmd_words": 3
+},
+"0x0208": {
+"call": "mssize",
+"sym": "gl_d_mssize",
+"cmd_words": 4
+},
+"0x0209": {
+"call": "mssample",
+"sym": "gl_d_mssample",
+"cmd_words": 2
+},
+"0x020a": {
+"call": "texdef3d",
+"sym": "gl_dgl_texdef3d",
+"cmd_words": null
+},
+"0x020b": {
+"call": "monobuffer",
+"sym": "gl_d_monobuffer",
+"cmd_words": 1
+},
+"0x020c": {
+"call": "stereobuffer",
+"sym": "gl_d_stereobuffer",
+"cmd_words": 1
+},
+"0x020d": {
+"call": "leftbuffer",
+"sym": "gl_d_leftbuffer",
+"cmd_words": 2
+},
+"0x020e": {
+"call": "rightbuffer",
+"sym": "gl_d_rightbuffer",
+"cmd_words": 2
+},
+"0x020f": {
+"call": "zbsize",
+"sym": "gl_d_zbsize",
+"cmd_words": 2
+},
+"0x0210": {
+"call": "blendcolor",
+"sym": "gl_d_blendcolor",
+"cmd_words": 5
+},
+"0x0211": {
+"call": "msalpha",
+"sym": "gl_d_msalpha",
+"cmd_words": 2
+},
+"0x0212": {
+"call": "msmask",
+"sym": "gl_d_msmask",
+"cmd_words": 3
+},
+"0x0213": {
+"call": "mspattern",
+"sym": "gl_d_mspattern",
+"cmd_words": 2
+},
+"0x0214": {
+"call": "multisample",
+"sym": "gl_d_multisample",
+"cmd_words": 2
+},
+"0x0215": {
+"call": "t3f",
+"sym": "gl_d_t3f",
+"cmd_words": 4
+},
+"0x0216": {
+"call": "getgconfig",
+"sym": "gl_d_getgconfig",
+"cmd_words": 2
+},
+"0x0235": {
+"call": "hgram",
+"sym": "gl_d_hgram",
+"cmd_words": 3
+},
+"0x0236": {
+"call": "minmax",
+"sym": "gl_d_minmax",
+"cmd_words": 3
+},
+"0x0237": {
+"call": "pixeltransfer",
+"sym": "gl_d_pixeltransfer",
+"cmd_words": 3
+},
+"0x0239": {
+"call": "getmultisample",
+"sym": "gl_d_getmultisample",
+"cmd_words": 1
+},
+"0x023a": {
+"call": "tlutdef",
+"sym": "gl_dgl_tlutdef",
+"cmd_words": null
+},
+"0x023b": {
+"call": "tlutbind",
+"sym": "gl_d_tlutbind",
+"cmd_words": 3
+},
+"0x023c": {
+"call": "subtexload",
+"sym": "gl_d_subtexload",
+"cmd_words": 1
+},
+"0x023e": {
+"call": "convolve",
+"sym": "gl_d_convolve",
+"cmd_words": 1
+},
+"0x023f": {
+"call": "ildraw",
+"sym": "gl_d_ildraw",
+"cmd_words": 2
+},
+"0x0240": {
+"call": "ilbuffer",
+"sym": "gl_d_ilbuffer",
+"cmd_words": 2
+},
+"0x0241": {
+"call": "displacepolygon",
+"sym": "gl_d_displacepolygon",
+"cmd_words": 2
+},
+"0x0242": {
+"call": "RGBsize",
+"sym": "gl_d_RGBsize",
+"cmd_words": 2
+},
+"0x0243": {
+"call": "fbsubtexload",
+"sym": "gl_d_fbsubtexload",
+"cmd_words": 10
+},
+"0x0244": {
+"call": "readcomponent",
+"sym": "gl_d_readcomponent",
+"cmd_words": 2
+},
+"0x0245": {
+"call": "gethgram",
+"sym": "gl_d_gethgram",
+"cmd_words": 0
+},
+"0x0246": {
+"call": "getminmax",
+"sym": "gl_d_getminmax",
+"cmd_words": 10
+},
+"0x0247": {
+"call": "istexloaded",
+"sym": "gl_d_istexloaded",
+"cmd_words": 3
+},
+"0x0248": {
+"call": "pixelmap",
+"sym": "gl_d_pixelmap",
+"cmd_words": 0
+},
+"0x10001": {
+"call": "dgllogin",
+"sym": "gl_d_dgllogin",
+"cmd_words": 3
+},
+"0x10002": {
+"call": "dglcheckxdr",
+"sym": "gl_d_dglcheckxdr",
+"cmd_words": 0
+},
+"0x10003": {
+"call": "dglxdrformat",
+"sym": "gl_d_dglxdrformat",
+"cmd_words": 2
+},
+"0x10004": {
+"call": "dglreturndata",
+"sym": "gl_d_dglreturndata",
+"cmd_words": 1
+},
+"0x10005": {
+"call": "dgladdcallback",
+"sym": "gl_d_dgladdcallback",
+"cmd_words": 3
+},
+"0x10006": {
+"call": "dglexit",
+"sym": "gl_d_dglexit",
+"cmd_words": 1
+},
+"0x10007": {
+"call": "dglversion",
+"sym": "gl_d_dglversion",
+"cmd_words": 2
+},
+"0x10008": {
+"call": "dgltestcallback",
+"sym": "gl_d_dgltestcallback",
+"cmd_words": 3
+},
+"0x10009": {
+"call": "dgltest",
+"sym": "gl_d_dgltest",
+"cmd_words": 3
+},
+"0x1000a": {
+"call": "dglprof",
+"sym": "gl_d_dglprof",
+"cmd_words": 4
+},
+"0x1000b": {
+"call": "dglreturncallback",
+"sym": "gl_d_dglreturncallback",
+"cmd_words": 2
+},
+"0x1000c": {
+"call": "dglendfeedbackf",
+"sym": "gl_d_dglendfeedbackf",
+"cmd_words": 3
+},
+"0x1000d": {
+"call": "dglfeedbackf",
+"sym": "gl_d_dglfeedbackf",
+"cmd_words": 4
+},
+"0x1000e": {
+"call": "dglendfeedbacks",
+"sym": "gl_d_dglendfeedbacks",
+"cmd_words": 3
+},
+"0x1000f": {
+"call": "dglfeedbacks",
+"sym": "gl_d_dglfeedbacks",
+"cmd_words": 4
+},
+"0x10010": {
+"call": "dglloginX",
+"sym": "gl_d_dglloginX",
+"cmd_words": 3
+},
+"0x10011": {
+"call": "dglgetqport",
+"sym": "gl_d_dglgetqport",
+"cmd_words": 1
+},
+"0x10012": {
+"call": "dglacceptqsocket",
+"sym": "gl_d_dglacceptqsocket",
+"cmd_words": 1
+},
+"0x10013": {
+"call": "dglxauthority",
+"sym": "gl_d_dglxauthority",
+"cmd_words": null
+},
+"0x11172": {
+"call": "fmenumerate",
+"sym": "gl_d_fmenumerate",
+"cmd_words": 2
+},
+"0x11173": {
+"call": "fmfindfont",
+"sym": "gl_d_fmfindfont",
+"cmd_words": null
+},
+"0x11174": {
+"call": "fm_fontpath_int",
+"sym": "gl_d_fm_fontpath_int",
+"cmd_words": 4
+},
+"0x11175": {
+"call": "fmfreefont",
+"sym": "gl_d_fmfreefont",
+"cmd_words": 2
+},
+"0x11176": {
+"call": "fmgetchrwidth",
+"sym": "gl_d_fmgetchrwidth",
+"cmd_words": 3
+},
+"0x11177": {
+"call": "fmgetcomment",
+"sym": "gl_d_fmgetcomment",
+"cmd_words": 5
+},
+"0x11178": {
+"call": "fmgetfontinfo",
+"sym": "gl_d_fmgetfontinfo",
+"cmd_words": 4
+},
+"0x11179": {
+"call": "fmgetfontname",
+"sym": "gl_d_fmgetfontname",
+"cmd_words": 5
+},
+"0x1117b": {
+"call": "fmgetstrwidth",
+"sym": "gl_d_fmgetstrwidth",
+"cmd_words": null
+},
+"0x1117c": {
+"call": "fm_getwholemetrics_int",
+"sym": "gl_d_fm_getwholemetrics_int",
+"cmd_words": 5
+},
+"0x1117d": {
+"call": "fminit",
+"sym": "gl_d_fminit",
+"cmd_words": 1
+},
+"0x1117e": {
+"call": "fminitpagematrix",
+"sym": "gl_d_fminitpagematrix",
+"cmd_words": 1
+},
+"0x11180": {
+"call": "fmoutchar",
+"sym": "gl_d_fmoutchar",
+"cmd_words": 3
+},
+"0x11181": {
+"call": "fmprintermatch",
+"sym": "gl_d_fmprintermatch",
+"cmd_words": 2
+},
+"0x11182": {
+"call": "fmprstr",
+"sym": "gl_d_fmprstr",
+"cmd_words": null
+},
+"0x11186": {
+"call": "fmsetfont",
+"sym": "gl_d_fmsetfont",
+"cmd_words": 2
+},
+"0x11188": {
+"call": "fmsetpath",
+"sym": "gl_d_fmsetpath",
+"cmd_words": null
+},
+"0x11189": {
+"call": "fmcachelimit",
+"sym": "gl_d_fmcachelimit",
+"cmd_words": 1
+},
+"0x1118a": {
+"call": "fmgetcacheused",
+"sym": "gl_d_fmgetcacheused",
+"cmd_words": 1
+},
+"0x1118b": {
+"call": "fmcacheenable",
+"sym": "gl_d_fmcacheenable",
+"cmd_words": 1
+},
+"0x1118c": {
+"call": "fmcachedisable",
+"sym": "gl_d_fmcachedisable",
+"cmd_words": 1
+},
+"0x1118d": {
+"call": "fmsetcachelimit",
+"sym": "gl_d_fmsetcachelimit",
+"cmd_words": 2
+},
+"0x1118e": {
+"call": "fm_pixels_to_pointsize_int",
+"sym": "gl_d_fm_pixels_to_pointsize_int",
+"cmd_words": 1
+},
+"0x1118f": {
+"call": "fm_pointsize_to_pixels_int",
+"sym": "gl_d_fm_pointsize_to_pixels_int",
+"cmd_words": 1
+},
+"0x11190": {
+"call": "fmfprstr",
+"sym": "gl_d_fmfprstr",
+"cmd_words": null
+},
+"0x11191": {
+"call": "wfm_makefont_int",
+"sym": "gl_d_wfm_makefont_int",
+"cmd_words": 5
+},
+"0x11192": {
+"call": "wfm_font",
+"sym": "gl_d_wfm_font",
+"cmd_words": 2
+},
+"0x11193": {
+"call": "wfm_getfont",
+"sym": "gl_d_wfm_getfont",
+"cmd_words": 1
+},
+"0x11194": {
+"call": "wfm_getfontinfo",
+"sym": "gl_d_wfm_getfontinfo",
+"cmd_words": 4
+},
+"0x11195": {
+"call": "wfm_makefontmat",
+"sym": "gl_d_wfm_makefontmat",
+"cmd_words": 5
+},
+"0x11196": {
+"call": "wfm_fontunits",
+"sym": "gl_d_wfm_fontunits",
+"cmd_words": 2
+},
+"0x11197": {
+"call": "wfm_setfontpath",
+"sym": "gl_d_wfm_setfontpath",
+"cmd_words": null
+},
+"0x11198": {
+"call": "wfm_fontpath",
+"sym": "gl_d_wfm_fontpath",
+"cmd_words": 4
+},
+"0x11199": {
+"call": "wfm_enumerate",
+"sym": "gl_d_wfm_enumerate",
+"cmd_words": 2
+},
+"0x1119a": {
+"call": "wfm_sizeenumerate",
+"sym": "gl_d_wfm_sizeenumerate",
+"cmd_words": 1
+},
+"0x1119b": {
+"call": "wfm_getcharmetrics_int",
+"sym": "gl_d_wfm_getcharmetrics_int",
+"cmd_words": 5
+},
+"0x1119c": {
+"call": "wfm_init",
+"sym": "gl_d_wfm_init",
+"cmd_words": 1
+},
+"0x1119d": {
+"call": "wfm_cmov",
+"sym": "gl_d_wfm_cmov",
+"cmd_words": 4
+},
+"0x1119e": {
+"call": "wfm_cmov2",
+"sym": "gl_d_wfm_cmov2",
+"cmd_words": 3
+},
+"0x1119f": {
+"call": "wfm_cmov2i",
+"sym": "gl_d_wfm_cmov2i",
+"cmd_words": 3
+},
+"0x111a0": {
+"call": "wfm_cmovi",
+"sym": "gl_d_wfm_cmovi",
+"cmd_words": 4
+},
+"0x111a1": {
+"call": "wfm_cmovs",
+"sym": "gl_d_wfm_cmovs",
+"cmd_words": 3
+},
+"0x111a2": {
+"call": "wfm_cmov2s",
+"sym": "gl_d_wfm_cmov2s",
+"cmd_words": 2
+},
+"0x111a3": {
+"call": "wfm_charstr",
+"sym": "gl_d_wfm_charstr",
+"cmd_words": null
+},
+"0x111a4": {
+"call": "wfm_skipspace",
+"sym": "gl_d_wfm_skipspace",
+"cmd_words": 2
+},
+"0x111a5": {
+"call": "wfm_strwidth",
+"sym": "gl_d_wfm_strwidth",
+"cmd_words": null
+},
+"0x111a6": {
+"call": "wfm_freefont",
+"sym": "gl_d_wfm_freefont",
+"cmd_words": 2
+},
+"0x111a7": {
+"call": "wfm_hint",
+"sym": "gl_d_wfm_hint",
+"cmd_words": 3
+},
+"0x111a8": {
+"call": "wfm_aacolor",
+"sym": "gl_d_wfm_aacolor",
+"cmd_words": 3
+},
+"0x111a9": {
+"call": "wfm_aacpack",
+"sym": "gl_d_wfm_aacpack",
+"cmd_words": 3
+},
+"0x111aa": {
+"call": "wfm_cpack",
+"sym": "gl_d_wfm_cpack",
+"cmd_words": 2
+},
+"0x111ab": {
+"call": "wfm_getcoutline",
+"sym": "gl_d_wfm_getcoutline",
+"cmd_words": 5
+},
+"0x111ad": {
+"call": "wfm_getcbbox",
+"sym": "gl_d_wfm_getcbbox",
+"cmd_words": 2
+},
+"0x111ae": {
+"call": "wfm_outchar",
+"sym": "gl_d_wfm_outchar",
+"cmd_words": 2
+},
+"0x111af": {
+"call": "wfm_pos",
+"sym": "gl_d_wfm_pos",
+"cmd_words": 3
+},
+"0x111b0": {
+"call": "wfm_rpos",
+"sym": "gl_d_wfm_rpos",
+"cmd_words": 3
+},
+"0x111b1": {
+"call": "wfm_color",
+"sym": "gl_d_wfm_color",
+"cmd_words": 2
+},
+"0x111b2": {
+"call": "wfm_charstrn",
+"sym": "gl_d_wfm_charstrn",
+"cmd_words": 1
+},
+"0x111b3": {
+"call": "wfm_charstrl",
+"sym": "gl_d_wfm_charstrl",
+"cmd_words": null
+},
+"0x111b4": {
+"call": "wfm_strnwidth",
+"sym": "gl_d_wfm_strnwidth",
+"cmd_words": null
+},
+"0x111b5": {
+"call": "wfm_strbounds",
+"sym": "gl_d_wfm_strbounds",
+"cmd_words": null
+},
+"0x111b6": {
+"call": "wfm_strnbounds",
+"sym": "gl_d_wfm_strnbounds",
+"cmd_words": null
+},
+"0xffffffff": {
+"call": "v4d",
+"sym": "gl_d_v4d",
+"cmd_words": 1
+}
+}

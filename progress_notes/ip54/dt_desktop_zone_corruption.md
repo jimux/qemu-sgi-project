@@ -320,3 +320,33 @@ cause_ip5_count write from `=1` to accumulating `+=` (capped) made NO difference
 to the ratio, and the early-boot backlog it allowed drained in a burst →
 stack-overflow panic. So `=1` is retained. (A faster host or a JIT/KVM target
 would raise the ratio; the slip is acceptable for the desktop milestone.)
+
+---
+
+## 2026-06-17 — pvclock address ROTTED AGAIN; re-fixed + made robust (env override)
+
+The 2026-06-12 fix (`IP54PV_CAUSE_IP5_COUNT_PA = 0x0829EDC0`) had rotted: the golden
+`/unix.new` was rebuilt and `cause_ip5_count` MOVED. Authoritative `nm` of the actual booting
+kernel:
+- `/unix.new` (BOOTS): `cause_ip5_count` = VA **0x8829FEE0** → PA **0x0829FEE0**
+- `/unix` (does NOT boot; the non-PV kernel): 0x882C4950   ← source of symbol-JSON confusion
+- QEMU hardcode was still 0x0829EDC0 → QEMU wild-wrote `1` at 100Hz to PA 0x0829EDC0 (0x1120
+  below the real symbol), clobbering a kernel variable → the post-login desktop session crashed
+  and never painted (greeter froze / bare blue / 4Dwm "I/O error" / userspace coredumps).
+
+Symptom seen this round (telnet-driven, reliable): after X login the `.dt` session started
+(serial `Soundscheme`) but the desktop never rendered — only the bare blue root + cursor; many
+X clients (xdpyinfo/xclock/4Dwm/eventmond) coredumped with SIGBUS at unaligned addrs.
+
+FIX (qemu-sgi-repo/hw/mips/sgi_ip54pv.c):
+- default `IP54PV_CAUSE_IP5_COUNT_PA` → **0x0829FEE0** (current golden /unix.new).
+- ROBUSTNESS: added `ip54pv_resolve_cause_pa()` — reads env **`IP54_CAUSE_IP5_COUNT_PA`** (the
+  launch harness can derive it via `nm /unix.new` and pass it, so a kernel rebuild no longer needs
+  a QEMU recompile), logs the chosen PA to stderr. PVClockState gained a `cause_pa` field.
+  Rebuilt build-linux.
+
+VERIFIED: after the fix, the real xdm `.dt` login brings up the **4Dwm Toolchest** (Desktop/
+Selected/Internet/Find/System/Help) and it stays stable across the full ~145s monitor window
+(framebuffers/_dd_1_s06.png) — previously froze at the greeter and corrupted. Session-not-painting
+RESOLVED at the WM/Toolchest level. (Remaining: granite-weave background + desktop icons not yet
+painting — likely fm; under inspection. And re-derive the env var per-launch to end the rot.)
