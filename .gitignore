@@ -28,6 +28,7 @@ pyirix/
 ip32prom-decompiler/
 mipspro-nag-suppress/
 irix-655/
+irix-ip54/
 
 # Ghidra and analysis state
 ghidra_projects/
@@ -50,3 +51,28 @@ ip54_tftp_staging/khdrs/
 core
 *.webp
 *.zip
+# Archive of one-off debug/probe scripts (kept on disk for reference, not in history)
+/archive/
+
+# Build artifacts / scratch
+*.pyc
+__pycache__/
+.DS_Store
+*.ppm
+*.png
+*.log
+/_*.png
+/_*.ppm
+/_*.log
+/_*.py        # Underscore-prefixed scratch scripts
+/tmp/
+
+# Migration scratch
+/qemu-irix/
+/cleanagent/
+/.venv-glremote/
+
+# Local fast paths / scratch
+/_apdump.gdb
+/_d.txt
+/_*.txt

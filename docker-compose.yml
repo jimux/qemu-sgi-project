@@ -1,0 +1,15 @@
+services:
+  dev:
+    build: .
+    group_add:
+      - "0"  # root group — matches Docker socket owner on Linux/macOS
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+      - XAUTHORITY=/home/dev/.Xauthority
+    volumes:
+      - .:/workspace
+      - ~/.claude:/home/dev/.claude
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw  # X11 socket for QEMU -display gtk on host
+      - ${XAUTHORITY:-${HOME}/.Xauthority}:/home/dev/.Xauthority:ro  # X authorization
+    network_mode: host  # share host network (X via :0 + slirp telnet hostfwd on localhost)

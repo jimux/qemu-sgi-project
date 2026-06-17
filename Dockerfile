@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
         bash bc bison bzip2 ca-certificates ccache curl findutils flex tini \
         gcc g++ git libc6-dev libfdt-dev libffi-dev libglib2.0-dev \
-        libpixman-1-dev locales make meson ninja-build pkgconf \
+        libpixman-1-dev libslirp-dev libcap-ng-dev libseccomp-dev libgtk-3-dev libsdl2-dev locales make meson ninja-build pkgconf \
         python3 python3-venv python3-pip sed tar sudo \
         xz-utils texinfo libgmp-dev libmpfr-dev libmpc-dev zlib1g-dev \
         gnupg gdb gdb-multiarch \
@@ -104,7 +104,14 @@ RUN install -m 0755 -d /etc/apt/keyrings \
 
 # ── Python packages (system python, for tools that run outside conda) ──
 RUN pip3 install --no-cache-dir --break-system-packages \
-        capstone>=5.0.0 mcp>=1.0.0
+        capstone>=5.0.0 mcp>=1.0.0 "meson>=1.5"
+
+# ── Host graphics: Xvfb (remote X for the DGL capture) + OSMesa (renderer backend) ──
+# Used by sgi_glremote (the IRIS GL host renderer) and the live DGL capture: guest IRIS GL
+# apps render against Xvfb (X side) + the DGL host server (GL side) via slirp guestfwd.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        xvfb xauth libosmesa6 libosmesa6-dev libgl1-mesa-dri mesa-utils \
+    && rm -rf /var/lib/apt/lists/*
 
 # ── Claude Code CLI ──
 RUN npm install -g @anthropic-ai/claude-code

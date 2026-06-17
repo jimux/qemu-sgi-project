@@ -55,13 +55,33 @@ library_scan / library_search / library_stage            # External software lib
 log_grep / log_context / log_uniq / log_range            # Log file tools
 ```
 
-### Manual Build (only if MCP is unavailable)
+### Manual Build / Direct Invocation (native, no Docker)
+
+This project now runs **directly on Ubuntu** (no Docker layer — that was a Mac→Linux bridge,
+no longer needed on the dedicated workstation). Build deps live on the host: `libslirp-dev
+libcap-ng-dev libseccomp-dev libgtk-3-dev libsdl2-dev libpixman-1-dev libfdt-dev libffi-dev
+libglib2.0-dev meson(>=1.5; via pip if apt's is too old) ninja-build pkgconf`.
 
 ```bash
-cd qemu && mkdir -p build && cd build
-../configure --target-list=mips64-softmmu --disable-fuse --disable-fuse-lseek
-ninja -j4
+# Build QEMU once (or after any qemu-sgi-repo/ source change):
+cd qemu-sgi-repo && rm -rf build-linux && mkdir build-linux && cd build-linux
+../configure --target-list=mips64-softmmu --disable-fuse --disable-fuse-lseek \
+             --enable-slirp --enable-gtk
+ninja -j$(nproc) qemu-system-mips64
+
+# Run with a real interactive window on the host X server (this machine is dedicated —
+# do NOT use -display none or background-hiding tricks):
+./qemu-sgi-repo/build-linux/qemu-system-mips64 -M sgi-ip54 \
+  -bios PROM_library/bins/cpu/ip54/ip54.bin -m 256M \
+  -L qemu-sgi-repo/build-linux/pc-bios -display gtk \
+  -drive if=mtd,file=vm_instances/ip54-test/disk.qcow2,format=qcow2,cache=writeback,file.locking=off \
+  -nic user,tftp=ip54_tftp_staging,hostfwd=tcp::2324-10.0.2.15:23 \
+  -audiodev pa,id=aud0 -global sgi-pvaudio.audiodev=aud0
 ```
+
+The MCP tools listed above still work — they wrap QEMU invocations and run the same way
+natively (no `docker exec` prefix). For interactive feedback prefer the GTK window; for
+scripted/CI use the existing `newport_screendump` + telnet workflow with `-display none`.
 
 ## Repository Structure
 
