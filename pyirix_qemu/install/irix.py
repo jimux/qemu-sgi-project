@@ -293,28 +293,33 @@ def apply_xdm_fixes(q):
     """
     ok = True
 
-    # Fix 1: Write complete xdm-config unconditionally.
-    # xdm-config is delivered empty by x_eoe.sw; the sysadmdesktop exitop
-    # that would populate it (configClogin via EZsetup first-boot wizard)
-    # never runs in the miniroot environment.  sed on an empty file produces
-    # empty output with exit code 0 — the old approach silently did nothing.
-    # Write the three required lines directly with sequential echo commands
-    # (no heredoc — heredocs caused serial hangs in testing):
-    #   loginProgram  → routes xdm to Xlogin, which invokes clogin
-    #   grabServer    → prevents xdm blocking on XGrabServer() in emulator
-    #   authorize     → allows clogin to connect to Xsgi (XAUTHORITY path
-    #                   mismatch causes "client rejected" without this)
+    # Fix 1: APPEND three clogin-integration directives to xdm-config.
+    #
+    # x_eoe.sw ships a complete 2619-byte xdm-config (verified by extracting
+    # x_eoe.sw via pyirix.dist.archive and parsing the .idb). It contains
+    # the critical `DisplayManager.servers: /var/X11/xdm/Xservers` directive
+    # plus per-display `startup` and `session` paths. WITHOUT THAT,
+    # xdm doesn't know about Xservers (no -solidroot arg → black/white
+    # dither root window) and doesn't run Xsession (no 4Dwm / toolchest
+    # spawn → bare xterm).
+    #
+    # An earlier diagnosis here was wrong about xdm-config "arriving empty";
+    # that's not the case. So we APPEND (>>) rather than overwrite. The
+    # three lines we add are:
+    #   _0.loginProgram → routes xdm to Xlogin → invokes clogin
+    #   grabServer:False → prevents xdm blocking on XGrabServer() in QEMU
+    #   _0.authorize:false → XAUTHORITY-path mismatch fix for clogin/Xsgi
     xdm_cfg = "/var/X11/xdm/xdm-config"
-    q.send(f"echo 'DisplayManager._0.loginProgram:    /var/X11/xdm/Xlogin' > {xdm_cfg}\r")
+    q.send(f"echo 'DisplayManager._0.loginProgram:    /var/X11/xdm/Xlogin' >> {xdm_cfg}\r")
     q.wait_for(r"#", timeout=5, max_wait=10)
     q.send(f"echo 'DisplayManager.grabServer:      False' >> {xdm_cfg}\r")
     q.wait_for(r"#", timeout=5, max_wait=10)
     q.send(f"echo 'DisplayManager._0.authorize: false' >> {xdm_cfg} && echo XDM_FIX_OK\r")
     result = q.wait_for(r"XDM_FIX_OK|#", timeout=5, max_wait=10)
     if "XDM_FIX_OK" in result.output:
-        log("  Written xdm-config (loginProgram + grabServer + authorize)")
+        log("  Appended clogin directives to xdm-config")
     else:
-        log("  Warning: xdm-config write may not have applied")
+        log("  Warning: xdm-config append may not have applied")
         ok = False
 
     # Fix 3: Ensure visuallogin and windowsystem chkconfig flags are on.
