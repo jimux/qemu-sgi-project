@@ -1,0 +1,136 @@
+# IRIX Appliance Container — Multi-stage build
+#
+# Stage 1 (builder):  Compile QEMU for mips64-softmmu
+# Stage 2 (runtime):  Minimal runtime with PROM, scripts, and dispatcher symlinks
+# Stage 3 (desktop):  Runtime + baked-in IRIX disk image (self-contained)
+#
+# Build targets:
+#   docker build -f sgi-docker/docker/Dockerfile.irix -t irix .
+#   docker build -f sgi-docker/docker/Dockerfile.irix --target desktop \
+#     --build-arg DISK_IMAGE=irix_disk.qcow2 -t irix-desktop .
+
+# ── Stage 1: Build QEMU ──────────────────────────────────────────────────────
+
+FROM ubuntu:24.04 AS builder
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        bash bison flex gcc g++ git libc6-dev libfdt-dev libglib2.0-dev \
+        libpixman-1-dev libslirp-dev make meson ninja-build pkgconf \
+        python3 python3-venv zlib1g-dev ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY qemu/ /src/qemu/
+
+RUN mkdir -p /src/qemu/build && cd /src/qemu/build \
+    && ../configure \
+        --target-list=mips64-softmmu \
+        --disable-fuse \
+        --disable-fuse-lseek \
+        --disable-docs \
+        --disable-gtk \
+        --disable-sdl \
+        --disable-opengl \
+        --enable-slirp \
+        --prefix=/opt/qemu \
+    && ninja -j$(nproc) \
+    && ninja install
+
+# ── Stage 2: Runtime appliance ────────────────────────────────────────────────
+
+FROM ubuntu:24.04 AS runtime
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+ENV IRIX_RAM=64 \
+    IRIX_MACHINE=indy \
+    IRIX_BOOT_TIMEOUT=300
+
+EXPOSE 5900
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        libglib2.0-0 libpixman-1-0 libfdt1 libslirp0 \
+        socat procps busybox \
+    && rm -rf /var/lib/apt/lists/*
+
+# QEMU from builder
+COPY --from=builder /opt/qemu/ /opt/qemu/
+
+# Hidden Linux tools — NOT on $PATH
+# These are used exclusively by entrypoint.sh and dispatcher.sh via absolute paths.
+RUN mkdir -p /opt/linux/bin \
+    && cp /usr/bin/socat /opt/linux/bin/socat \
+    && cp /bin/busybox /opt/linux/bin/busybox \
+    && for cmd in sh cat echo sleep grep test timeout basename mktemp printf \
+                  kill wc dd rm date seq tr mkdir stat head tail tee; do \
+        ln -s busybox /opt/linux/bin/$cmd; \
+    done
+
+# PROM image
+COPY PROM_library/bins/cpu/ip24/Indy_ip24prom.070-9101-011.bin /opt/irix/prom.bin
+
+# Scripts
+COPY sgi-docker/docker/entrypoint.sh /opt/irix/entrypoint.sh
+COPY sgi-docker/docker/dispatcher.sh /opt/irix/dispatcher.sh
+COPY sgi-docker/docker/healthcheck.sh /opt/irix/healthcheck.sh
+RUN chmod +x /opt/irix/entrypoint.sh /opt/irix/dispatcher.sh /opt/irix/healthcheck.sh
+
+# Create state directory
+RUN mkdir -p /var/run/irix
+
+# Install dispatcher as irix-dispatch, with symlinks for sh, bash, and common commands.
+# These intercept all `docker exec` invocations and route them to IRIX.
+RUN cp /opt/irix/dispatcher.sh /usr/local/bin/irix-dispatch \
+    && for cmd in bash sh \
+        ls cat cp mv rm mkdir rmdir chmod chown ln \
+        ps kill uname hostname date who id env \
+        df du mount umount \
+        head tail grep find awk sed tr wc sort cut uniq tee \
+        vi more less \
+        ifconfig ping netstat route \
+        login csh ksh \
+        hinv versions chkconfig swap \
+        file strings od \
+        tar gzip gunzip compress uncompress \
+        make cc ld ar nm strip \
+        man \
+        wait status logs serial; do \
+        ln -sf /usr/local/bin/irix-dispatch /usr/local/bin/$cmd; \
+    done
+
+# Data volume for disk.qcow2 and nvram.bin
+VOLUME /data
+
+# Health check — start-period allows cold boot time
+HEALTHCHECK --interval=10s --timeout=5s --start-period=120s --retries=3 \
+    CMD ["/opt/irix/healthcheck.sh"]
+
+ENTRYPOINT ["/opt/irix/entrypoint.sh"]
+
+# ── Stage 3: Desktop appliance (baked-in IRIX disk) ──────────────────────────
+#
+# Self-contained image with an IRIX installation. No volume mount needed.
+# The disk goes to /opt/irix/ (not /data/) because VOLUME /data makes
+# writes to /data/ ephemeral during build.
+#
+# Build:
+#   docker build --target desktop --build-arg DISK_IMAGE=irix_disk.qcow2 \
+#     -f sgi-docker/docker/Dockerfile.irix -t irix-desktop .
+#
+# Run:
+#   docker run -d --name irix -p 5900:5900 irix-desktop
+
+FROM runtime AS desktop
+
+ARG DISK_IMAGE=irix_disk.qcow2
+COPY ${DISK_IMAGE} /opt/irix/disk.qcow2
+
+# VNC, 256MB RAM, and snapshot restore on by default for desktop use
+ENV IRIX_VNC=1 \
+    IRIX_RAM=256 \
+    IRIX_SNAPSHOT=irix65_desktop
+
+# ── Default target: base appliance (mount your own disk at /data/) ────────────
+
+FROM runtime

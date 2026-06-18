@@ -1,0 +1,19 @@
+services:
+  irix:
+    build:
+      context: ../..
+      dockerfile: sgi-docker/docker/Dockerfile.irix
+    container_name: irix
+    volumes:
+      - ./data:/data
+    ports:
+      - "5900:5900"
+    environment:
+      - IRIX_RAM=64
+      - IRIX_VNC=1
+      - IRIX_VNC_PORT=0
+      # - IRIX_MACHINE=indy
+      # - IRIX_SNAPSHOT=irix65_booted
+      # - IRIX_BOOT_TIMEOUT=300
+      # - IRIX_EXTRA_ARGS=
+    restart: unless-stopped

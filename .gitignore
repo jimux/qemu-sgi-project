@@ -129,3 +129,16 @@ ip54_tftp_staging/devhdrs.tar
 # Last bits — staging compiled kernel + patched .o
 ip54_tftp_staging/unix.new
 ip54_tftp_staging/pvfb.o.fixed
+
+# Top-level binary artifacts (regeneratable / on-disk caches)
+xsgi.bin
+xsgi
+unix.IP32
+_tri.rgba
+sgi_indy_nvram.bin
+
+# Ghidra workspaces, JDK
+tools/
+
+# Large nested project — TODO promote to its own submodule like irix-ip54
+prom-building/
