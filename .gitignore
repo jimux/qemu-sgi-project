@@ -140,8 +140,6 @@ sgi_indy_nvram.bin
 # Ghidra workspaces, JDK
 tools/
 
-# Large nested project — TODO promote to its own submodule like irix-ip54
-prom-building/
 
 # Underscore-prefixed scratch (scripts, dirs, captures)
 /_*

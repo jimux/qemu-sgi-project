@@ -4,3 +4,6 @@
 [submodule "qemu-sgi-repo"]
 	path = qemu-sgi-repo
 	url = ./qemu-sgi-repo
+[submodule "prom-building"]
+	path = prom-building
+	url = ./prom-building
