@@ -142,3 +142,72 @@ tools/
 
 # Large nested project — TODO promote to its own submodule like irix-ip54
 prom-building/
+
+# Underscore-prefixed scratch (scripts, dirs, captures)
+/_*
+# Except a few we want to keep available — none for now
+
+# IDE
+.idea/
+
+# .dockerignore (today's scratch)
+.dockerignore
+
+# Captures + extracted binaries
+framebuffers/
+dgld.elf
+dgld_symbols.json
+
+# 3rd-party emulators / docs (huge / reference only)
+gxemul-0.7.0/
+gathered_documentation/
+
+# Docker scratch
+docker/
+exec-in.sh
+
+# Ghidra scripts (todo: promote to pyirix.debug or a tools/ submodule)
+ghidra_xsgi_scripts/
+
+# IP54 kernel-symbol JSONs are regeneratable from /unix.new via pyirix.debug.syms
+# (and they DRIFT — committing them risks stale data; see memory: kernel_symbol_drift)
+ip54_kernel_symbols*.json
+ip54_elfhdr*.bin
+ip54_elfhdr*_raw.bin
+ip54_kernel/
+
+# Other root scratch
+_*.bin
+*.cache
+
+# Record/replay artifacts
+ip54_rr*.bin
+ip54_watchrep.bin
+
+# Smoke test logs
+ip54_smoke_*.txt
+ip54_smoke_*.log
+
+# Extracted ELFs + per-binary analysis JSONs (regeneratable via pyirix.debug.syms etc.)
+irix_unix.elf
+libaudio.bin
+libaudio_symbols.json
+libgl.bin
+libgl_*.json
+libxsgivc.bin
+libxsgivc_symbols.json
+
+# Audio captures
+pvaudio_out.wav
+
+# Old logs collection
+old_logs/
+
+# Other IRIX scratch dirs
+irix/
+irix_kernel_patch/
+irix_tests/
+minimal.B
+
+# qemu symlink (regenerated from qemu-sgi-repo submodule)
+qemu
