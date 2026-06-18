@@ -74,3 +74,58 @@ __pycache__/
 /_apdump.gdb
 /_d.txt
 /_*.txt
+
+# Per-machine Claude settings (not portable)
+.claude/settings.local.json
+.dockerignore.local
+
+# ip54_tftp_staging: compiled binaries are regeneratable (sources are tracked)
+ip54_tftp_staging/coverwin
+ip54_tftp_staging/cpos
+ip54_tftp_staging/dgld_proxy
+ip54_tftp_staging/dgld_shim
+ip54_tftp_staging/dgld_sniff
+ip54_tftp_staging/fbtest
+ip54_tftp_staging/findmajor
+ip54_tftp_staging/gfxtest
+ip54_tftp_staging/glscene
+ip54_tftp_staging/gltri
+ip54_tftp_staging/mousematrix
+ip54_tftp_staging/mouseprobe
+ip54_tftp_staging/mouseread
+ip54_tftp_staging/winmove
+ip54_tftp_staging/IP54.o.patched
+ip54_tftp_staging/kernel.o
+ip54_tftp_staging/unix
+ip54_tftp_staging/unix.new.ip54
+ip54_tftp_staging/userIcon
+ip54_tftp_staging/var/
+
+# Top-level scratch / capture artifacts
+SGI L1-L2 bin files.tar.gz
+_build_decompiler.sh
+_ghidra_decomp*.sh
+_decomp_test.json
+_dgl_capture.bin
+_dgld_handshake.json
+_dgld_winopen_gp.json
+
+# Root scratch (sym dumps, patched binaries — regeneratable from sources)
+xsgi.patched
+xsgi.patched2
+xsgi_symbols.json
+xsgi_callgraph.json
+_xsgi_*.json
+PROM_library/
+
+# Staging IRIX userland binaries (from SGI install media — not tracked)
+ip54_tftp_staging/lib*.so*
+ip54_tftp_staging/libaudio*.so*
+ip54_tftp_staging/libfm.so
+ip54_tftp_staging/libcl.so*
+ip54_tftp_staging/libdmedia.so*
+ip54_tftp_staging/devhdrs.tar
+
+# Last bits — staging compiled kernel + patched .o
+ip54_tftp_staging/unix.new
+ip54_tftp_staging/pvfb.o.fixed

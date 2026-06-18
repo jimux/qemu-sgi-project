@@ -1,0 +1,12 @@
+DisplayManager.errorLogFile:	/var/X11/xdm/xdm-errors
+DisplayManager.pidFile:		/var/X11/xdm/xdm-pid
+DisplayManager.keyFile:		/var/X11/xdm/xdm-keys
+DisplayManager.servers:		/var/X11/xdm/Xservers
+DisplayManager._0.authorize:	false
+DisplayManager._0.setup:	/var/X11/xdm/Xsetup_0
+DisplayManager._0.startup:	/var/X11/xdm/GiveConsole
+DisplayManager._0.reset:	/var/X11/xdm/TakeConsole
+DisplayManager._0.loginProgram:	/var/X11/xdm/Xlogin
+DisplayManager._0.session:	/var/X11/xdm/Xsession
+DisplayManager.grabServer:	False
+DisplayManager.grabTimeout:	3

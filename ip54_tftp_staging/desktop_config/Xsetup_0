@@ -1,0 +1,3 @@
+#!/bin/sh
+# Disable X autorepeat (emulator has no real keyboard interrupt)
+xset r off

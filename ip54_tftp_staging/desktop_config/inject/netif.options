@@ -1,0 +1,4 @@
+# IP54 paravirtual: primary interface is pvnet0 on QEMU SLIRP.
+# Static address matches the SLIRP user-net default guest address.
+if1name=pvnet0
+if1addr=10.0.2.15
