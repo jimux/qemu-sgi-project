@@ -3330,7 +3330,8 @@ def install_irix(version, disk_path=None, verify_only=False, instance=None,
 
 def install_addon(base_disk, addon_image, output_disk=None, addon_name="addon",
                    machine="indy", snapshot_name=None, ram_mb=256,
-                   addon_dirs=None, extra_args=None):
+                   addon_dirs=None, extra_args=None,
+                   install_selectors=None):
     """Install additional packages onto an existing IRIX disk.
 
     If output_disk is provided, copies base_disk to output_disk first.
@@ -3542,17 +3543,40 @@ def install_addon(base_disk, addon_image, output_disk=None, addon_name="addon",
             q.send("\r")
             _wait_for_inst_prompt(q, timeout=5, max_wait=60)
 
-        # Select all packages, then deselect EOE packages that are already
-        # installed as part of the base OS.  Without this, inst tries to
-        # replace system binaries (including inst itself) while running from
-        # the installed disk, which corrupts files to null bytes.
-        q.send("install default\r")
-        _wait_for_inst_prompt(q, timeout=5, max_wait=60)
-        for keep_pat in ["*_eoe*", "*_eoe_*", "inst_dev*"]:
-            q.send(f"keep {keep_pat}\r")
-            _wait_for_inst_prompt(q, timeout=5, max_wait=30)
-        q.send("install prereqs\r")
-        _wait_for_inst_prompt(q, timeout=5, max_wait=60)
+        # Select packages. Two paths:
+        #   install_selectors=None (default) — legacy "install default +
+        #   keep *_eoe + install prereqs" pattern.
+        #   install_selectors=[...]         — target specific packages.
+        #
+        # CRITICAL: use inst's `replace` (not `install`) for the targeted
+        # case. `install <pkg>` is a no-op when /var/inst/<pkg> already
+        # exists in the package database — and on this addon-boot it
+        # WILL exist for many packages that the base install registered
+        # but never actually extracted files for (the silent-deselect
+        # artifact of the legacy install_level cascade). `replace`
+        # forces a reinstall: removes the package's tracked files,
+        # extracts the new copies from the open dists.
+        if install_selectors:
+            q.send("keep *\r")
+            _wait_for_inst_prompt(q, timeout=5, max_wait=60)
+            for sel in install_selectors:
+                # Try install first (handles never-installed packages),
+                # then replace (handles already-registered packages).
+                # The two combined cover both states.
+                q.send(f"install {sel}\r")
+                _wait_for_inst_prompt(q, timeout=5, max_wait=60)
+                q.send(f"replace {sel}\r")
+                _wait_for_inst_prompt(q, timeout=5, max_wait=60)
+            q.send("install prereqs\r")
+            _wait_for_inst_prompt(q, timeout=5, max_wait=60)
+        else:
+            q.send("install default\r")
+            _wait_for_inst_prompt(q, timeout=5, max_wait=60)
+            for keep_pat in ["*_eoe*", "*_eoe_*", "inst_dev*"]:
+                q.send(f"keep {keep_pat}\r")
+                _wait_for_inst_prompt(q, timeout=5, max_wait=30)
+            q.send("install prereqs\r")
+            _wait_for_inst_prompt(q, timeout=5, max_wait=60)
 
         # Resolve conflicts — use "1b" (install prerequisite) for addons,
         # since we want to keep the new packages and pull in dependencies.

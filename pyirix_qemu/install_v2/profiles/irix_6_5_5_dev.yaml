@@ -1,0 +1,115 @@
+# IRIX 6.5.5 — full developer workstation profile.
+#
+# Target: a complete IRIX install with the Indigo Magic Desktop, MIPSpro
+# 7.2.1, development headers/libs, networking daemons, demos. This is the
+# baseline our QEMU sgi-ip54 work depends on.
+#
+# Profile passes if `completeness/manifest_6_5_5.yaml` reports COMPLETE
+# against the finished disk.
+
+name: irix_6_5_5_dev
+version: "6.5.5"
+description: Full IRIX 6.5.5 developer workstation (desktop + MIPSpro + dev tools)
+
+# ── VM shape ────────────────────────────────────────────────────────────
+machine: indy
+ram_mb: 256
+disk_size_mb: 4096        # 4GB — fits full install with headroom
+fs_type: xfs
+
+# ── Install media ───────────────────────────────────────────────────────
+# Resolved by the existing catalog/images.py against software_library/.
+# Order is install precedence; first match wins. Combined image is the
+# default (one EFS image with all dist/ trees layered); raw CDs are listed
+# as the fallback when the combined image isn't available.
+media:
+  combined:
+    image: "prepackaged_combo_discs/IRIX_6.5.5_full_with_MIPSpro_and_demos_patched.img"
+
+  # Fallback path if combined isn't found. Boot CD must be first
+  # (sashARCS + miniroot live on this one).
+  cdroms:
+    - name: boot
+      image: "irix_6.5.5_images/IRIX 6.5.5 Installation Tools and Overlays (1 of 2) - 812-0818-005.efs.img"
+    - name: foundation1
+      image: "IRIX 6.5 Foundation 1.img"
+    - name: foundation2
+      image: "IRIX 6.5 Foundation 2.img"
+    - name: overlays2
+      image: "irix_6.5.5_images/IRIX 6.5.5 Overlays (2 of 2) - 812-0819-005.efs.img"
+    - name: apps
+      image: "IRIX 6.5 Applications August 1999 - 812-0877-004.efs.img"
+    - name: nfs
+      image: "ONC3 NFS Version 3 for IRIX 6.2, 6.3, 6.4, and 6.5 - 812-0774-002.efs.img"
+
+# ── Disk layout ─────────────────────────────────────────────────────────
+# Single root XFS partition is fine for our use — no /usr split.
+partitioning:
+  scheme: single_root
+  swap_mb: 256
+
+# ── Package selection ───────────────────────────────────────────────────
+# Each entry is an `inst` selector. They run in order; later entries can
+# override earlier ones. The selector grammar:
+#   keep <expr>     — leave packages alone (no change)
+#   install <expr>  — request install
+#   remove <expr>   — request removal
+# `expr` may be a package name, a wildcard, or one of inst's presets:
+# `standard`, `default`, `all`, `recommended`, `prereqs`.
+#
+# Selector order matters: start broad (`install standard` for the SGI
+# baseline) then narrow with explicit `install <pkg>.*` for the
+# subsystems the audit said are missing.
+select:
+  - keep *               # start from the baseline (nothing changed)
+
+  # SGI's "Standard" preset — base OS + desktop + dev tools.  This is
+  # what shipping IRIX defaults to.
+  - install standard
+
+  # Then pull in prerequisites for anything we've selected.
+  - install prereqs
+
+  # Now the targeted additions identified by the completeness audit.
+  - install desktop_eoe.*       # 4Dwm, toolchest, FTRlib, iconlib, faces
+  - install sysadmdesktop.*     # clogin, Cadmin
+  - install 4Dwm.*              # the window manager itself
+  - install x_eoe.*             # full X11
+  - install dev.*               # crt1.o, stdio.h, basic dev runtime
+  - install motif_eoe motif_dev # Motif runtime AND dev headers
+  - install gl_dev              # IRIS GL dev headers (libgl runtime is in eoe)
+  - install x_dev               # X11 dev headers
+  - install c_dev c_fe c_solo   # MIPSpro C front-end + runtime
+  - install c++_eoe c++_dev     # C++ runtime + dev
+  - install compiler_eoe        # MIPSpro
+  - install ProDev.*            # ProDev WorkShop (cvd, etc.)
+  - install demos.*             # demo programs (Indigo Magic demo apps)
+  - install nfs.*               # NFS client+server
+  - install netman.*            # in.telnetd, in.ftpd, tftpd
+
+# ── Conflict policy ─────────────────────────────────────────────────────
+# Which conflict policy YAML to apply when inst pauses with a conflicts
+# list. See policies/default_conflicts.yaml.
+conflict_policy: default
+
+# ── Verification ────────────────────────────────────────────────────────
+# Manifest the orchestrator checks at the end of verify phase. INCOMPLETE
+# = install failed.
+manifest: completeness/manifest_6_5_5.yaml
+
+# ── Post-install commands ───────────────────────────────────────────────
+# Run inside the `inst` shell escape *before* the final `quit`. Useful for
+# sanity checks the orchestrator will compare against the manifest later.
+post_inst_sh:
+  - "echo === /usr/local/lib/faces ==="
+  - "ls /usr/local/lib/faces 2>/dev/null || echo MISSING_FACES"
+  - "echo === /usr/lib/X11/iconlib ==="
+  - "ls /usr/lib/X11/iconlib 2>/dev/null || echo MISSING_ICONLIB"
+  - "echo === /usr/sbin/4Dwm ==="
+  - "ls -l /usr/sbin/4Dwm 2>/dev/null || echo MISSING_4DWM"
+  - "echo === /usr/include/Xm/Xm.h ==="
+  - "ls -l /usr/include/Xm/Xm.h 2>/dev/null || echo MISSING_MOTIF_DEV"
+
+# ── Output ──────────────────────────────────────────────────────────────
+output_disk: "prebuilt_disks/irix-6.5.5-complete.qcow2"
+snapshot_after_install: irix655_complete

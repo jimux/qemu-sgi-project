@@ -32,6 +32,18 @@ irix-655/
 ghidra_projects/
 *.log
 
+# install_v2 runtime artifacts (logs + per-run state)
+install_logs/
+*.transcript.log
+*.serial.log
+# Backup copies of disk images (qcow2.prev, qcow2.before_*, qcow2.pre_*)
+prebuilt_disks/*.prev
+prebuilt_disks/*.before_*
+prebuilt_disks/*.pre_*
+vm_instances/*/*.prev
+vm_instances/*/*.before_*
+vm_instances/*/*.pre_*
+
 # macOS
 .DS_Store
 

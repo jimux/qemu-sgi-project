@@ -1,0 +1,38 @@
+# IRIX 6.5.5 — minimal base OS only.  Useful as a small baseline for
+# experiments / sanity tests; NOT enough for the qemu-sgi kernel rebuild
+# flow.
+
+name: irix_6_5_5_minimal
+version: "6.5.5"
+description: Minimal IRIX 6.5.5 — base OS, no desktop, no compilers
+
+machine: indy
+ram_mb: 128
+disk_size_mb: 1024
+fs_type: xfs
+
+media:
+  combined:
+    image: "prepackaged_combo_discs/IRIX_6.5.5_full_with_MIPSpro_and_demos_patched.img"
+  cdroms:
+    - name: boot
+      image: "irix_6.5.5_images/IRIX 6.5.5 Installation Tools and Overlays (1 of 2) - 812-0818-005.efs.img"
+    - name: foundation1
+      image: "IRIX 6.5 Foundation 1.img"
+
+partitioning:
+  scheme: single_root
+  swap_mb: 64
+
+select:
+  - keep *
+  - install eoe.sw.base
+  - install eoe.sw.terminal
+  - install eoe.sw.cdrom
+  - install netman.sw.client     # bring in basic networking
+  - install prereqs
+
+conflict_policy: default
+manifest: completeness/manifest_6_5_5_minimal.yaml   # not yet written
+output_disk: "prebuilt_disks/irix-6.5.5-minimal.qcow2"
+snapshot_after_install: irix655_minimal

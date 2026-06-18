@@ -1,0 +1,114 @@
+# What MUST exist on a complete IRIX 6.5.5 install with the dev profile.
+#
+# Each entry: { path: <abs path>, why: <reason>, kind?: file|dir|exec, optional?: bool }
+# Default kind is "file". Globs are allowed for paths.
+#
+# This manifest is the contract for "did the install succeed?" — if anything
+# under `must_exist:` is missing on a fresh boot, the install is INCOMPLETE
+# and the orchestrator fails the verify phase.
+
+version: "6.5.5"
+profile_match: ["irix_6_5_5_dev", "irix_6_5_5_complete"]
+
+must_exist:
+  # ── User-face icons (the original clogin/visual-login blocker) ───────────
+  - { path: "/usr/Cadmin/lib/cloginlib/cloginlogo.rgb", why: "clogin SGI logo" }
+  - { path: "/usr/local/lib/faces/root", why: "default root face for clogin",
+      kind: dir }
+  - { path: "/usr/local/lib/faces/guest", why: "default guest face",
+      kind: dir, optional: true }
+  - { path: "/usr/Cadmin/etc/cloginrc", why: "clogin configuration",
+      optional: true }
+
+  # ── Visual login + desktop ───────────────────────────────────────────────
+  # Paths corrected 2026-06-18 from disk inspection: 4Dwm + toolchest +
+  # X11 binaries all live under /usr/bin/X11/, not /usr/sbin/.
+  - { path: "/usr/Cadmin/bin/clogin", why: "Indigo Magic visual login",
+      kind: exec }
+  - { path: "/usr/bin/X11/4Dwm", why: "4Dwm window manager", kind: exec }
+  - { path: "/usr/bin/X11/toolchest", why: "desktop launcher", kind: exec }
+  - { path: "/usr/sbin/fm", why: "filemanager", kind: exec }
+  - { path: "/usr/lib/desktop/iconcatalog", why: "desktop icon catalog",
+      kind: dir }
+  - { path: "/usr/lib/filetype", why: "file-type rules library", kind: dir }
+
+  # ── X11 server + libraries ──────────────────────────────────────────────
+  - { path: "/usr/bin/X11/Xsgi", why: "SGI X server", kind: exec }
+  - { path: "/usr/bin/X11/xdm", why: "X display manager", kind: exec }
+  - { path: "/usr/lib/X11/iconlib", why: "default X11 icon library",
+      kind: dir }
+  - { path: "/usr/lib/X11/app-defaults", why: "X11 app-default resources",
+      kind: dir }
+  - { path: "/usr/lib/libX11.so", why: "X11 client lib" }
+  - { path: "/usr/lib/libXt.so", why: "Xt intrinsics" }
+
+  # ── Motif (runtime + dev) ───────────────────────────────────────────────
+  - { path: "/usr/lib/libXm.so", why: "Motif runtime" }
+  - { path: "/usr/include/Xm/Xm.h", why: "Motif dev headers" }
+
+  # ── IRIS GL + OpenGL (dev) ──────────────────────────────────────────────
+  - { path: "/usr/include/gl/gl.h", why: "IRIS GL dev headers" }
+  - { path: "/usr/include/GL/gl.h", why: "OpenGL dev headers" }
+  - { path: "/usr/lib/libgl.so", why: "IRIS GL runtime", optional: true }
+  - { path: "/usr/lib/libGL.so", why: "OpenGL runtime" }
+
+  # ── MIPSpro compiler suite (kernel rebuild requires it) ─────────────────
+  # Paths corrected 2026-06-18: MIPSpro lives entirely under
+  # /usr/cpu/sysgen/root/ on this dev-host install layout.
+  - { path: "/usr/cpu/sysgen/root/usr/bin/cc", why: "MIPSpro C compiler",
+      kind: exec }
+  - { path: "/usr/cpu/sysgen/root/usr/lib32/cmplrs/be",
+      why: "MIPSpro backend", kind: exec }
+  - { path: "/usr/cpu/sysgen/root/usr/lib32/cmplrs/fec",
+      why: "MIPSpro C frontend", kind: exec, optional: true }
+  - { path: "/usr/include/sys/types.h", why: "system headers" }
+  - { path: "/usr/include/stdio.h", why: "C stdio headers",
+      optional: true }  # ships only with dev.sw.headers
+  - { path: "/usr/lib32/mips3/crt1.o", why: "C runtime startup",
+      optional: true }   # ships only with c_dev.sw.c
+
+  # ── Kernel sysgen tree (required for lboot kernel rebuilds) ─────────────
+  - { path: "/var/sysgen/master.d", why: "device-driver descriptions",
+      kind: dir }
+  - { path: "/var/sysgen/system/irix.sm", why: "default kernel master config" }
+  - { path: "/var/sysgen/boot", why: "kernel object directory", kind: dir }
+  - { path: "/usr/sbin/lboot", why: "kernel link tool", kind: exec }
+
+  # ── Networking ──────────────────────────────────────────────────────────
+  # IRIX names these without the "in." prefix; corrected 2026-06-18.
+  - { path: "/usr/etc/inetd", why: "internet superserver", kind: exec }
+  - { path: "/usr/etc/telnetd", why: "telnet daemon", kind: exec }
+  - { path: "/usr/etc/ftpd", why: "ftp daemon", kind: exec }
+  - { path: "/usr/sbin/tftp", why: "tftp client", kind: exec, optional: true }
+  - { path: "/etc/inetd.conf", why: "inetd config" }
+  - { path: "/usr/etc/ifconfig", why: "interface config", kind: exec }
+
+  # ── Manpages (a complete install ships them) ────────────────────────────
+  - { path: "/usr/share/catman", why: "preformatted man pages",
+      kind: dir, optional: true }
+  - { path: "/usr/share/man", why: "man source", kind: dir }
+
+# Things that should be RUNNING after multi-user boot. Checked via
+# `irix_ps` against a booted guest.
+must_be_running:
+  - { name: "init", why: "process 1" }
+  - { name: "inetd", why: "service launcher" }
+  - { name: "syslogd", why: "system log" }
+  - { name: "xdm", why: "X display manager — required for clogin",
+      optional: true }
+  - { name: "fbs", why: "frame-buffer server", optional: true }
+
+# Counts and sanity checks beyond mere existence.
+sanity:
+  # /usr/local/lib/faces should have more than one entry (the bug we hit
+  # was an empty directory).
+  - { path: "/usr/local/lib/faces", min_entries: 1,
+      why: "at least one face icon must ship by default" }
+
+  # /usr/lib/X11/iconlib likewise.
+  - { path: "/usr/lib/X11/iconlib", min_entries: 10,
+      why: "X11 ships ≥10 default icons; an empty dir means a missing pkg" }
+
+  # The desktop icon catalog should have meaningful contents.
+  - { path: "/usr/lib/desktop/iconcatalog/C", min_entries: 5,
+      why: "Indigo Magic ships many cataloged icon types" }

@@ -1,0 +1,62 @@
+# Default conflict-resolution policy.
+#
+# `inst` pauses with prompts like:
+#
+#   Conflicts:
+#     1. eoe.sw.base from foundation requires motif_eoe.sw.base from foundation
+#        but motif_eoe.sw.base is not selected.
+#        a. Install motif_eoe.sw.base from foundation
+#        b. Do not install eoe.sw.base
+#
+# The old harness's strategy was: blindly choose option `1` for everything.
+# That cascaded into deselecting whole subsystems whenever the "1" choice
+# happened to be the "do not install" branch — that's how we ended up with
+# 47 packages skipped and no /usr/local/lib/faces.
+#
+# This policy resolves rule-by-rule, with explicit preferences and a safe
+# fallback. Rules are evaluated in order; first matching rule wins. The
+# `match` field is a regex applied to the conflict's option text (the
+# letter-prefixed lines like "a. Install motif_eoe.sw.base from foundation").
+#
+# Available actions:
+#   choose: <option-letter>      — pick a specific option
+#   choose_install               — pick the option whose text starts with "Install"
+#   choose_keep                  — pick the option that retains existing packages
+#   choose_higher_version        — pick the option naming the highest version
+#   choose_as_offered            — pick `inst`'s default (the "*"-marked option)
+#   refuse_drop                  — refuse to deselect; choose any non-drop option
+#   abort                        — fail the install loudly (don't auto-resolve)
+
+name: default
+
+rules:
+  # Cross-distribution prereq prompts: we want a complete install, so
+  # always accept "also install <X>" when offered.
+  - match: "(?i)also install"
+    choose: choose_install
+
+  # Overlay-vs-foundation prompts: prefer the overlay (it supersedes the
+  # foundation copy). This is the single biggest win over the legacy
+  # "choose 1" heuristic.
+  - match: "(?i)overlay|patch.*foundation|supersedes|newer version"
+    choose: choose_higher_version
+
+  # When inst proposes deselecting packages we already wanted, REFUSE.
+  # The legacy harness's cascade-of-deselections traces back to this case.
+  - match: "(?i)do not install|deselect|drop|remove from install"
+    choose: refuse_drop
+
+  # Standard / default / recommended branches — go with what SGI shipped.
+  - match: "(?i)standard|recommended|default"
+    choose: choose_as_offered
+
+  # Conflicts that ask us to choose between two foundation packages of
+  # equal version — accept the inst default (first option).
+  - match: "(?i)install .* from"
+    choose: choose_install
+
+# If no rule matches, fall through to this. `abort` here means: the
+# orchestrator stops, writes the unresolved conflict to a JSON file, and
+# the user inspects + adds a rule. Better an explicit pause than a silent
+# 47-packages-skipped.
+fallback: abort

@@ -142,12 +142,20 @@ class QEMUSession:
         return str(PROJECT_ROOT / "PROM_library" / "bins" / "cpu" / subdir / filename)
 
     def _build_cmd(self):
-        """Build QEMU command-line arguments."""
+        """Build QEMU command-line arguments.
+
+        $QEMU_DISPLAY overrides the -display flag: set "gtk" to get a
+        visible window on the host (the dedicated workstation prefers
+        this), or "none" for scripted/CI runs. Default is "none" to
+        preserve historical behavior.
+        """
+        import os
+        display = os.environ.get("QEMU_DISPLAY", "none")
         cmd = [
             QEMU_BIN, "-M", self.machine,
             "-m", f"{self.ram_mb}M",
             "-bios", self.prom,
-            "-display", "none",
+            "-display", display,
             "-chardev", f"socket,id=ser0,path={self._serial_path},server=on,wait=on",
             "-serial", "chardev:ser0",
             "-monitor", f"unix:{self._monitor_path},server,nowait",
