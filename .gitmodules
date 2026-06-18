@@ -1,9 +1,9 @@
 [submodule "irix-ip54"]
 	path = irix-ip54
-	url = ./irix-ip54
+	url = https://github.com/jimux/irix-ip54.git
 [submodule "qemu-sgi-repo"]
 	path = qemu-sgi-repo
-	url = ./qemu-sgi-repo
+	url = https://github.com/jimux/qemu-sgi.git
 [submodule "prom-building"]
 	path = prom-building
-	url = ./prom-building
+	url = https://github.com/jimux/prom-building.git
