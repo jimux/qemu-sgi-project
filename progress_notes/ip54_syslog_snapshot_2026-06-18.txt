@@ -1,0 +1,2381 @@
+Mar  1 15:23:36 6A: unix: IRIX Release 6.5 IP22 Version 07151439 System V
+Mar  1 15:23:36 2A: unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Mar  1 15:23:36 2A: unix: All Rights Reserved.
+Mar  1 15:23:36 2A: unix: 
+Mar  1 15:23:36 6A: unix: gfe1: missing
+Mar  1 15:23:36 6A: unix: gfe0: missing
+Mar  1 15:23:36 6A: unix: root on /hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/1/block ; <6>boot swap file on /dev/swap<6> swplo 57000<6>
+Mar  1 15:23:36 6A: unix: audio: AES receiver not responding.
+Mar  1 15:23:36 5A: unix: NOTICE: Start mounting filesystem: /
+Mar  1 15:23:36 5A: unix: NOTICE: Ending clean XFS mount for filesystem: /
+Mar  1 15:23:37 5A: unix: NOTICE: Start mounting filesystem: /root
+Mar  1 15:23:37 5A: unix: NOTICE: Ending clean XFS mount for filesystem: /root
+Mar  1 15:23:39 6A: unix: dksc0d4vol: <6>[Alert] Illegal request<6>: Illegal field in CDB (asc=0x24, asq=0x0)<6>  CDB:<6> 1a<6> 0<6> 0<6> 0<6> c<6> 0<6>
+Mar  1 15:29:00 3B: rld[1641]:  1641:/root/usr/etc/appletalk/kats: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:29:00 3B: rld[1640]:  1640:/root/usr/etc/appletalk/kats: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:29:00 3B: rld[1646]:  1646:/root/usr/etc/appletalk/kats: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:29:00 3B: rld[1645]:  1645:/root/usr/etc/appletalk/kats: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:29:00 3B: rld[1648]:  1648:/root/usr/etc/appletalk/kats: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:29:00 3B: rld[1647]:  1647:/root/usr/etc/appletalk/kats: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:29:00 3B: rld[1653]:  1653:/root/usr/etc/appletalk/kats: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:29:00 3B: rld[1655]:  1655:/root/usr/etc/appletalk/kats: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:29:00 3B: rld[1652]:  1652:/root/usr/etc/appletalk/kats: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:29:01 3B: rld[1667]:  1667:/root/usr/etc/appletalk/kats: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:29:01 3B: rld[1669]:  1669:/root/usr/etc/appletalk/kats: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:29:01 3B: rld[1671]:  1671:/root/usr/etc/appletalk/kats: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:29:01 3B: rld[1668]:  1668:/root/usr/etc/appletalk/dtrebuild: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:29:01 3B: rld[1673]:  1673:/root/usr/etc/appletalk/dtrebuild: rld: Fatal Error: Cannot Successfully Map soname 'librpcsvc.so' under any of the filenames /usr/lib/librpcsvc.so:/usr/lib/internal/librpcsvc.so:/lib/librpcsvc.so:/lib/cmplrs/cc/librpcsvc.so:/usr/lib/cmplrs/cc/librpcsvc.so:/opt/lib/librpcsvc.so:/usr/lib/librpcsvc.so.1:/usr/lib/internal/librpcsvc.so.1:/lib/librpcsvc.so.1:/lib/cmplrs/cc/librpcsvc.so.1:/usr/lib/cmplrs/cc/librpcsvc.so.1:/opt/lib/librpcsvc.so.1: 
+Mar  1 15:43:53 5E: lboot: Automatically reconfiguring the operating system
+Mar  1 15:43:57 5E: lboot: Reboot to start using the reconfigured kernel
+Mar  1 15:53:14 6F:IRIS syslogd: restart
+Mar  1 15:53:14 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Mar  1 15:53:14 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Mar  1 15:53:14 2A:IRIS unix: All Rights Reserved.
+Mar  1 15:53:14 2A:IRIS unix: 
+Mar  1 15:53:14 6A:IRIS unix: audio: AES receiver not responding.
+Mar  1 15:53:14 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Mar  1 15:53:14 5A:IRIS unix: NOTICE: Ending clean XFS mount for filesystem: /
+Mar  1 15:53:14 6D:IRIS eventmond[84]: |$(0x200110)started - (normal mode)
+Mar  1 15:53:15 3A:IRIS network: WARNING: IRIS's Internet address is the default.
+Mar  1 15:53:15 3A:IRIS network: WARNING: Using standalone network mode.
+Mar  1 15:53:25 3D:IRIS inetd[134]: /usr/etc/rpc.mountd: No such file or directory
+Mar  1 15:53:25 3D:IRIS last message repeated 3 times
+Mar  1 15:53:25 3D:IRIS inetd[134]: /usr/etc/rpc.rwalld: No such file or directory
+Mar  1 15:53:25 3D:IRIS inetd[134]: /usr/etc/rpc.rusersd: No such file or directory
+Mar  1 15:53:25 3D:IRIS inetd[134]: /usr/etc/rpc.rquotad: No such file or directory
+Mar  1 15:53:25 3D:IRIS inetd[134]: /usr/etc/rpc.sprayd: No such file or directory
+Mar  1 15:53:25 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sun Mar  1 15:53:25 2026
+Mar  1 15:53:25 4B:IRIS proclaim: Server 10.0.2.2 returned null hostname, using name IRIS
+Mar  1 15:53:25 7B:IRIS proclaim: Got lease for 86400 secs, starting Sun Mar  1 15:53:25 2026
+Mar  1 15:53:25 5B:IRIS  from Server 
+Mar  1 15:53:25 7B:IRIS proclaim: Configuring with IP Address 10.0.2.15 Hostname IRIS
+Mar  1 15:53:25 0D:IRIS inetd[134]: inetd received SIGTERM; terminating.
+Mar  1 15:53:26 3D:IRIS nsd[224]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Mar  1 15:53:26 3D:IRIS inetd[232]: /usr/etc/rpc.mountd: No such file or directory
+Mar  1 15:53:26 3D:IRIS last message repeated 3 times
+Mar  1 15:53:26 3D:IRIS inetd[232]: /usr/etc/rpc.rwalld: No such file or directory
+Mar  1 15:53:26 3D:IRIS inetd[232]: /usr/etc/rpc.rusersd: No such file or directory
+Mar  1 15:53:26 3D:IRIS inetd[232]: /usr/etc/rpc.rquotad: No such file or directory
+Mar  1 15:53:26 3D:IRIS inetd[232]: /usr/etc/rpc.sprayd: No such file or directory
+Mar  1 15:53:28 5B:IRIS sendmail: Freezing sendmail.cf
+Mar  1 15:53:29 6C:IRIS sendmail[822]: starting daemon (980427.SGI.8.8.8): SMTP+queueing@00:15:00
+Mar  1 15:53:29 2C:IRIS sendmail[821]: NOQUEUE: SYSERR(root): dbm map "Alias0": unsafe map file /etc/aliases
+Mar  1 15:53:32 5D:IRIS timed[261]: This machine is master
+                                                                                                                                            Mar 12 16:59:29 6F:IRIS syslogd: restart
+Mar 12 16:59:29 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Mar 12 16:59:29 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Mar 12 16:59:29 2A:IRIS unix: All Rights Reserved.
+Mar 12 16:59:29 2A:IRIS unix: 
+Mar 12 16:59:29 6A:IRIS unix: audio: AES receiver not responding.
+Mar 12 16:59:29 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Mar 12 16:59:29 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/51)
+Mar 12 16:59:29 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Mar 12 17:00:01 6F:IRIS syslogd: restart
+Mar 12 17:00:01 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Mar 12 17:00:01 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Mar 12 17:00:01 2A:IRIS unix: All Rights Reserved.
+Mar 12 17:00:01 2A:IRIS unix: 
+Mar 12 17:00:01 6A:IRIS unix: audio: AES receiver not responding.
+Mar 12 17:00:01 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Mar 12 17:00:01 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/51)
+Mar 12 17:00:01 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Mar 12 17:00:42 6F:IRIS syslogd: restart
+Mar 12 17:00:42 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Mar 12 17:00:42 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Mar 12 17:00:42 2A:IRIS unix: All Rights Reserved.
+Mar 12 17:00:42 2A:IRIS unix: 
+Mar 12 17:00:42 6A:IRIS unix: audio: AES receiver not responding.
+Mar 12 17:00:42 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Mar 12 17:00:42 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/51)
+Mar 12 17:00:42 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Mar 12 17:00:42 6D:IRIS eventmond[73]: |$(0x200110)started - (normal mode)
+Mar 12 17:00:42 4E:IRIS lboot: WARNING: kernel seems current but has a modification time in the future
+Mar 12 17:00:43 3D:IRIS nsd[144]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Mar 12 17:00:43 3D:IRIS nsd[144]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Mar 12 17:00:43 3D:IRIS nsd[144]: WARNING: Future date on /etc/capability: Sun Mar  1 15:25:06 2026
+Mar 12 17:00:43 3D:IRIS nsd[144]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Mar 12 17:00:43 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Tue Mar 12 17:00:43 1996
+Mar 12 17:00:43 4B:IRIS proclaim: Server 10.0.2.2 returned null hostname, using name IRIS
+Mar 12 17:00:43 7B:IRIS proclaim: Got lease for 86400 secs, starting Tue Mar 12 17:00:43 1996
+Mar 12 17:00:43 5B:IRIS  from Server 
+Mar 12 17:00:43 3D:IRIS nsd[144]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Mar 12 17:00:43 3D:IRIS inetd[152]: /usr/etc/rpc.mountd: No such file or directory
+Mar 12 17:00:43 3D:IRIS last message repeated 3 times
+Mar 12 17:00:43 3D:IRIS inetd[152]: /usr/etc/rpc.rwalld: No such file or directory
+Mar 12 17:00:43 3D:IRIS inetd[152]: /usr/etc/rpc.rusersd: No such file or directory
+Mar 12 17:00:43 3D:IRIS inetd[152]: /usr/etc/rpc.rquotad: No such file or directory
+Mar 12 17:00:43 3D:IRIS inetd[152]: /usr/etc/rpc.sprayd: No such file or directory
+Mar 12 17:00:43 3D:IRIS nsd[144]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Mar 12 17:00:43 3D:IRIS nsd[144]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Mar 12 17:00:44 5B:IRIS sendmail: Freezing sendmail.cf
+Mar 12 17:00:44 2C:IRIS sendmail[312]: NOQUEUE: SYSERR(root): No local mailer defined
+Mar 12 17:00:44 2C:IRIS sendmail[312]: NOQUEUE: SYSERR(root): QueueDirectory (Q) option must be set
+Mar 12 17:00:46 5B:IRIS sgindexAdmin: infosearch man index is out of date: updating
+Mar 12 17:00:47 6C:IRIS sendmail[829]: starting daemon (980427.SGI.8.8.8): SMTP+queueing@00:15:00
+Mar 12 17:00:47 2C:IRIS sendmail[826]: NOQUEUE: SYSERR(root): dbm map "Alias0": unsafe map file /etc/aliases
+Mar 12 17:00:47 3B:IRIS xdm[922]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:00:48 3B:IRIS last message repeated 134 times
+Mar 12 17:00:48 5E:IRIS login[964]: root on /dev/ttyd1
+Mar 12 17:00:48 3B:IRIS xdm[922]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:00:49 3B:IRIS last message repeated 81 times
+Mar 12 17:00:49 5D:IRIS timed[176]: This machine is master
+Mar 12 17:00:49 3B:IRIS xdm[922]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:00:52 3B:IRIS last message repeated 267 times
+Mar 12 17:01:41 6F:IRIS syslogd: restart
+Mar 12 17:01:41 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Mar 12 17:01:41 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Mar 12 17:01:41 2A:IRIS unix: All Rights Reserved.
+Mar 12 17:01:41 2A:IRIS unix: 
+Mar 12 17:01:41 6A:IRIS unix: audio: AES receiver not responding.
+Mar 12 17:01:41 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Mar 12 17:01:41 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/51)
+Mar 12 17:01:41 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Mar 12 17:02:59 6F:IRIS syslogd: restart
+Mar 12 17:02:59 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Mar 12 17:02:59 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Mar 12 17:02:59 2A:IRIS unix: All Rights Reserved.
+Mar 12 17:02:59 2A:IRIS unix: 
+Mar 12 17:02:59 6A:IRIS unix: audio: AES receiver not responding.
+Mar 12 17:02:59 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Mar 12 17:02:59 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/40)
+Mar 12 17:02:59 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Mar 12 17:03:00 6D:IRIS eventmond[75]: |$(0x200110)started - (normal mode)
+Mar 12 17:03:00 4E:IRIS lboot: WARNING: kernel seems current but has a modification time in the future
+Mar 12 17:03:01 3D:IRIS nsd[144]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Mar 12 17:03:01 3D:IRIS nsd[144]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Mar 12 17:03:01 3D:IRIS nsd[144]: WARNING: Future date on /etc/capability: Sun Mar  1 15:25:06 2026
+Mar 12 17:03:01 3D:IRIS nsd[144]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Mar 12 17:03:02 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Tue Mar 12 17:03:02 1996
+Mar 12 17:03:02 4B:IRIS proclaim: Server 10.0.2.2 returned null hostname, using name IRIS
+Mar 12 17:03:02 7B:IRIS proclaim: Got lease for 86400 secs, starting Tue Mar 12 17:03:02 1996
+Mar 12 17:03:02 5B:IRIS  from Server 
+Mar 12 17:03:03 3D:IRIS nsd[144]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Mar 12 17:03:03 3D:IRIS inetd[152]: /usr/etc/rpc.mountd: No such file or directory
+Mar 12 17:03:03 3D:IRIS last message repeated 3 times
+Mar 12 17:03:03 3D:IRIS inetd[152]: /usr/etc/rpc.rwalld: No such file or directory
+Mar 12 17:03:03 3D:IRIS inetd[152]: /usr/etc/rpc.rusersd: No such file or directory
+Mar 12 17:03:03 3D:IRIS inetd[152]: /usr/etc/rpc.rquotad: No such file or directory
+Mar 12 17:03:03 3D:IRIS inetd[152]: /usr/etc/rpc.sprayd: No such file or directory
+Mar 12 17:03:03 3D:IRIS nsd[144]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Mar 12 17:03:03 3D:IRIS nsd[144]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Mar 12 17:03:04 5B:IRIS sendmail: Freezing sendmail.cf
+Mar 12 17:03:04 2C:IRIS sendmail[310]: NOQUEUE: SYSERR(root): No local mailer defined
+Mar 12 17:03:04 2C:IRIS sendmail[310]: NOQUEUE: SYSERR(root): QueueDirectory (Q) option must be set
+Mar 12 17:03:08 5D:IRIS timed[183]: This machine is master
+Mar 12 17:03:09 6C:IRIS sendmail[654]: starting daemon (980427.SGI.8.8.8): SMTP+queueing@00:15:00
+Mar 12 17:03:09 2C:IRIS sendmail[655]: NOQUEUE: SYSERR(root): dbm map "Alias0": unsafe map file /etc/aliases
+Mar 12 17:03:12 5B:IRIS sgindexAdmin: infosearch man index is out of date: updating
+Mar 12 17:03:14 3B:IRIS xdm[919]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:03:20 3B:IRIS last message repeated 114 times
+Mar 12 17:03:20 5E:IRIS login[958]: root on /dev/ttyd1
+Mar 12 17:03:20 3B:IRIS xdm[919]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:04:39 3B:IRIS last message repeated 1558 times
+Mar 12 17:04:39 3B:IRIS xdm[919]: server unexpectedly died
+Mar 12 17:04:54 3B:IRIS xdm[919]: Server for display :0 can't be started, session disabled
+Mar 12 17:05:24 5B:IRIS sgindexAdmin: updated man page whatis database
+Mar 12 17:05:24 5B:IRIS sgindexAdmin: infosearch man index update completed
+Mar 12 17:05:24 5B:IRIS sgindexAdmin: infosearch relnotes index is out of date: updating
+Mar 12 17:05:25 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch1.z: Not in packed format
+Mar 12 17:05:25 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch2.z: Not in packed format
+Mar 12 17:05:25 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch3.z: Not in packed format
+Mar 12 17:05:25 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch4.z: Not in packed format
+Mar 12 17:05:25 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch5.z: Not in packed format
+Mar 12 17:05:25 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch6.z: Not in packed format
+Mar 12 17:05:25 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch7.z: Not in packed format
+Mar 12 17:05:26 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/compiler_eoe/chA.z: Not in packed format
+Mar 12 17:05:26 5B:IRIS sgindexAdmin: infosearch relnotes index update completed
+Mar 12 17:05:26 5B:IRIS sgindexAdmin: infosearch bks index is out of date: updating
+Mar 12 17:05:05 6F:IRIS syslogd: restart
+Mar 12 17:05:05 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Mar 12 17:05:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Mar 12 17:05:05 2A:IRIS unix: All Rights Reserved.
+Mar 12 17:05:05 2A:IRIS unix: 
+Mar 12 17:05:05 6A:IRIS unix: audio: AES receiver not responding.
+Mar 12 17:05:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Mar 12 17:05:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/51)
+Mar 12 17:05:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Mar 12 17:05:05 6D:IRIS eventmond[76]: |$(0x200110)started - (normal mode)
+Mar 12 17:05:06 4E:IRIS lboot: WARNING: kernel seems current but has a modification time in the future
+Mar 12 17:05:06 3D:IRIS nsd[144]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Mar 12 17:05:06 3D:IRIS nsd[144]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Mar 12 17:05:06 3D:IRIS nsd[144]: WARNING: Future date on /etc/capability: Sun Mar  1 15:25:06 2026
+Mar 12 17:05:06 3D:IRIS nsd[144]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Mar 12 17:05:06 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Tue Mar 12 17:05:06 1996
+Mar 12 17:05:06 4B:IRIS proclaim: Server 10.0.2.2 returned null hostname, using name IRIS
+Mar 12 17:05:06 7B:IRIS proclaim: Got lease for 86400 secs, starting Tue Mar 12 17:05:06 1996
+Mar 12 17:05:06 5B:IRIS  from Server 
+Mar 12 17:05:06 3D:IRIS nsd[144]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Mar 12 17:05:06 3D:IRIS inetd[152]: /usr/etc/rpc.mountd: No such file or directory
+Mar 12 17:05:06 3D:IRIS last message repeated 3 times
+Mar 12 17:05:06 3D:IRIS inetd[152]: /usr/etc/rpc.rwalld: No such file or directory
+Mar 12 17:05:06 3D:IRIS inetd[152]: /usr/etc/rpc.rusersd: No such file or directory
+Mar 12 17:05:06 3D:IRIS inetd[152]: /usr/etc/rpc.rquotad: No such file or directory
+Mar 12 17:05:06 3D:IRIS inetd[152]: /usr/etc/rpc.sprayd: No such file or directory
+Mar 12 17:05:06 3D:IRIS nsd[144]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Mar 12 17:05:06 3D:IRIS nsd[144]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Mar 12 17:05:08 5B:IRIS sendmail: Freezing sendmail.cf
+Mar 12 17:05:09 6C:IRIS sendmail[655]: starting daemon (980427.SGI.8.8.8): SMTP+queueing@00:15:00
+Mar 12 17:05:12 3B:IRIS xdm[865]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:05:12 3B:IRIS last message repeated 2 times
+Mar 12 17:05:12 3B:IRIS xdm[865]: server unexpectedly died
+Mar 12 17:05:12 5D:IRIS timed[173]: This machine is master
+Mar 12 17:05:13 5E:IRIS login[956]: root on /dev/ttyd1
+Mar 12 17:05:27 3B:IRIS xdm[865]: Server for display :0 can't be started, session disabled
+Mar 12 17:06:46 6F:IRIS syslogd: restart
+Mar 12 17:06:46 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Mar 12 17:06:46 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Mar 12 17:06:46 2A:IRIS unix: All Rights Reserved.
+Mar 12 17:06:46 2A:IRIS unix: 
+Mar 12 17:06:46 6A:IRIS unix: audio: AES receiver not responding.
+Mar 12 17:06:46 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Mar 12 17:06:46 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/40)
+Mar 12 17:06:46 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Mar 12 17:06:47 6D:IRIS eventmond[76]: |$(0x200110)started - (normal mode)
+Mar 12 17:06:47 4E:IRIS lboot: WARNING: kernel seems current but has a modification time in the future
+Mar 12 17:06:48 3D:IRIS nsd[144]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Mar 12 17:06:48 3D:IRIS nsd[144]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Mar 12 17:06:48 3D:IRIS nsd[144]: WARNING: Future date on /etc/capability: Sun Mar  1 15:25:06 2026
+Mar 12 17:06:48 3D:IRIS nsd[144]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Mar 12 17:06:49 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Tue Mar 12 17:06:49 1996
+Mar 12 17:06:49 4B:IRIS proclaim: Server 10.0.2.2 returned null hostname, using name IRIS
+Mar 12 17:06:49 7B:IRIS proclaim: Got lease for 86400 secs, starting Tue Mar 12 17:06:49 1996
+Mar 12 17:06:49 5B:IRIS  from Server 
+Mar 12 17:06:50 3D:IRIS nsd[144]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Mar 12 17:06:50 3D:IRIS inetd[152]: /usr/etc/rpc.mountd: No such file or directory
+Mar 12 17:06:50 3D:IRIS last message repeated 3 times
+Mar 12 17:06:50 3D:IRIS inetd[152]: /usr/etc/rpc.rwalld: No such file or directory
+Mar 12 17:06:50 3D:IRIS inetd[152]: /usr/etc/rpc.rusersd: No such file or directory
+Mar 12 17:06:50 3D:IRIS inetd[152]: /usr/etc/rpc.rquotad: No such file or directory
+Mar 12 17:06:50 3D:IRIS inetd[152]: /usr/etc/rpc.sprayd: No such file or directory
+Mar 12 17:06:50 3D:IRIS nsd[144]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Mar 12 17:06:50 3D:IRIS nsd[144]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Mar 12 17:06:51 5B:IRIS sendmail: Freezing sendmail.cf
+Mar 12 17:06:55 5D:IRIS timed[173]: This machine is master
+Mar 12 17:06:56 6C:IRIS sendmail[652]: starting daemon (980427.SGI.8.8.8): SMTP+queueing@00:15:00
+Mar 12 17:06:59 5B:IRIS sgindexAdmin: infosearch man index is out of date: updating
+Mar 12 17:07:01 3B:IRIS xdm[917]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:07:15 3B:IRIS last message repeated 278 times
+Mar 12 17:07:15 5E:IRIS login[949]: root on /dev/ttyd1
+Mar 12 17:07:15 3B:IRIS xdm[917]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:08:53 3B:IRIS last message repeated 1936 times
+Mar 12 17:08:53 3B:IRIS xdm[917]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:10:27 3B:IRIS last message repeated 1905 times
+Mar 12 17:10:27 5B:IRIS sgindexAdmin: updated man page whatis database
+Mar 12 17:10:27 3B:IRIS xdm[917]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:10:28 3B:IRIS last message repeated 3 times
+Mar 12 17:10:28 5B:IRIS sgindexAdmin: infosearch man index update completed
+Mar 12 17:10:28 3B:IRIS xdm[917]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:10:28 3B:IRIS last message repeated 7 times
+Mar 12 17:10:28 5B:IRIS sgindexAdmin: infosearch relnotes index is out of date: updating
+Mar 12 17:10:28 3B:IRIS xdm[917]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:10:36 3B:IRIS last message repeated 131 times
+Mar 12 17:10:36 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch1.z: Not in packed format
+Mar 12 17:10:36 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch2.z: Not in packed format
+Mar 12 17:10:36 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch3.z: Not in packed format
+Mar 12 17:10:36 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch4.z: Not in packed format
+Mar 12 17:10:36 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch5.z: Not in packed format
+Mar 12 17:10:36 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch6.z: Not in packed format
+Mar 12 17:10:36 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/c_fe/ch7.z: Not in packed format
+Mar 12 17:10:36 3B:IRIS xdm[917]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:10:44 3B:IRIS last message repeated 113 times
+Mar 12 17:10:44 5B:IRIS sgindexAdmin: UX:pcat: ERROR: /usr/relnotes/compiler_eoe/chA.z: Not in packed format
+Mar 12 17:10:44 3B:IRIS xdm[917]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:10:48 3B:IRIS last message repeated 83 times
+Mar 12 17:10:48 3B:IRIS xdm[917]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:10:53 3B:IRIS last message repeated 54 times
+Mar 12 17:10:53 5B:IRIS sgindexAdmin: infosearch relnotes index update completed
+Mar 12 17:10:53 3B:IRIS xdm[917]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:10:53 3B:IRIS last message repeated 5 times
+Mar 12 17:10:53 5B:IRIS sgindexAdmin: infosearch bks index is out of date: updating
+Mar 12 17:10:53 3B:IRIS xdm[917]: Server for display :0 terminated unexpectedly: 0
+Mar 12 17:10:55 3B:IRIS last message repeated 16 times
+Mar 12 17:10:55 4E:IRIS lboot: WARNING: there are files in /var/sysgen with mtime in the future
+Mar 12 17:10:55 4E:IRIS lboot: WARNING: setting /tmp/ip54/unix.new mtime to Sun Mar  1 15:40:54 2026
+Mar 12 17:10:55 3B:IRIS xdm[917]: Server for display :0 terminated unexpectedly: 0
+Mar 12 21:02:40 6F:IRIS syslogd: restart
+Mar 12 21:02:40 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Mar 12 21:02:40 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Mar 12 21:02:40 2A:IRIS unix: All Rights Reserved.
+Mar 12 21:02:40 2A:IRIS unix: 
+Mar 12 21:02:40 6A:IRIS unix: audio: AES receiver not responding.
+Mar 12 21:02:40 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Mar 12 21:02:40 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/40)
+Mar 12 21:02:40 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Mar 12 21:02:41 6D:IRIS eventmond[74]: |$(0x200110)started - (normal mode)
+Mar 12 21:02:41 4E:IRIS lboot: Loadable module registration may not have been done (e.g. tpsc)
+Mar 12 21:02:41 4E:IRIS lboot: See mload(4) manual page for more information on auto registration
+Mar 12 21:02:42 3D:IRIS nsd[144]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Mar 12 21:02:42 3D:IRIS nsd[144]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Mar 12 21:02:42 3D:IRIS nsd[144]: WARNING: Future date on /etc/capability: Sun Mar  1 15:25:06 2026
+Mar 12 21:02:42 3D:IRIS nsd[144]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Mar 12 21:02:42 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Tue Mar 12 21:02:42 1996
+Mar 12 21:02:42 4B:IRIS proclaim: Server 10.0.2.2 returned null hostname, using name IRIS
+Mar 12 21:02:42 7B:IRIS proclaim: Got lease for 86400 secs, starting Tue Mar 12 21:02:42 1996
+Mar 12 21:02:42 5B:IRIS  from Server 
+Mar 12 21:02:43 3D:IRIS nsd[144]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Mar 12 21:02:43 3D:IRIS inetd[152]: /usr/etc/rpc.mountd: No such file or directory
+Mar 12 21:02:43 3D:IRIS last message repeated 3 times
+Mar 12 21:02:43 3D:IRIS inetd[152]: /usr/etc/rpc.rwalld: No such file or directory
+Mar 12 21:02:43 3D:IRIS inetd[152]: /usr/etc/rpc.rusersd: No such file or directory
+Mar 12 21:02:43 3D:IRIS inetd[152]: /usr/etc/rpc.rquotad: No such file or directory
+Mar 12 21:02:43 3D:IRIS inetd[152]: /usr/etc/rpc.sprayd: No such file or directory
+Mar 12 21:02:44 3D:IRIS nsd[144]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Mar 12 21:02:44 3D:IRIS nsd[144]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Mar 12 21:02:44 5B:IRIS sendmail: Freezing sendmail.cf
+Mar 12 21:02:49 5D:IRIS timed[195]: This machine is master
+Mar 12 21:02:49 6C:IRIS sendmail[651]: starting daemon (980427.SGI.8.8.8): SMTP+queueing@00:15:00
+Mar 12 21:02:53 3B:IRIS xdm[899]: Server for display :0 terminated unexpectedly: 0
+Mar 12 21:02:59 3B:IRIS last message repeated 184 times
+Mar 12 21:03:00 5E:IRIS login[926]: root on /dev/ttyd1
+Mar 12 21:03:00 3B:IRIS xdm[899]: Server for display :0 terminated unexpectedly: 0
+Mar 12 21:03:03 3B:IRIS last message repeated 89 times
+Mar 12 21:03:03 3B:IRIS xdm[899]: server unexpectedly died
+Mar 12 21:03:17 3B:IRIS xdm[899]: Server for display :0 can't be started, session disabled
+Mar 12 21:06:43 4E:IRIS lboot: Loadable module registration may not have been done (e.g. tpsc)
+Mar 12 21:06:43 4E:IRIS lboot: See mload(4) manual page for more information on auto registration
+Mar 12 21:07:01 4E:IRIS lboot: Loadable module registration may not have been done (e.g. tpsc)
+Mar 12 21:07:01 4E:IRIS lboot: See mload(4) manual page for more information on auto registration
+Mar 12 21:07:07 4E:IRIS lboot: Loadable module registration may not have been done (e.g. tpsc)
+Mar 12 21:07:07 4E:IRIS lboot: See mload(4) manual page for more information on auto registration
+Mar 12 21:07:19 4E:IRIS lboot: Loadable module registration may not have been done (e.g. tpsc)
+Mar 12 21:07:19 4E:IRIS lboot: See mload(4) manual page for more information on auto registration
+Mar 12 21:09:26 4E:IRIS lboot: WARNING: there are files in /var/sysgen with mtime in the future
+Mar 12 21:09:26 4E:IRIS lboot: WARNING: setting /tmp/unix.new mtime to Sun Mar  1 15:40:54 2026
+Mar 12 21:10:04 3B:IRIS startmidi[2668]: unable to open /dev/midi: No such device or address
+Mar 12 21:10:09 3A:IRIS INFO: The system is shutting down.
+Mar 12 21:10:09 3A:IRIS INFO: Please wait.
+Mar 12 21:10:13 0D:IRIS inetd[152]: inetd received SIGTERM; terminating.
+Mar 12 21:10:14 6D:IRIS eventmond[74]: |$(0x200111)stopped - (normal mode)
+Mar 12 21:10:16 3F:IRIS syslogd: going down on signal 15
+Mar 13 06:20:41 6F:IRIS syslogd: restart
+Mar 13 06:20:41 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Mar 13 06:20:41 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Mar 13 06:20:41 2A:IRIS unix: All Rights Reserved.
+Mar 13 06:20:41 2A:IRIS unix: 
+Mar 13 06:20:41 6A:IRIS unix: audio: AES receiver not responding.
+Mar 13 06:20:41 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Mar 13 06:20:41 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/40)
+Mar 13 06:20:41 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Mar 13 06:20:42 6D:IRIS eventmond[77]: |$(0x200110)started - (normal mode)
+Mar 13 06:20:42 4E:IRIS lboot: Loadable module registration may not have been done (e.g. tpsc)
+Mar 13 06:20:42 4E:IRIS lboot: See mload(4) manual page for more information on auto registration
+Mar 13 06:20:43 3D:IRIS nsd[144]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Mar 13 06:20:43 3D:IRIS nsd[144]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Mar 13 06:20:43 3D:IRIS nsd[144]: WARNING: Future date on /etc/capability: Sun Mar  1 15:25:06 2026
+Mar 13 06:20:43 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Wed Mar 13 06:20:43 1996
+Mar 13 06:20:43 3D:IRIS nsd[144]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Mar 13 06:20:43 4B:IRIS proclaim: Server 10.0.2.2 returned null hostname, using name IRIS
+Mar 13 06:20:43 7B:IRIS proclaim: Got lease for 86400 secs, starting Wed Mar 13 06:20:43 1996
+Mar 13 06:20:43 5B:IRIS  from Server 
+Mar 13 06:20:44 3D:IRIS nsd[144]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Mar 13 06:20:44 3D:IRIS inetd[152]: /usr/etc/rpc.mountd: No such file or directory
+Mar 13 06:20:44 3D:IRIS last message repeated 3 times
+Mar 13 06:20:44 3D:IRIS inetd[152]: /usr/etc/rpc.rwalld: No such file or directory
+Mar 13 06:20:44 3D:IRIS inetd[152]: /usr/etc/rpc.rusersd: No such file or directory
+Mar 13 06:20:44 3D:IRIS inetd[152]: /usr/etc/rpc.rquotad: No such file or directory
+Mar 13 06:20:44 3D:IRIS inetd[152]: /usr/etc/rpc.sprayd: No such file or directory
+Mar 13 06:20:44 3D:IRIS nsd[144]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Mar 13 06:20:45 3D:IRIS nsd[144]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Mar 13 06:20:45 5B:IRIS sendmail: Freezing sendmail.cf
+Mar 13 06:20:49 5D:IRIS timed[191]: This machine is master
+Mar 13 06:20:50 6C:IRIS sendmail[649]: starting daemon (980427.SGI.8.8.8): SMTP+queueing@00:15:00
+Mar 13 06:20:54 3B:IRIS xdm[898]: Server for display :0 terminated unexpectedly: 0
+Mar 13 06:20:56 3B:IRIS last message repeated 50 times
+Mar 13 06:20:56 3B:IRIS xdm[898]: server unexpectedly died
+Mar 13 06:21:04 5E:IRIS login[932]: root on /dev/ttyd1
+Mar 13 06:21:10 3B:IRIS xdm[898]: Server for display :0 can't be started, session disabled
+Mar 13 08:08:18 3B:IRIS startmidi[144935]: unable to open /dev/midi: No such device or address
+Mar 13 08:08:22 3A:IRIS INFO: The system is shutting down.
+Mar 13 08:08:22 3A:IRIS INFO: Please wait.
+Mar 13 08:08:30 0D:IRIS inetd[152]: inetd received SIGTERM; terminating.
+Mar 13 08:08:32 6D:IRIS eventmond[77]: |$(0x200111)stopped - (normal mode)
+Mar 13 08:08:34 3F:IRIS syslogd: going down on signal 15
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 65536 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 509 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  61192 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[74]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 4E:IRIS lboot: Loadable module registration may not have been done (e.g. tpsc)
+Jan 10 05:37:05 4E:IRIS lboot: See mload(4) manual page for more information on auto registration
+Jan 10 05:37:06 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:16 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:16 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:26 3D:IRIS inetd[142]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:26 3D:IRIS last message repeated 3 times
+Jan 10 05:37:26 3D:IRIS inetd[142]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[142]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[142]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[142]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:26 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:26 2004
+Jan 10 05:37:26 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:27 3E:IRIS savecore: /unix is not the running system
+Jan 10 05:37:27 5B:IRIS sendmail: Freezing sendmail.cf
+Jan 10 05:37:28 6C:IRIS sendmail[605]: starting daemon (980427.SGI.8.8.8): SMTP+queueing@00:15:00
+Jan 10 05:37:32 6B:IRIS esp[646]: SEH_INIT: Failed to setup interfaces :0x1000000020000.
+Jan 10 05:37:32 5B:IRIS  : Resource temporarily unavailable
+Jan 10 05:37:33 3B:IRIS syslog: sdpd: connect error (Cannot assign requested address)
+Jan 10 05:37:33 3B:IRIS xdm[596]: Server for display :0 terminated unexpectedly: 0
+Jan 10 05:37:33 3B:IRIS last message repeated 15 times
+Jan 10 05:37:33 3B:IRIS xdm[596]: server unexpectedly died
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 131072 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 919 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  125560 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[74]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 4E:IRIS lboot: Loadable module registration may not have been done (e.g. tpsc)
+Jan 10 05:37:05 4E:IRIS lboot: See mload(4) manual page for more information on auto registration
+Jan 10 05:37:05 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:15 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:15 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:26 3D:IRIS inetd[142]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:26 3D:IRIS last message repeated 3 times
+Jan 10 05:37:26 3D:IRIS inetd[142]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[142]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[142]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[142]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:26 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:26 2004
+Jan 10 05:37:26 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:27 3E:IRIS savecore: /unix is not the running system
+Jan 10 05:37:27 5B:IRIS sendmail: Freezing sendmail.cf
+Jan 10 05:37:28 6C:IRIS sendmail[372]: starting daemon (980427.SGI.8.8.8): SMTP+queueing@00:15:00
+Jan 10 05:37:29 3B:IRIS syslog: sdpd: connect error (Cannot assign requested address)
+Jan 10 05:37:29 3B:IRIS xdm[646]: Server for display :0 terminated unexpectedly: 0
+Jan 10 05:37:29 3B:IRIS last message repeated 5 times
+Jan 10 05:37:29 3B:IRIS xdm[646]: Unknown session exit code 2816 from process 695
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  255212 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[75]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 4E:IRIS lboot: Loadable module registration may not have been done (e.g. tpsc)
+Jan 10 05:37:05 4E:IRIS lboot: See mload(4) manual page for more information on auto registration
+Jan 10 05:37:05 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:15 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:15 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:26 3D:IRIS inetd[143]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:26 3D:IRIS last message repeated 3 times
+Jan 10 05:37:26 3D:IRIS inetd[143]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[143]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[143]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[143]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:26 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:26 2004
+Jan 10 05:37:26 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:27 3E:IRIS savecore: /unix is not the running system
+Jan 10 05:37:27 5B:IRIS sendmail: Freezing sendmail.cf
+Jan 10 05:37:28 3B:IRIS syslog: sdpd: connect error (Cannot assign requested address)
+Jan 10 05:37:29 3B:IRIS xdm[506]: Server for display :0 terminated unexpectedly: 0
+Jan 10 05:37:29 3B:IRIS last message repeated 10 times
+Jan 10 05:37:29 3B:IRIS xdm[506]: server unexpectedly died
+Jan 10 05:37:35 3D:IRIS eventmond[75]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:43 3B:IRIS xdm[506]: Server for display :0 can't be started, session disabled
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 65536 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 509 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  61088 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[75]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 4E:IRIS lboot: Loadable module registration may not have been done (e.g. tpsc)
+Jan 10 05:37:06 4E:IRIS lboot: See mload(4) manual page for more information on auto registration
+Jan 10 05:37:06 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:16 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:16 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:26 3D:IRIS inetd[144]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:26 3D:IRIS last message repeated 3 times
+Jan 10 05:37:26 3D:IRIS inetd[144]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[144]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[144]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[144]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:26 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:26 2004
+Jan 10 05:37:26 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:27 3E:IRIS savecore: /unix is not the running system
+Jan 10 05:37:27 5B:IRIS sendmail: Freezing sendmail.cf
+Jan 10 05:37:29 6C:IRIS sendmail[603]: starting daemon (980427.SGI.8.8.8): SMTP+queueing@00:15:00
+Jan 10 05:37:31 6B:IRIS esp[665]: SEH_INIT: Failed to setup interfaces :0x1000000020000.
+Jan 10 05:37:31 5B:IRIS  : Resource temporarily unavailable
+Jan 10 05:37:33 3B:IRIS syslog: sdpd: connect error (Cannot assign requested address)
+Jan 10 05:37:33 3B:IRIS xdm[600]: Server for display :0 terminated unexpectedly: 0
+Jan 10 05:37:33 3B:IRIS last message repeated 7 times
+Jan 10 05:37:33 3B:IRIS xdm[600]: server unexpectedly died
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 65536 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 509 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  60972 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[74]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 4E:IRIS lboot: Loadable module registration may not have been done (e.g. tpsc)
+Jan 10 05:37:05 4E:IRIS lboot: See mload(4) manual page for more information on auto registration
+Jan 10 05:37:06 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:16 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:16 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:26 3D:IRIS inetd[143]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:26 3D:IRIS last message repeated 3 times
+Jan 10 05:37:26 3D:IRIS inetd[143]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[143]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[143]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[143]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:26 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:26 2004
+Jan 10 05:37:26 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:27 3E:IRIS savecore: /unix is not the running system
+Jan 10 05:37:27 5B:IRIS sendmail: Freezing sendmail.cf
+Jan 10 05:37:29 6C:IRIS sendmail[609]: starting daemon (980427.SGI.8.8.8): SMTP+queueing@00:15:00
+Jan 10 05:37:31 6B:IRIS esp[663]: SEH_INIT: Failed to setup interfaces :0x1000000020000.
+Jan 10 05:37:31 5B:IRIS  : Resource temporarily unavailable
+Jan 10 05:37:33 3B:IRIS syslog: sdpd: connect error (Cannot assign requested address)
+Jan 10 05:37:33 3B:IRIS xdm[882]: Server for display :0 terminated unexpectedly: 0
+Jan 10 05:37:33 3B:IRIS last message repeated 14 times
+Jan 10 05:37:33 3B:IRIS xdm[882]: server unexpectedly died
+Jan 10 05:37:48 3B:IRIS xdm[882]: Server for display :0 can't be started, session disabled
+Jan 10 05:37:57 5E:IRIS login[940]: root on /dev/ttyd1
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 65536 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 509 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  59732 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[74]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:06 4E:IRIS lboot: Loadable module registration may not have been done (e.g. tpsc)
+Jan 10 05:37:06 4E:IRIS lboot: See mload(4) manual page for more information on auto registration
+Jan 10 05:37:06 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:16 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:16 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:26 3D:IRIS inetd[147]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:26 3D:IRIS last message repeated 3 times
+Jan 10 05:37:26 3D:IRIS inetd[147]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[147]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[147]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:26 3D:IRIS inetd[147]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:26 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:26 2004
+Jan 10 05:37:26 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:27 3E:IRIS savecore: /unix is not the running system
+Jan 10 05:37:27 5B:IRIS sendmail: Freezing sendmail.cf
+Jan 10 05:37:29 6C:IRIS sendmail[616]: starting daemon (980427.SGI.8.8.8): SMTP+queueing@00:15:00
+Jan 10 05:37:32 6B:IRIS esp[671]: SEH_INIT: Failed to setup interfaces :0x1000000020000.
+Jan 10 05:37:32 5B:IRIS  : Resource temporarily unavailable
+Jan 10 05:37:33 3B:IRIS syslog: sdpd: connect error (Cannot assign requested address)
+Jan 10 05:37:33 3B:IRIS xdm[903]: Server for display :0 terminated unexpectedly: 0
+Jan 10 05:37:33 3B:IRIS xdm[903]: Server for display :0 terminated unexpectedly: 0
+Jan 10 05:37:33 3B:IRIS xdm[903]: server unexpectedly died
+Jan 10 05:37:48 3B:IRIS xdm[903]: Server for display :0 can't be started, session disabled
+Jan 10 05:37:55 5E:IRIS login[929]: root on /dev/ttyd1
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending clean XFS mount for filesystem: /
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254212 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[74]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:15 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:15 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:25 3D:IRIS inetd[140]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:25 3D:IRIS last message repeated 3 times
+Jan 10 05:37:25 3D:IRIS inetd[140]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[140]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[140]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[140]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:25 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:25 2004
+Jan 10 05:37:25 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:27 3E:IRIS savecore: /unix is not the running system
+Jan 10 05:37:27 5B:IRIS MAKEDEV_tape: *** Termination code 139 (bu21)
+Jan 10 05:37:27 5B:IRIS MAKEDEV_tape: UX:make: ERROR: `tape' not remade because of errors (bu14)
+Jan 10 05:37:27 3B:IRIS rld[399]:   399:/usr/sbin/espquery: rld: Fatal Error: The object libssdb.so has no PT_DYNAMIC program header! Improper ELF shared/call-shared object. Cannot continue
+Jan 10 05:37:27 1A:IRIS unix: |$(0x6dd)ALERT: Process [espquery] 390 generated trap, but has signal 10 held or ignored
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending clean XFS mount for filesystem: /
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254212 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[84]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:15 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:15 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:25 3D:IRIS inetd[150]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:25 3D:IRIS last message repeated 3 times
+Jan 10 05:37:25 3D:IRIS inetd[150]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[150]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[150]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[150]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:25 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:25 2004
+Jan 10 05:37:25 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:35 5E:IRIS login[184]: root on /dev/ttyd1
+Jan 10 05:37:35 3D:IRIS eventmond[84]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254100 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[90]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:15 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:15 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:25 3D:IRIS inetd[155]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:25 3D:IRIS last message repeated 3 times
+Jan 10 05:37:25 3D:IRIS inetd[155]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[155]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[155]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[155]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:25 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:25 2004
+Jan 10 05:37:25 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:30 5E:IRIS login[189]: root on /dev/ttyd1
+Jan 10 05:37:35 3D:IRIS eventmond[90]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jun  9 18:35:56 6F:IRIS syslogd: restart
+Jun  9 18:35:56 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Jun  9 18:35:56 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jun  9 18:35:56 2A:IRIS unix: All Rights Reserved.
+Jun  9 18:35:56 2A:IRIS unix: 
+Jun  9 18:35:56 6A:IRIS unix: audio: AES receiver not responding.
+Jun  9 18:35:56 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jun  9 18:35:56 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/40)
+Jun  9 18:35:56 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jun  9 18:35:57 6D:IRIS eventmond[91]: |$(0x200110)started - (normal mode)
+Jun  9 18:35:57 3D:IRIS nsd[155]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jun  9 18:35:57 3D:IRIS nsd[155]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jun  9 18:35:58 3D:IRIS nsd[155]: WARNING: Future date on /etc/capability: Sun Mar  1 15:25:06 2026
+Jun  9 18:35:58 3D:IRIS nsd[155]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jun  9 18:35:58 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sun Jun  9 18:35:58 1996
+Jun  9 18:35:58 4B:IRIS proclaim: Server 10.0.2.2 returned null hostname, using name IRIS
+Jun  9 18:35:58 7B:IRIS proclaim: Got lease for 86400 secs, starting Sun Jun  9 18:35:58 1996
+Jun  9 18:35:58 5B:IRIS  from Server 
+Jun  9 18:35:58 3D:IRIS nsd[155]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jun  9 18:35:58 3D:IRIS inetd[163]: /usr/etc/rpc.mountd: No such file or directory
+Jun  9 18:35:58 3D:IRIS last message repeated 3 times
+Jun  9 18:35:58 3D:IRIS inetd[163]: /usr/etc/rpc.rwalld: No such file or directory
+Jun  9 18:35:58 3D:IRIS inetd[163]: /usr/etc/rpc.rusersd: No such file or directory
+Jun  9 18:35:58 3D:IRIS inetd[163]: /usr/etc/rpc.rquotad: No such file or directory
+Jun  9 18:35:58 3D:IRIS inetd[163]: /usr/etc/rpc.sprayd: No such file or directory
+Jun  9 18:36:04 5D:IRIS timed[199]: This machine is master
+Jun  9 18:36:27 3D:IRIS eventmond[91]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jun  9 18:36:45 5E:IRIS login[203]: root on /dev/ttyd1
+Jun  9 18:36:45 3D:IRIS nsd[155]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jun  9 18:40:57 3D:IRIS routed[147]: static route 255.255.255.255/32 --> 10.255.255.255 impossibly lacks ifp
+Jun  9 18:44:08 3B:IRIS startmidi[232]: unable to open /dev/midi: No such device or address
+Jun  9 18:44:13 3D:IRIS nsd[155]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Jun  9 18:44:13 3A:IRIS INFO: The system is shutting down.
+Jun  9 18:44:13 3A:IRIS INFO: Please wait.
+Jun  9 18:44:16 0D:IRIS inetd[163]: inetd received SIGTERM; terminating.
+Jun  9 18:44:17 6D:IRIS eventmond[91]: |$(0x200111)stopped - (normal mode)
+Jun  9 18:44:19 3F:IRIS syslogd: going down on signal 15
+Jun  9 18:42:52 6F:IRIS syslogd: restart
+Jun  9 18:42:52 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Jun  9 18:42:52 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jun  9 18:42:52 2A:IRIS unix: All Rights Reserved.
+Jun  9 18:42:52 2A:IRIS unix: 
+Jun  9 18:42:52 6A:IRIS unix: audio: AES receiver not responding.
+Jun  9 18:42:52 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jun  9 18:42:52 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/40)
+Jun  9 18:42:52 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jun  9 18:42:53 6D:IRIS eventmond[89]: |$(0x200110)started - (normal mode)
+Jun  9 18:42:53 3D:IRIS nsd[153]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jun  9 18:42:53 3D:IRIS nsd[153]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jun  9 18:42:54 3D:IRIS nsd[153]: WARNING: Future date on /etc/capability: Sun Mar  1 15:25:06 2026
+Jun  9 18:42:54 3D:IRIS nsd[153]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jun  9 18:42:54 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sun Jun  9 18:42:54 1996
+Jun  9 18:42:54 4B:IRIS proclaim: Server 10.0.2.2 returned null hostname, using name IRIS
+Jun  9 18:42:54 7B:IRIS proclaim: Got lease for 86400 secs, starting Sun Jun  9 18:42:54 1996
+Jun  9 18:42:54 5B:IRIS  from Server 
+Jun  9 18:42:54 3D:IRIS nsd[153]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jun  9 18:42:54 3D:IRIS inetd[161]: /usr/etc/rpc.mountd: No such file or directory
+Jun  9 18:42:54 3D:IRIS last message repeated 3 times
+Jun  9 18:42:54 3D:IRIS inetd[161]: /usr/etc/rpc.rwalld: No such file or directory
+Jun  9 18:42:54 3D:IRIS inetd[161]: /usr/etc/rpc.rusersd: No such file or directory
+Jun  9 18:42:54 3D:IRIS inetd[161]: /usr/etc/rpc.rquotad: No such file or directory
+Jun  9 18:42:54 3D:IRIS inetd[161]: /usr/etc/rpc.sprayd: No such file or directory
+Jun  9 18:43:00 5D:IRIS timed[197]: This machine is master
+Jun  9 18:43:23 3D:IRIS eventmond[89]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jun  9 18:43:41 5E:IRIS login[201]: root on /dev/ttyd1
+Jun  9 18:43:41 3D:IRIS nsd[153]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jun  9 18:46:52 4E:IRIS lboot: WARNING: there are files in /var/sysgen with mtime in the future
+Jun  9 18:46:52 4E:IRIS lboot: WARNING: setting /unix.new mtime to Sun Mar  1 15:40:54 2026
+Jun  9 18:47:09 3B:IRIS startmidi[263]: unable to open /dev/midi: No such device or address
+Jun  9 18:47:12 3A:IRIS INFO: The system is shutting down.
+Jun  9 18:47:12 3A:IRIS INFO: Please wait.
+Jun  9 18:47:15 0D:IRIS inetd[161]: inetd received SIGTERM; terminating.
+Jun  9 18:47:17 6D:IRIS eventmond[89]: |$(0x200111)stopped - (normal mode)
+Jun  9 18:47:19 3F:IRIS syslogd: going down on signal 15
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[93]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:15 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:15 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:25 3D:IRIS inetd[160]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:25 3D:IRIS last message repeated 3 times
+Jan 10 05:37:25 3D:IRIS inetd[160]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[160]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[160]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[160]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:25 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:25 2004
+Jan 10 05:37:25 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:28 5E:IRIS login[194]: root on /dev/ttyd1
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254128 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[81]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:15 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:15 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:25 3D:IRIS inetd[148]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:25 3D:IRIS last message repeated 3 times
+Jan 10 05:37:25 3D:IRIS inetd[148]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[148]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[148]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[148]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:25 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:25 2004
+Jan 10 05:37:25 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:28 5E:IRIS login[182]: root on /dev/ttyd1
+Jan 10 05:37:35 3D:IRIS eventmond[81]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254128 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[81]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:15 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:15 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:25 3D:IRIS inetd[148]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:25 3D:IRIS last message repeated 3 times
+Jan 10 05:37:25 3D:IRIS inetd[148]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[148]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[148]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[148]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:25 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:25 2004
+Jan 10 05:37:25 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:28 5E:IRIS login[182]: root on /dev/ttyd1
+Jan 10 05:37:35 3D:IRIS eventmond[81]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:38:12 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254112 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[91]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:15 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:15 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:25 3D:IRIS inetd[158]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:25 3D:IRIS last message repeated 3 times
+Jan 10 05:37:25 3D:IRIS inetd[158]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[158]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[158]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[158]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:25 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:25 2004
+Jan 10 05:37:25 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:28 5E:IRIS login[192]: root on /dev/ttyd1
+Jan 10 05:37:35 3D:IRIS eventmond[91]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:56 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254020 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[96]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:15 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:15 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:25 3D:IRIS inetd[163]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:25 3D:IRIS last message repeated 3 times
+Jan 10 05:37:25 3D:IRIS inetd[163]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[163]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[163]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[163]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:25 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:25 2004
+Jan 10 05:37:25 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:28 5E:IRIS login[197]: root on /dev/ttyd1
+Jan 10 05:37:35 3D:IRIS eventmond[96]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:57 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254084 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[94]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:15 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:15 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:25 3D:IRIS inetd[161]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:25 3D:IRIS last message repeated 3 times
+Jan 10 05:37:25 3D:IRIS inetd[161]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[161]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[161]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[161]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:25 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:25 2004
+Jan 10 05:37:25 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:28 5E:IRIS login[195]: root on /dev/ttyd1
+Jan 10 05:37:35 3D:IRIS eventmond[94]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:50 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254032 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[94]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3A:IRIS network: WARNING: Failed to configure IRIS as /etc/config/ifconfig-1.options.
+Jan 10 05:37:15 3A:IRIS network: WARNING: Cannot access primary interface, .
+Jan 10 05:37:15 3A:IRIS network: WARNING: Using standalone network mode.
+Jan 10 05:37:25 3D:IRIS inetd[162]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:25 3D:IRIS last message repeated 3 times
+Jan 10 05:37:25 3D:IRIS inetd[162]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[162]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[162]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:25 3D:IRIS inetd[162]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:25 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:25 2004
+Jan 10 05:37:25 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jan 10 05:37:28 5E:IRIS login[196]: root on /dev/ttyd1
+Jan 10 05:37:35 3D:IRIS eventmond[94]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:42 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending clean XFS mount for filesystem: /
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254148 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[91]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[162]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[162]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[168]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[168]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:06 3D:IRIS nsd[168]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:06 2004
+Jan 10 05:37:06 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:06 3D:IRIS nsd[168]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 3D:IRIS inetd[183]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:06 3D:IRIS last message repeated 3 times
+Jan 10 05:37:06 3D:IRIS inetd[183]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[183]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[183]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[183]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[206]: This machine is master
+Jan 10 05:37:20 5E:IRIS login[223]: root on /dev/ttyd1
+Jan 10 05:37:20 3D:IRIS nsd[168]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:37:35 3D:IRIS eventmond[91]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:36 3D:IRIS nsd[168]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Jan 10 05:37:57 3B:IRIS startmidi[275]: unable to open /dev/midi: No such device or address
+Jan 10 05:38:00 3A:IRIS INFO: The system is shutting down.
+Jan 10 05:38:00 3A:IRIS INFO: Please wait.
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254064 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[86]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[152]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[152]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[166]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:06 3D:IRIS nsd[166]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:06 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:06 2004
+Jan 10 05:37:06 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:06 3D:IRIS nsd[166]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 3D:IRIS nsd[166]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:06 3D:IRIS last message repeated 3 times
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[212]: This machine is master
+Jan 10 05:37:20 5E:IRIS login[219]: root on /dev/ttyd1
+Jan 10 05:37:20 3D:IRIS nsd[166]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:37:35 3D:IRIS eventmond[86]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jun  9 20:54:39 6F:IRIS syslogd: restart
+Jun  9 20:54:39 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Jun  9 20:54:39 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jun  9 20:54:39 2A:IRIS unix: All Rights Reserved.
+Jun  9 20:54:39 2A:IRIS unix: 
+Jun  9 20:54:39 6A:IRIS unix: audio: AES receiver not responding.
+Jun  9 20:54:39 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jun  9 20:54:39 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/40)
+Jun  9 20:54:39 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jun  9 20:54:40 6D:IRIS eventmond[91]: |$(0x200110)started - (normal mode)
+Jun  9 20:54:40 3A:IRIS network: WARNING: Failed to configure pvnet0 as 10.0.2.15.
+Jun  9 20:54:50 3A:IRIS network: WARNING: Cannot access primary interface, pvnet0.
+Jun  9 20:54:50 3A:IRIS network: WARNING: Using standalone network mode.
+Jun  9 20:55:00 3D:IRIS inetd[140]: /usr/etc/rpc.mountd: No such file or directory
+Jun  9 20:55:00 3D:IRIS last message repeated 3 times
+Jun  9 20:55:00 3D:IRIS inetd[140]: /usr/etc/rpc.rwalld: No such file or directory
+Jun  9 20:55:00 3D:IRIS inetd[140]: /usr/etc/rpc.rusersd: No such file or directory
+Jun  9 20:55:00 3D:IRIS inetd[140]: /usr/etc/rpc.rquotad: No such file or directory
+Jun  9 20:55:00 3D:IRIS inetd[140]: /usr/etc/rpc.sprayd: No such file or directory
+Jun  9 20:55:00 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sun Jun  9 20:55:00 1996
+Jun  9 20:55:00 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jun  9 20:55:10 3D:IRIS eventmond[91]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jun  9 20:55:28 5E:IRIS login[176]: root on /dev/ttyd1
+Jun  9 21:00:07 4E:IRIS lboot: WARNING: there are files in /var/sysgen with mtime in the future
+Jun  9 21:00:07 4E:IRIS lboot: WARNING: setting /unix.new mtime to Sun Mar  1 15:40:54 2026
+Jun  9 21:00:24 3B:IRIS startmidi[270]: unable to open /dev/midi: No such device or address
+Jun  9 21:00:27 3A:IRIS INFO: The system is shutting down.
+Jun  9 21:00:27 3A:IRIS INFO: Please wait.
+Jun  9 21:00:30 0D:IRIS inetd[140]: inetd received SIGTERM; terminating.
+Jun  9 21:00:32 6D:IRIS eventmond[91]: |$(0x200111)stopped - (normal mode)
+Jun  9 21:00:33 3F:IRIS syslogd: going down on signal 15
+Jun  9 21:00:44 6F:IRIS syslogd: restart
+Jun  9 21:00:44 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Jun  9 21:00:44 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jun  9 21:00:44 2A:IRIS unix: All Rights Reserved.
+Jun  9 21:00:44 2A:IRIS unix: 
+Jun  9 21:00:44 6A:IRIS unix: audio: AES receiver not responding.
+Jun  9 21:00:44 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jun  9 21:00:44 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/40)
+Jun  9 21:00:44 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  254052 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[81]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[157]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[157]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[166]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[166]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 3D:IRIS nsd[166]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:05 2004
+Jan 10 05:37:05 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:05 3D:IRIS nsd[166]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 3D:IRIS inetd[174]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:05 3D:IRIS last message repeated 3 times
+Jan 10 05:37:05 3D:IRIS inetd[174]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:05 3D:IRIS inetd[174]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:05 3D:IRIS inetd[174]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:05 3D:IRIS inetd[174]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[206]: This machine is master
+Jan 10 05:37:20 5E:IRIS login[214]: root on /dev/ttyd1
+Jan 10 05:37:20 3D:IRIS nsd[166]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:37:31 3D:IRIS nsd[166]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Jan 10 05:37:35 3D:IRIS eventmond[81]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:40:11 3B:IRIS startmidi[264]: unable to open /dev/midi: No such device or address
+Jan 10 05:40:14 0D:IRIS inetd[174]: inetd received SIGTERM; terminating.
+Jan 10 05:40:14 0D:IRIS inetd[174]: inetd received SIGTERM; terminating. [filter /usr/sbin/sysmonpp failed: exit status 0x1]
+Jan 10 05:40:14 3F:IRIS syslogd: going down on signal 15
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  254112 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[82]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[152]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[152]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[167]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[167]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 3D:IRIS nsd[167]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:05 2004
+Jan 10 05:37:05 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:05 3D:IRIS nsd[167]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 3D:IRIS inetd[175]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:05 3D:IRIS last message repeated 3 times
+Jan 10 05:37:05 3D:IRIS inetd[175]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:05 3D:IRIS inetd[175]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[175]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[175]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[197]: This machine is master
+Jan 10 05:37:20 5E:IRIS login[216]: root on /dev/ttyd1
+Jan 10 05:37:20 3D:IRIS nsd[167]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:37:35 3D:IRIS eventmond[82]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  254028 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[90]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[147]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[147]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[163]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[163]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:05 2004
+Jan 10 05:37:05 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:05 3D:IRIS nsd[163]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 3D:IRIS nsd[163]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 3D:IRIS inetd[183]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:05 3D:IRIS last message repeated 3 times
+Jan 10 05:37:06 3D:IRIS inetd[183]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[183]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[183]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[183]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[211]: This machine is master
+Jan 10 05:37:20 5E:IRIS login[225]: root on /dev/ttyd1
+Jan 10 05:37:20 3D:IRIS nsd[163]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:37:35 3D:IRIS eventmond[90]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  254008 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[88]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[156]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[156]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[166]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[166]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:05 2004
+Jan 10 05:37:05 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:05 3D:IRIS nsd[166]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 3D:IRIS nsd[166]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 3D:IRIS inetd[181]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:05 3D:IRIS last message repeated 3 times
+Jan 10 05:37:05 3D:IRIS inetd[181]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:05 3D:IRIS inetd[181]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[181]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[181]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[218]: This machine is master
+Jan 10 05:37:20 5E:IRIS login[225]: root on /dev/ttyd1
+Jan 10 05:37:20 3D:IRIS nsd[166]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:37:35 3D:IRIS eventmond[88]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:54 1A:IRIS unix: |$(0x6dd)ALERT: Process [sh] 271 generated trap, but has signal 10 held or ignored
+Jan 10 05:37:54 6A:IRIS unix: 	epc 0xe03639c ra 0xe036358 badvaddr 0xe09b9c1
+Jan 10 05:37:54 6A:IRIS unix: Process has been killed to prevent infinite loop [filter /usr/sbin/klogpp failed: killed by signal 11]
+Jan 10 05:37:54 3A:IRIS INFO: The system is shutting down. [filter /usr/sbin/klogpp failed: killed by signal 11]
+Jan 10 05:37:54 3A:IRIS INFO: Please wait. [filter /usr/sbin/klogpp failed: killed by signal 11]
+Jan 10 05:37:54 0D:IRIS inetd[181]: inetd received SIGTERM; terminating.
+Jan 10 05:37:55 6D:IRIS eventmond[88]: |$(0x200111)stopped - (normal mode)
+Jan 10 05:37:56 3F:IRIS syslogd: going down on signal 15
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  254144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[85]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[149]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[149]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[158]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[158]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 3D:IRIS nsd[158]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:05 2004
+Jan 10 05:37:05 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:06 3D:IRIS nsd[158]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 3D:IRIS inetd[178]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:06 3D:IRIS last message repeated 3 times
+Jan 10 05:37:06 3D:IRIS inetd[178]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[178]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[178]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[178]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[209]: This machine is master
+Jan 10 05:37:20 5E:IRIS login[222]: root on /dev/ttyd1
+Jan 10 05:37:20 3D:IRIS nsd[158]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:37:35 3D:IRIS eventmond[85]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  253992 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[88]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[156]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[156]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[170]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[170]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 3D:IRIS nsd[170]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:05 2004
+Jan 10 05:37:05 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:06 3D:IRIS nsd[170]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 3D:IRIS inetd[181]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:06 3D:IRIS last message repeated 3 times
+Jan 10 05:37:06 3D:IRIS inetd[181]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[181]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[181]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[181]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[218]: This machine is master
+Jan 10 05:37:20 5E:IRIS login[223]: root on /dev/ttyd1
+Jan 10 05:37:20 3D:IRIS nsd[170]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:37:35 3D:IRIS eventmond[88]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jun 10 05:13:40 6F:IRIS syslogd: restart
+Jun 10 05:13:40 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Jun 10 05:13:40 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jun 10 05:13:40 2A:IRIS unix: All Rights Reserved.
+Jun 10 05:13:40 2A:IRIS unix: 
+Jun 10 05:13:40 6A:IRIS unix: audio: AES receiver not responding.
+Jun 10 05:13:40 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jun 10 05:13:40 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/40)
+Jun 10 05:13:40 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jun 10 05:13:41 6D:IRIS eventmond[90]: |$(0x200110)started - (normal mode)
+Jun 10 05:13:41 3A:IRIS network: WARNING: Failed to configure pvnet0 as 10.0.2.15.
+Jun 10 05:13:51 3A:IRIS network: WARNING: Cannot access primary interface, pvnet0.
+Jun 10 05:13:51 3A:IRIS network: WARNING: Using standalone network mode.
+Jun 10 05:14:01 3D:IRIS inetd[141]: /usr/etc/rpc.mountd: No such file or directory
+Jun 10 05:14:01 3D:IRIS last message repeated 3 times
+Jun 10 05:14:01 3D:IRIS inetd[141]: /usr/etc/rpc.rwalld: No such file or directory
+Jun 10 05:14:01 3D:IRIS inetd[141]: /usr/etc/rpc.rusersd: No such file or directory
+Jun 10 05:14:01 3D:IRIS inetd[141]: /usr/etc/rpc.rquotad: No such file or directory
+Jun 10 05:14:01 3D:IRIS inetd[141]: /usr/etc/rpc.sprayd: No such file or directory
+Jun 10 05:14:01 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Mon Jun 10 05:14:01 1996
+Jun 10 05:14:01 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jun 10 05:14:10 3D:IRIS eventmond[90]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jun 10 05:14:28 5E:IRIS login[176]: root on /dev/ttyd1
+Jun 10 05:16:26 3B:IRIS startmidi[230]: unable to open /dev/midi: No such device or address
+Jun 10 05:16:30 3A:IRIS INFO: The system is shutting down.
+Jun 10 05:16:30 3A:IRIS INFO: Please wait.
+Jun 10 05:16:33 0D:IRIS inetd[141]: inetd received SIGTERM; terminating.
+Jun 10 05:16:34 6D:IRIS eventmond[90]: |$(0x200111)stopped - (normal mode)
+Jun 10 05:16:36 3F:IRIS syslogd: going down on signal 15
+Jun 10 05:16:54 6F:IRIS syslogd: restart
+Jun 10 05:16:54 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Jun 10 05:16:54 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jun 10 05:16:54 2A:IRIS unix: All Rights Reserved.
+Jun 10 05:16:54 2A:IRIS unix: 
+Jun 10 05:16:54 6A:IRIS unix: audio: AES receiver not responding.
+Jun 10 05:16:54 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jun 10 05:16:54 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/40)
+Jun 10 05:16:54 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  254052 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[81]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[158]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[158]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[161]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[161]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 3D:IRIS nsd[161]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:05 2004
+Jan 10 05:37:05 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:05 3D:IRIS nsd[161]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 3D:IRIS inetd[174]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:05 3D:IRIS last message repeated 3 times
+Jan 10 05:37:05 3D:IRIS inetd[174]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:05 3D:IRIS inetd[174]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:05 3D:IRIS inetd[174]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:05 3D:IRIS inetd[174]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[206]: This machine is master
+Jan 10 05:37:21 5E:IRIS login[216]: root on /dev/ttyd1
+Jan 10 05:37:21 3D:IRIS nsd[161]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:37:35 3D:IRIS eventmond[81]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  254016 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[86]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[161]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[161]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[167]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[167]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 3D:IRIS nsd[167]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:05 2004
+Jan 10 05:37:05 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:06 3D:IRIS nsd[167]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:06 3D:IRIS last message repeated 3 times
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[212]: This machine is master
+Jan 10 05:37:35 3D:IRIS eventmond[86]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:38:45 5E:IRIS login[224]: root on /dev/ttyd1
+Jan 10 05:38:45 3D:IRIS nsd[167]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  253984 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[86]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[145]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[145]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[162]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[162]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 3D:IRIS nsd[162]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:05 2004
+Jan 10 05:37:05 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:06 3D:IRIS nsd[162]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:06 3D:IRIS last message repeated 3 times
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[203]: This machine is master
+Jan 10 05:37:35 3D:IRIS eventmond[86]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:38:00 3D:IRIS nsd[162]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:38:00 5E:IRIS xdm[225]: root on :0
+Jan 10 05:38:00 6B:IRIS Xsession: root: login
+Jan 10 05:38:03 6B:IRIS Xsession: root: 279 Bus error - core dumped
+Jan 10 05:38:03 6B:IRIS Xsession: root: :  unable to open display ""
+Jan 10 05:38:04 1A:IRIS unix: |$(0x6dd)ALERT: Process [Xsession.dt] 288 generated trap, but has signal 11 held or ignored
+Jan 10 05:38:04 1A:IRIS unix: |$(0x6dd)ALERT: Process [Xsession.dt] 288 generated trap, but has signal 11 held or ignored [filter /usr/sbin/sysmonpp failed: killed by signal 10]
+Jan 10 05:38:04 6A:IRIS unix: 	epc 0x0 ra 0x0 badvaddr 0x0
+Jan 10 05:38:04 6A:IRIS unix: Process has been killed to prevent infinite loop [filter /usr/sbin/klogpp failed: killed by signal 11]
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  254044 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[86]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[152]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[152]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[156]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[156]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 3D:IRIS nsd[156]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:05 2004
+Jan 10 05:37:05 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:06 3D:IRIS nsd[156]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:06 3D:IRIS last message repeated 3 times
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[202]: This machine is master
+Jan 10 05:37:35 3D:IRIS eventmond[86]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:38:00 3D:IRIS nsd[156]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:38:00 5E:IRIS xdm[223]: root on :0
+Jan 10 05:38:00 6B:IRIS Xsession: root: login
+Jan 10 05:38:03 6B:IRIS Xsession: root: Cannot create //dumpster/.dumpster: No such file or directory
+Jan 10 05:38:03 3D:IRIS nsd[156]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Jan 10 05:38:03 6B:IRIS Xsession: root: logout
+Jan 10 05:38:03 3D:IRIS Xsgi0[221]: Couldn't load XKB keymap, falling back to pre-XKB keymap
+Jan 10 05:38:03 3B:IRIS xdm[217]: Unknown session exit code 2816 from process 306
+Jan 10 05:38:03 3D:IRIS Xsgi0[221]: Couldn't load XKB keymap, falling back to pre-XKB keymap
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  254028 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[86]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[166]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[166]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[171]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[171]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:05 2004
+Jan 10 05:37:05 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:05 3D:IRIS nsd[171]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 3D:IRIS nsd[171]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:06 3D:IRIS last message repeated 3 times
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[179]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[211]: This machine is master
+Jan 10 05:37:35 3D:IRIS eventmond[86]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:38:00 3D:IRIS nsd[171]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:38:00 5E:IRIS xdm[222]: root on :0
+Jan 10 05:38:00 6B:IRIS Xsession: root: login
+Jan 10 05:38:03 6B:IRIS Xsession: root: Cannot create //dumpster/.dumpster: No such file or directory
+Jan 10 05:38:03 3D:IRIS nsd[171]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Jan 10 05:38:03 3B:IRIS rld[290]:   290:/usr/sbin/syserrpanel: rld: Fatal Error: Cannot Successfully map soname 'libvkhelp.so.1' under any of the filenames /usr/lib32/libvkhelp.so.1:/usr/lib32/internal/libvkhelp.so.1:/lib32/libvkhelp.so.1:/opt/lib32/libvkhelp.so.1:/usr/lib32/libvkhelp.so.1.1:/usr/lib32/internal/libvkhelp.so.1.1:/lib32/libvkhelp.so.1.1:/opt/lib32/libvkhelp.so.1.1: 
+Jan 10 05:38:03 6B:IRIS Xsession: root: Bus error - core dumped
+Jan 10 05:38:03 6B:IRIS Xsession: root: 295 Segmentation fault - core dumped
+Jan 10 05:38:03 1A:IRIS unix: |$(0x6dd)ALERT: Process [Xsession.dt] 300 generated trap, but has signal 11 held or ignored
+Jan 10 05:38:03 6A:IRIS unix: 	epc 0x0 ra 0x0 badvaddr 0x0
+Jan 10 05:38:03 6A:IRIS unix: Process has been killed to prevent infinite loop [filter /usr/sbin/klogpp failed: killed by signal 11]
+Jan 10 05:38:03 1A:IRIS unix: |$(0x6dd)ALERT: Process [Xsession.dt] 304 generated trap, but has signal 11 held or ignored
+Jan 10 05:38:03 6A:IRIS unix: 	epc 0x0 ra 0x0 badvaddr 0x0
+Jan 10 05:38:03 6A:IRIS unix: Process has been killed to prevent infinite loop [filter /usr/sbin/klogpp failed: killed by signal 11]
+Jan 10 05:38:03 1A:IRIS unix: |$(0x6dd)ALERT: Process [Xsession.dt] 308 generated trap, but has signal 11 held or ignored
+Jan 10 05:38:03 1A:IRIS unix: |$(0x6dd)ALERT: Process [Xsession.dt] 308 generated trap, but has signal 11 held or ignored [filter /usr/sbin/sysmonpp failed: killed by signal 11]
+Jan 10 05:38:03 6A:IRIS unix: 	epc 0x0 ra 0x0 badvaddr 0x0
+Jan 10 05:38:03 6A:IRIS unix: Process has been killed to prevent infinite loop
+Jan 10 05:38:03 6B:IRIS Xsession: root: Killed
+Jan 10 05:38:03 6B:IRIS Xsession: root: Killed
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  254116 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[88]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[151]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[151]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[165]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[165]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 3D:IRIS nsd[165]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:06 2004
+Jan 10 05:37:06 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:06 3D:IRIS nsd[165]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 3D:IRIS inetd[181]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:06 3D:IRIS last message repeated 3 times
+Jan 10 05:37:06 3D:IRIS inetd[181]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[181]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[181]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[181]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[199]: This machine is master
+Jan 10 05:37:20 5E:IRIS login[222]: root on /dev/ttyd1
+Jan 10 05:37:20 3D:IRIS nsd[165]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:37:35 3D:IRIS eventmond[88]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:45 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:57 3D:IRIS Xsgi0[257]: Couldn't load XKB keymap, falling back to pre-XKB keymap
+Jan 10 05:38:14 2A:IRIS unix: magic # 0x0 in XFS inode buffer 0x886b7150, starting blockno 5270224, offset 0x1c00
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Filesystem "/": corrupt, unmount and run xfs_repair
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Bad next_unlinked field (0) in XFS inode buffer 0x886b7150, starting blockno 5270224, offset 0x1c00 [filter /usr/sbin/klogpp failed: killed by signal 11]
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Filesystem "/": corrupt, unmount and run xfs_repair
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Bad magic # 0x0 in XFS inode buffer 0x886b7150, starting blockno 5270224, offset 0x1d00 [filter /usr/sbin/klogpp failed: killed by signal 11]
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Filesystem "/": corrupt, unmount and run xfs_repair [filter /usr/sbin/klogpp failed: killed by signal 11]
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Bad next_unlinked field (0) in XFS inode buffer 0x886b7150, starting blockno 5270224, offset 0x1d00
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Filesystem "/": corrupt, unmount and run xfs_repair
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Bad magic # 0x0 in XFS inode buffer 0x886b7150, starting blockno 5270224, offset 0x1e00 [filter /usr/sbin/klogpp failed: killed by signal 11]
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Filesystem "/": corrupt, unmount and run xfs_repair
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Bad next_unlinked field (0) in XFS inode buffer 0x886b7150, starting blockno 5270224, offset 0x1e00
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Filesystem "/": corrupt, unmount and run xfs_repair [filter /usr/sbin/klogpp failed: killed by signal 11]
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Bad magic # 0x0 in XFS inode buffer 0x886b7150, starting blockno 5270224, offset 0x1f00
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Filesystem "/": corrupt, unmount and run xfs_repair
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Bad next_unlinked field (0) in XFS inode buffer 0x886b7150, starting blockno 5270224, offset 0x1f00 [filter /usr/sbin/klogpp failed: killed by signal 11]
+Jan 10 05:38:14 4A:IRIS unix: WARNING: Filesystem "/": corrupt, unmount and run xfs_repair
+Jun 10 11:27:47 6F:IRIS syslogd: restart
+Jun 10 11:27:47 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Jun 10 11:27:47 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jun 10 11:27:47 2A:IRIS unix: All Rights Reserved.
+Jun 10 11:27:47 2A:IRIS unix: 
+Jun 10 11:27:47 6A:IRIS unix: audio: AES receiver not responding.
+Jun 10 11:27:47 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jun 10 11:27:47 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/51)
+Jun 10 11:27:47 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jun 10 11:27:47 6D:IRIS eventmond[90]: |$(0x200110)started - (normal mode)
+Jun 10 11:27:47 3A:IRIS network: WARNING: Failed to configure pvnet0 as 10.0.2.15.
+Jun 10 11:27:57 3A:IRIS network: WARNING: Cannot access primary interface, pvnet0.
+Jun 10 11:27:57 3A:IRIS network: WARNING: Using standalone network mode.
+Jun 10 11:28:08 3D:IRIS inetd[141]: /usr/etc/rpc.mountd: No such file or directory
+Jun 10 11:28:08 3D:IRIS last message repeated 3 times
+Jun 10 11:28:08 3D:IRIS inetd[141]: /usr/etc/rpc.rwalld: No such file or directory
+Jun 10 11:28:08 3D:IRIS inetd[141]: /usr/etc/rpc.rusersd: No such file or directory
+Jun 10 11:28:08 3D:IRIS inetd[141]: /usr/etc/rpc.rquotad: No such file or directory
+Jun 10 11:28:08 3D:IRIS inetd[141]: /usr/etc/rpc.sprayd: No such file or directory
+Jun 10 11:28:08 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Mon Jun 10 11:28:08 1996
+Jun 10 11:28:08 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jun 10 11:28:17 3D:IRIS eventmond[90]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jun 10 11:28:35 5E:IRIS login[176]: root on /dev/ttyd1
+Jun 10 11:29:12 5A:IRIS unix: NOTICE: Start mounting filesystem: /mnt2
+Jun 10 11:29:12 5A:IRIS unix: NOTICE: Ending clean XFS mount for filesystem: /mnt2
+Jun 10 11:29:38 3B:IRIS startmidi[225]: unable to open /dev/midi: No such device or address
+Jun 10 11:29:42 3A:IRIS INFO: The system is shutting down.
+Jun 10 11:29:42 3A:IRIS INFO: Please wait.
+Jun 10 11:29:45 0D:IRIS inetd[141]: inetd received SIGTERM; terminating.
+Jun 10 11:29:46 6D:IRIS eventmond[90]: |$(0x200111)stopped - (normal mode)
+Jun 10 11:29:49 3F:IRIS syslogd: going down on signal 15
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending clean XFS mount for filesystem: /
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  254148 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[83]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[152]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[152]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[158]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[158]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 3D:IRIS nsd[158]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:06 2004
+Jan 10 05:37:06 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:06 3D:IRIS nsd[158]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 3D:IRIS inetd[175]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:06 3D:IRIS last message repeated 3 times
+Jan 10 05:37:06 3D:IRIS inetd[175]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[175]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[175]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[175]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[195]: This machine is master
+Jan 10 05:37:20 5E:IRIS login[216]: root on /dev/ttyd1
+Jan 10 05:37:20 3D:IRIS nsd[158]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:37:35 3D:IRIS eventmond[83]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending clean XFS mount for filesystem: /
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254148 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:05 6D:IRIS eventmond[85]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[155]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[155]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[159]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[159]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:06 3D:IRIS nsd[159]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:06 2004
+Jan 10 05:37:06 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:06 3D:IRIS nsd[159]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:06 3D:IRIS inetd[177]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:06 3D:IRIS last message repeated 3 times
+Jan 10 05:37:06 3D:IRIS inetd[177]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[177]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[177]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:06 3D:IRIS inetd[177]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:12 5D:IRIS timed[199]: This machine is master
+Jun 13 21:43:53 6F:IRIS syslogd: restart
+Jun 13 21:43:53 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Jun 13 21:43:53 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jun 13 21:43:53 2A:IRIS unix: All Rights Reserved.
+Jun 13 21:43:53 2A:IRIS unix: 
+Jun 13 21:43:53 6A:IRIS unix: audio: AES receiver not responding.
+Jun 13 21:43:53 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jun 13 21:43:53 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/40)
+Jun 13 21:43:53 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jun 13 21:43:53 6D:IRIS eventmond[70]: |$(0x200110)started - (normal mode)
+Jun 13 21:43:54 3A:IRIS network: WARNING: Failed to configure pvnet0 as 10.0.2.15.
+Jun 13 21:44:04 3A:IRIS network: WARNING: Cannot access primary interface, pvnet0.
+Jun 13 21:44:04 3A:IRIS network: WARNING: Using standalone network mode.
+Jun 13 21:44:14 3D:IRIS inetd[119]: /usr/etc/rpc.mountd: No such file or directory
+Jun 13 21:44:14 3D:IRIS last message repeated 3 times
+Jun 13 21:44:14 3D:IRIS inetd[119]: /usr/etc/rpc.rwalld: No such file or directory
+Jun 13 21:44:14 3D:IRIS inetd[119]: /usr/etc/rpc.rusersd: No such file or directory
+Jun 13 21:44:14 3D:IRIS inetd[119]: /usr/etc/rpc.rquotad: No such file or directory
+Jun 13 21:44:14 3D:IRIS inetd[119]: /usr/etc/rpc.sprayd: No such file or directory
+Jun 13 21:44:14 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Thu Jun 13 21:44:14 1996
+Jun 13 21:44:14 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jun 13 21:44:23 3D:IRIS eventmond[70]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jun 13 21:44:42 5E:IRIS login[154]: root on /dev/ttyd1
+Jun 13 21:49:23 4E:IRIS lboot: WARNING: there are files in /var/sysgen with mtime in the future
+Jun 13 21:49:23 4E:IRIS lboot: WARNING: setting /unix.new mtime to Sun Mar  1 15:40:54 2026
+Jun 13 21:49:40 3B:IRIS startmidi[249]: unable to open /dev/midi: No such device or address
+Jun 13 21:49:44 3A:IRIS INFO: The system is shutting down.
+Jun 13 21:49:44 3A:IRIS INFO: Please wait.
+Jun 13 21:49:47 0D:IRIS inetd[119]: inetd received SIGTERM; terminating.
+Jun 13 21:49:48 6D:IRIS eventmond[70]: |$(0x200111)stopped - (normal mode)
+Jun 13 21:49:50 3F:IRIS syslogd: going down on signal 15
+Jan 10 05:37:04 6F:IRIS syslogd: restart
+Jan 10 05:37:04 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:04 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:04 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:04 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:04 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:04 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:04 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:04 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:04 6A:IRIS unix: Available memory on node [0] =  252088 kbytes
+Jan 10 05:37:04 2A:IRIS unix: 
+Jan 10 05:37:04 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:04 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:04 6D:IRIS eventmond[109]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:05 3D:IRIS routed[178]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:05 3D:IRIS routed[178]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:05 3D:IRIS nsd[189]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:05 3D:IRIS nsd[189]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:05 3D:IRIS nsd[189]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:05 2004
+Jan 10 05:37:05 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:05 3D:IRIS nsd[189]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:05 3D:IRIS inetd[202]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:05 3D:IRIS last message repeated 3 times
+Jan 10 05:37:05 3D:IRIS inetd[202]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:05 3D:IRIS inetd[202]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:05 3D:IRIS inetd[202]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:05 3D:IRIS inetd[202]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 512)
+Jan 10 05:37:06 5A:IRIS last message repeated 2 times
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 0)
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 512)
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 512)
+Jan 10 05:37:11 5D:IRIS timed[216]: This machine is master
+Jan 10 05:37:29 5E:IRIS login[242]: failed: 5 on /dev/ttyd1
+Jan 10 05:37:35 3D:IRIS eventmond[109]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jun 15 13:51:16 6F:IRIS syslogd: restart
+Jun 15 13:51:16 6A:IRIS unix: IRIX Release 6.5 IP22 Version 07151432 System V
+Jun 15 13:51:16 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jun 15 13:51:16 2A:IRIS unix: All Rights Reserved.
+Jun 15 13:51:16 2A:IRIS unix: 
+Jun 15 13:51:16 6A:IRIS unix: audio: AES receiver not responding.
+Jun 15 13:51:16 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jun 15 13:51:16 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/40)
+Jun 15 13:51:16 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/node/io/gio/hpc/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jun 15 13:51:16 6D:IRIS eventmond[85]: |$(0x200110)started - (normal mode)
+Jun 15 13:51:17 3A:IRIS network: WARNING: Failed to configure pvnet0 as 10.0.2.15.
+Jun 15 13:51:27 3A:IRIS network: WARNING: Cannot access primary interface, pvnet0.
+Jun 15 13:51:27 3A:IRIS network: WARNING: Using standalone network mode.
+Jun 15 13:51:37 3D:IRIS inetd[136]: /usr/etc/rpc.mountd: No such file or directory
+Jun 15 13:51:37 3D:IRIS last message repeated 3 times
+Jun 15 13:51:37 3D:IRIS inetd[136]: /usr/etc/rpc.rwalld: No such file or directory
+Jun 15 13:51:37 3D:IRIS inetd[136]: /usr/etc/rpc.rusersd: No such file or directory
+Jun 15 13:51:37 3D:IRIS inetd[136]: /usr/etc/rpc.rquotad: No such file or directory
+Jun 15 13:51:37 3D:IRIS inetd[136]: /usr/etc/rpc.sprayd: No such file or directory
+Jun 15 13:51:37 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jun 15 13:51:37 1996
+Jun 15 13:51:37 3B:IRIS proclaim: Cannot get ethernet address for interface (null).
+Jun 15 13:51:47 3D:IRIS eventmond[85]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jun 15 13:52:06 5E:IRIS login[171]: root on /dev/ttyd1
+Jun 15 13:56:45 4E:IRIS lboot: WARNING: there are files in /var/sysgen with mtime in the future
+Jun 15 13:56:45 4E:IRIS lboot: WARNING: setting /unix.new mtime to Sun Mar  1 15:40:54 2026
+Jun 15 13:57:02 3B:IRIS startmidi[266]: unable to open /dev/midi: No such device or address
+Jun 15 13:57:05 3A:IRIS INFO: The system is shutting down.
+Jun 15 13:57:05 3A:IRIS INFO: Please wait.
+Jun 15 13:57:08 0D:IRIS inetd[136]: inetd received SIGTERM; terminating.
+Jun 15 13:57:09 6D:IRIS eventmond[85]: |$(0x200111)stopped - (normal mode)
+Jun 15 13:57:11 3F:IRIS syslogd: going down on signal 15
+Jan 10 05:37:06 6F:IRIS syslogd: restart
+Jan 10 05:37:06 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:06 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:06 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:06 2A:IRIS unix: 
+Jan 10 05:37:06 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:06 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:06 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:06 2A:IRIS unix: 
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:06 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:06 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:06 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:06 6A:IRIS unix: Available memory on node [0] =  254116 kbytes
+Jan 10 05:37:06 2A:IRIS unix: 
+Jan 10 05:37:06 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:06 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:06 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:06 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:07 6D:IRIS eventmond[107]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:08 3D:IRIS routed[177]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:08 3D:IRIS routed[177]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:08 3D:IRIS nsd[194]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:08 3D:IRIS nsd[194]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:08 3D:IRIS nsd[194]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:09 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:09 2004
+Jan 10 05:37:09 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:09 3D:IRIS nsd[194]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:09 3D:IRIS inetd[202]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:09 3D:IRIS last message repeated 3 times
+Jan 10 05:37:09 3D:IRIS inetd[202]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:09 3D:IRIS inetd[202]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:10 3D:IRIS inetd[202]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:10 3D:IRIS inetd[202]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:10 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:10 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 512)
+Jan 10 05:37:10 5A:IRIS last message repeated 2 times
+Jan 10 05:37:10 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 0)
+Jan 10 05:37:10 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 512)
+Jan 10 05:37:11 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 512)
+Jan 10 05:37:12 3D:IRIS nsd[194]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Jan 10 05:37:12 6E:IRIS login[270]: ?@10.0.2.2 as root
+Jan 10 05:37:12 3D:IRIS nsd[194]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:37:15 5D:IRIS timed[219]: This machine is master
+Jan 10 05:37:06 6F:IRIS syslogd: restart
+Jan 10 05:37:06 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:06 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:06 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:06 2A:IRIS unix: 
+Jan 10 05:37:06 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:06 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:06 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:06 2A:IRIS unix: 
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:06 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:06 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:06 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:06 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:06 6A:IRIS unix: Available memory on node [0] =  253968 kbytes
+Jan 10 05:37:06 2A:IRIS unix: 
+Jan 10 05:37:06 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:06 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:06 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:06 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:06 6D:IRIS eventmond[90]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:07 3D:IRIS routed[163]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:07 3D:IRIS routed[163]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:07 3D:IRIS nsd[175]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:08 3D:IRIS nsd[175]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:08 3D:IRIS nsd[175]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:08 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:08 2004
+Jan 10 05:37:08 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:09 3D:IRIS nsd[175]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:09 3D:IRIS inetd[183]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:09 3D:IRIS last message repeated 3 times
+Jan 10 05:37:09 3D:IRIS inetd[183]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:09 3D:IRIS inetd[183]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:09 3D:IRIS inetd[183]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:09 3D:IRIS inetd[183]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:09 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:10 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 512)
+Jan 10 05:37:10 5A:IRIS last message repeated 2 times
+Jan 10 05:37:10 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 0)
+Jan 10 05:37:10 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 512)
+Jan 10 05:37:10 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 512)
+Jan 10 05:37:14 5D:IRIS timed[198]: This machine is master
+Jan 10 05:37:14 3D:IRIS nsd[175]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Jan 10 05:37:26 6D:IRIS telnetd[247]: ttloop:  peer died
+Jan 10 05:37:37 3D:IRIS eventmond[90]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:37:59 6D:IRIS telnetd[249]: ttloop:  peer died
+Jan 10 05:38:32 6D:IRIS telnetd[250]: ttloop:  peer died
+Jan 10 05:39:27 6D:IRIS telnetd[252]: ttloop:  peer died
+Jan 10 05:39:59 6D:IRIS telnetd[253]: ttloop:  peer died
+Jan 10 05:40:32 6D:IRIS telnetd[254]: ttloop:  peer died
+Jan 10 05:41:05 6D:IRIS telnetd[255]: ttloop:  peer died
+Jan 10 05:41:38 6D:IRIS telnetd[256]: ttloop:  peer died
+Jan 10 05:41:57 6E:IRIS login[258]: ?@10.0.2.2 as root
+Jan 10 05:41:57 3D:IRIS nsd[175]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:42:11 6D:IRIS telnetd[270]: ttloop:  peer died
+Jan 10 05:42:44 6D:IRIS telnetd[279]: ttloop:  peer died
+Jan 10 05:43:03 6E:IRIS login[282]: ?@10.0.2.2 as root
+Jan 10 05:43:38 3D:IRIS inetd[296]: telnet/tcp: root: No such user
+Jan 10 05:43:58 6D:IRIS telnetd[295]: ttloop:  peer died
+Jan 10 05:44:11 6D:IRIS telnetd[297]: ttloop:  peer died
+Jan 10 05:44:12 6E:IRIS login[300]: ?@-p as root
+Jan 10 05:44:42 6E:IRIS login[327]: ?@10.0.2.2 as root
+Jan 10 05:44:44 6D:IRIS telnetd[325]: ttloop:  peer died
+Jan 10 05:45:16 6D:IRIS telnetd[340]: ttloop:  peer died
+Jan 10 05:45:27 6B:IRIS Xsession: root: login
+Jan 10 05:45:27 6B:IRIS Xsession: root: logout
+Jan 10 05:45:49 6D:IRIS telnetd[357]: ttloop:  peer died
+Jan 10 05:37:05 6F:IRIS syslogd: restart
+Jan 10 05:37:05 6A:IRIS unix: IRIX Release 6.5 IP54 Version 07151432 System V
+Jan 10 05:37:05 2A:IRIS unix: Copyright 1987-1999 Silicon Graphics, Inc.
+Jan 10 05:37:05 2A:IRIS unix: All Rights Reserved.
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Total real memory  = 262144 kbytes
+Jan 10 05:37:05 2A:IRIS unix: CPU Frequency = 400Mhz
+Jan 10 05:37:05 2A:IRIS unix: 1 CPU(s)
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvdisk: IP54 paravirtual disk, 8388608 sectors (4096 MB), root partition 0 at LBA 266240
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvnet0: IP54 paravirtual ethernet, addr 52:54:0:12:34:56
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered /hw/pvfb
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvfb: registered NEWPORT board (pvrex3 at PA 0x1f490000)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 6A:IRIS unix: default root device is /dev/root
+Jan 10 05:37:05 6A:IRIS unix: using root dev 0xe path /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block
+Jan 10 05:37:05 6A:IRIS unix: 1738 buffers
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: pvaudio: registered /hw/pvaudio
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Start mounting filesystem: /
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Starting XFS recovery on filesystem: / (dev: 0/14)
+Jan 10 05:37:05 5A:IRIS unix: NOTICE: Ending XFS recovery for filesystem: / (/hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block)
+Jan 10 05:37:05 6A:IRIS unix: Available memory on node [0] =  254084 kbytes
+Jan 10 05:37:05 2A:IRIS unix: 
+Jan 10 05:37:05 6A:IRIS unix: Root on device /hw/scsi_ctlr/0/target/1/lun/0/disk/partition/0/block (fstype xfs)
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: isdn: HSCX version id 0
+Jan 10 05:37:05 6A:IRIS unix: vino: probe found controller that's not VINO
+Jan 10 05:37:06 6D:IRIS eventmond[88]: |$(0x200110)started - (normal mode)
+Jan 10 05:37:06 3D:IRIS routed[166]: IP_ADD_MEMBERSHIP ALLHOSTS: No buffer space available
+Jan 10 05:37:06 3D:IRIS routed[166]: setsockopt(IP_ADD_MEMBERSHIP RIP): No buffer space available
+Jan 10 05:37:06 3D:IRIS nsd[173]: No /etc/resolv.conf or nameserver found.  No default DNS server set.
+Jan 10 05:37:07 3D:IRIS nsd[173]: WARNING: Future date on /etc/passwd: Sun Mar  1 15:25:06 2026
+Jan 10 05:37:07 3D:IRIS nsd[173]: WARNING: Future date on /etc/services: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:07 7B:IRIS proclaim: SGI dhcp client V2.0.2 starting at Sat Jan 10 05:37:07 2004
+Jan 10 05:37:07 3B:IRIS proclaim: Currently only Ethernet and FDDI is supported
+Jan 10 05:37:07 3D:IRIS nsd[173]: WARNING: Future date on /etc/rpc: Sun Mar  1 15:40:05 2026
+Jan 10 05:37:07 3D:IRIS inetd[181]: /usr/etc/rpc.mountd: No such file or directory
+Jan 10 05:37:07 3D:IRIS last message repeated 3 times
+Jan 10 05:37:07 3D:IRIS inetd[181]: /usr/etc/rpc.rwalld: No such file or directory
+Jan 10 05:37:07 3D:IRIS inetd[181]: /usr/etc/rpc.rusersd: No such file or directory
+Jan 10 05:37:07 3D:IRIS inetd[181]: /usr/etc/rpc.rquotad: No such file or directory
+Jan 10 05:37:08 3D:IRIS inetd[181]: /usr/etc/rpc.sprayd: No such file or directory
+Jan 10 05:37:08 5A:IRIS unix: NOTICE: pvfb: gf_Initialize called
+Jan 10 05:37:08 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 512)
+Jan 10 05:37:08 5A:IRIS last message repeated 2 times
+Jan 10 05:37:08 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 0)
+Jan 10 05:37:08 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 512)
+Jan 10 05:37:09 5A:IRIS unix: NOTICE: pvfb: PositionCursor(640, 512)
+Jan 10 05:37:13 5D:IRIS timed[190]: This machine is master
+Jan 10 05:37:36 3D:IRIS eventmond[88]: |$(0x20011E)Can't init SSDB library "libssdb.so", current timeout is 30 sec. - (normal mode)
+Jan 10 05:38:31 3D:IRIS nsd[173]: WARNING: Future date on /etc/group: Sun Mar  1 15:40:04 2026
+Jan 10 05:40:15 3D:IRIS Xsgi0[223]: Couldn't load XKB keymap, falling back to pre-XKB keymap
+Jan 10 05:40:15 3B:IRIS xdm[219]: Unknown session exit code 2816 from process 259
+Jan 10 05:40:15 3D:IRIS Xsgi0[223]: Couldn't load XKB keymap, falling back to pre-XKB keymap
+Jan 10 05:41:07 3D:IRIS nsd[173]: WARNING: Future date on /etc/hosts: Sun Mar  1 15:53:25 2026
+Jan 10 05:41:07 6E:IRIS login[265]: ?@10.0.2.2 as root
+Jan 10 05:52:31 1A:IRIS unix: |$(0x6dd)ALERT: Process [scheme] 270 generated trap, but has signal 10 held or ignored
+Jan 10 05:52:31 1A:IRIS unix: |$(0x6dd)ALERT: Process [scheme] 270 generated trap, but has signal 10 held or ignored [filter /usr/sbin/sysmonpp failed: killed by signal 10]
+Jan 10 05:52:31 6A:IRIS unix: 	epc 0xfa3933c ra 0xfa390d8 badvaddr 0x100225e9
+Jan 10 05:52:31 6A:IRIS unix: Process has been killed to prevent infinite loop
+Jan 10 05:53:21 3D:IRIS inetd[278]: /: : No such user
+Jan 10 05:53:44 6E:IRIS login[284]: ?@10.0.2.2 as root
+Jan 10 06:03:31 6E:IRIS login[287]: ?@10.0.2.2 as root
