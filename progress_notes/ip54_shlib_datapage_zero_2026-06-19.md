@@ -69,7 +69,44 @@ This matches the whole second-wave pattern:
 - `date`/`ls` from a serial shell worked because their shlib data pages
   happened to be already resident (libc faulted early in boot).
 
-## Narrowed further: the read HAPPENS and is correct — it's COW
+## NARROWED HARD: only libpthread's data page, only in the fork-child
+
+Scanning ALL vmaps in xdm's core for nonzero content:
+
+```
+[ 4] va=0x0c244000 VMAPFILE  nonzero=0/4096      <-- libpthread DATA: ALL ZERO
+[ 6] va=0x0f5bb000 VMAPFILE  nonzero=9875/16384  libXaw  data  ✓ populated
+[ 8] va=0x0f5f5000 VMAPFILE  nonzero=2097/4096   libXmu  data  ✓
+[10] va=0x0f694000 VMAPFILE  nonzero=10796/16384 libXt   data  ✓
+[14] va=0x0f7e9000 VMAPFILE  nonzero=9895/16384  libX11  data  ✓
+... every other shlib data segment is populated; ONLY libpthread's is zero.
+```
+
+So it is **not** a general COW/demand-paging failure. It is specific to
+**libpthread's data page (0xc244000), first-faulted inside a forked child.**
+
+Mechanism that fits all evidence:
+- xdm is a daemon that never calls pthread routines itself, so it **never
+  faults libpthread's data page** — that page stays mapped-but-unfaulted
+  in the parent (demand).
+- Every *other* shlib data page WAS faulted by xdm before forking, so the
+  child inherits them correctly (COW of a resident page).
+- xdm `fork()`s to spawn a session; in the **child**, libpthread's
+  registered **atfork CHILD handler** `_SGIPT_pt_fork_child` runs and is
+  the *first* code to touch 0xc244000.
+- That **first fault of the inherited-but-never-faulted file-backed page,
+  in the forked child**, returns a zero page instead of reading the file.
+
+The libpthread data-seg disk sectors WERE read once (correct bytes) — by
+some other process earlier in boot — so the page cache holds the right
+data, but the child's fault does not use it and does not re-read.
+
+⇒ Root cause is a **fork-inheritance bug for not-yet-resident file-backed
+private mappings**: the child's first fault of such a page fails to
+populate it from the vnode/page-cache. Stock IRIX VM code, but triggered
+by the IP54 paging path.
+
+## (earlier framing) the read HAPPENS and is correct — it's COW
 
 Traced QEMU's `sgi_bootdisk` read log against libpthread's on-disk
 data-segment extent. libpthread.so is XFS inode 12593266, single extent
