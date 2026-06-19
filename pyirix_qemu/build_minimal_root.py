@@ -36,12 +36,16 @@ from pyirix.xfs.constants import S_IFMT, S_IFCHR, S_IFBLK, S_IFLNK, S_IFREG
 COPY_FILES = [
     "/unix.new",
     "/sbin/init", "/sbin/sh",
+    "/sbin/dd", "/sbin/cat", "/sbin/stty",  # shell file/console tooling
+    "/usr/bin/cksum",                        # CRC verify of transferred files
+    "/usr/bsd/uudecode",                     # decode 7-bit-safe binary transfers
     "/lib32/rld", "/lib32/libc.so.1",
 ]
 
 # Character device nodes a console single-user boot needs. Dev words are read
 # from the source disk so they match what the IRIX kernel expects.
-DEV_NODES = ["/dev/console", "/dev/null", "/dev/tty", "/dev/systty", "/dev/zero"]
+DEV_NODES = ["/dev/console", "/dev/null", "/dev/tty", "/dev/systty", "/dev/zero",
+             "/dev/mem", "/dev/kmem"]
 
 # Symlinks under /dev (target read from source).
 DEV_SYMLINKS = ["/dev/root", "/dev/swap"]
@@ -112,8 +116,11 @@ def build(source, out, size_mb=64, with_volume_header=True):
         # /hw is the mount point for hwgfs (the hardware graph); without it the
         # kernel logs "Unable to mount hwgfs error = 2" and device paths like
         # /hw/scsi_ctlr/... and the /dev/root -> /hw/disk/root link don't resolve.
-        for d in ("/sbin", "/etc", "/dev", "/var", "/tmp", "/lib32", "/hw", "/proc"):
+        for d in ("/sbin", "/etc", "/dev", "/var", "/tmp", "/lib32", "/hw", "/proc", "/usr", "/usr/bin", "/usr/bsd"):
             mkdir(df, po, sb, d, mode=0o755)
+        # Different binaries bake different loader paths (/lib32 vs /usr/lib32);
+        # make /usr/lib32 -> ../lib32 so both resolve to the libc/rld we ship.
+        create_symlink(df, po, sb, "/usr/lib32", "../lib32")
 
         for p, (data, mode) in files.items():
             create_file(df, po, sb, p, data, mode=mode)
