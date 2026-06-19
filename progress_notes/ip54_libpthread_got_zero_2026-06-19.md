@@ -188,3 +188,34 @@ in an mmap code path the existing fix doesn't cover.
 - `/tmp/qrt/core_var_tmp_core` — chkconfig /var/tmp/core (similar pattern)
 - `/tmp/qrt/binaries/lib32_rld` — IRIX runtime dynamic linker
 - This note.
+
+---
+
+## ⚠️ CORRECTION (2026-06-19, later same day) — root cause DISPROVEN
+
+The cache-alias / pvdisk-read-zero explanation above is **wrong**. Two
+findings overturned it:
+
+1. **QEMU TCG models no CPU caches.** `dki_dcache_wbinval` is a
+   functional no-op in emulation; a guest dcache flush cannot change
+   what a load returns. Emulated memory is coherent, so the
+   VIPT-color-alias mechanism described above cannot exist in QEMU.
+
+2. **The BDRD-MIX detector was a false positive.** Reading the flagged
+   sector (abs LBA 6436658) straight from the disk image returns
+   `494e444f` in slot 0 and zeros in slot 256 — byte-for-byte what
+   QEMU's sgi_bootdisk returned. pvdisk faithfully reproduces on-disk
+   content; it does not zero-fill. The "IN" magic heuristic simply
+   matched the legitimate ASCII bytes `IN` ("INDO…").
+
+The `irix-ip54` `CACH_OTHER_COLORS` commit (9d2c50f) was reverted in
+**ef2c04d** — it was theoretically void and also panicked the kernel
+at boot (icmn_err spinner at 0x88203c28).
+
+The crash *signature* (xdm core EPC = libpthread+0xfaac, t9=0 from a
+GOT load) is still real and still blocks 4Dwm. The actual cause is
+OPEN — see the memory note `ip54-libpthread-got-zero-root-cause` for
+the remaining candidates (rld relocation, offline-core mis-parse,
+kernel VM/TLB mapping, sproc/shared-arena). Next step must be LIVE
+gdb against the running guest, not another offline-core / pvdisk
+theory.
