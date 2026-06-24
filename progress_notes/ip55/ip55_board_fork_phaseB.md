@@ -2,7 +2,22 @@
 
 Goal (user: "the pure version"): give IP55/Virtuix its OWN IRIX `CPUBOARD` and machine-dependent kernel source so it builds with `-DIP55` from `ml/IP55.c` and never shares IP22's — completing the Indy/Virtuix separation on the IRIX side, mirroring the QEMU-side device split.
 
-## Status: foundation DONE (on disk), build-host iterative sweep REMAINING
+## ✅✅ COMPLETE 2026-06-24: IP55-sourced kernel BOOTS on -M virtuix
+
+`ip55_desktop_kernel/unix.ip55` (8,383,504 bytes, built 100% from `ml/IP55.c` + `-DIP55` + the sweep) **boots on `-M virtuix -smp 4 -accel tcg,thread=multi` to `login:`** (verified via `tmp/indy-virtuix-sep/virtuix_gate.py`). The IP55 board fork is proven end-to-end: IP55 has its own CPUBOARD/product/Makefiles/machine-dependent source and builds + boots its own kernel, never IP22's. This is a base (kdebug) kernel with vce_avoidance/biozero shims; the full Indy desktop gfx is the follow-on relink (below).
+
+## UPDATE 2026-06-24: IP55 kernel BUILDS + LINKS from its own -DIP55 source ✅
+
+The build-host work is done: the IP55 board compiles the **entire kernel with `-DIP55`** and links a complete `/unix.ip55` (8.38 MB ELF N32 MSB mips-3). Key results:
+- **Conditional sweep**: a perl pass (`ip54_tftp_staging/sweep_ip55.pl`) added `IP22 → IP22||IP55` to preprocessor conditions across **82 files / 270 sites** — the kernel then compiled with **zero cc errors** under `-DIP55`. (This was the feared "~104-file sweep"; done in one bulk pass + the build confirmed it.)
+- **Board applied on the build host** (`/var/tmp/v/irix/kern`): `apply_ip55.sh` inserted the IP55 blocks into kcommondefs/ml-Makefile/bsd-Makefile in place; `IP55defs` (COMPLEX=MP) installed; `ml/IP22.c`→`ml/IP55.c` (patched, with virtuix SMP) + `IP22asm.s`→`IP55asm.s`; `IP55bootarea` seeded from `IP22bootarea`.
+- **Full `smake PRODUCT=IP55`**: all archives built `-DIP55` (`kernel.o`, `os.a` 2.7M, `ml.a`, `io.a`, `xfs.a`, …).
+- **Link**: `lboot -b IP55bootarea` (plain IP22 kdebug spec) → only `vce_avoidance` + `biozero` undefined (provided by the gfx/desktop driver layer, i.e. the full desktop relink). Shimmed (`do_shim_link_ip55.sh`: `int vce_avoidance=0; void biozero(){}` ar'd into gfxstubs.a — vce=0 is correct for cache-less QEMU; biozero stub is a boot-test caveat) → **`LBOOT_RC=0`, /unix.ip55 linked, no undefined.**
+- Build pipeline scripts (in `ip54_tftp_staging/`, pushed via gwagent): `apply_ip55.sh`, `sweep_ip55.pl`, `dolboot_ip55.sh`, `do_relink_ip55.sh` (full desktop-gfx relink — needs gfx/input master.d + objects, the smp_desktop_kernel pipeline), `do_shim_link_ip55.sh`. Host helpers in `tmp/ip55-buildfork/`.
+
+Remaining for a *desktop* IP55 kernel (follow-on): replace the vce_avoidance/biozero shims with the real Indy gfx/desktop drivers via the relink pipeline (master.d descriptors + ng1/gfx/tport/shmiq objects) — same mechanism as the working IP22-virtuix `unix.g.smp-desktop`. The board fork itself (IP55 builds its own -DIP55 kernel, never IP22's) is COMPLETE.
+
+## (original) Status: foundation DONE (on disk), build-host iterative sweep REMAINING
 
 ### Done — IP55 board definition (in the source mirror `software_library/irix-655-source/f/irix/kern`, which is **gitignored** so NOT git-tracked; persists on disk):
 - **`include/make/IP55defs`** (+ `f/root/usr/include/make/IP55defs`): new product def, `CPUBOARD=IP55`, R4000/Express/N32 — fork of `4DACE1defs` (IP22).
