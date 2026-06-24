@@ -286,8 +286,8 @@ class TestNewportPlaneSelect:
         )
         assert fn, "newport_logic_pixel function not found"
         body = fn.group(1)
-        # case 0 should be followed by return
-        assert re.search(r"case\s+0:.*?return;", body, re.DOTALL)
+        # dm1_planes == 0 should be followed by an early return (no write)
+        assert re.search(r"dm1_planes\s*==\s*0.*?return;", body, re.DOTALL)
 
     def test_planes_4_5_use_cidaux(self, newport_source):
         """dm1_planes 4 or 5 must write to vram_cidaux."""
@@ -319,7 +319,7 @@ class TestNewportPlaneSelect:
         )
         assert fn, "newport_logic_pixel function not found"
         body = fn.group(1)
-        assert re.search(r"s->vram_w\s*\*\s*s->vram_h", body)
+        assert re.search(r"NEWPORT_VRAM_W\s*\*\s*NEWPORT_VRAM_H", body)
 
 
 # ---------------------------------------------------------------------------

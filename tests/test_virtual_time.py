@@ -138,9 +138,15 @@ class TestCP0CountVirtualClock:
         )
         assert match, "cpu_mips_get_count_val function not found"
         body = match.group(1)
-        assert "QEMU_CLOCK_VIRTUAL" in body, (
-            "get_count_val does not use QEMU_CLOCK_VIRTUAL"
+        # Clock selection is indirected through mips_count_clock_type(), which
+        # defaults to QEMU_CLOCK_VIRTUAL.
+        assert "mips_count_clock_type()" in body, (
+            "get_count_val does not source time from mips_count_clock_type()"
         )
+        assert re.search(
+            r"mips_count_clock_type\(void\).*?QEMU_CLOCK_VIRTUAL",
+            cp0_timer_source, re.DOTALL
+        ), "mips_count_clock_type() does not default to QEMU_CLOCK_VIRTUAL"
 
 
 class TestIcountSleepOff:

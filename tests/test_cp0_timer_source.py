@@ -75,7 +75,12 @@ class TestCountFromVirtualTime:
     """Count register must be derived from QEMU virtual time."""
 
     def test_count_uses_virtual_clock(self, cp0_timer_source):
-        """cpu_mips_get_count_val must use QEMU_CLOCK_VIRTUAL."""
+        """cpu_mips_get_count_val must derive Count from the virtual clock.
+
+        Clock selection is indirected through mips_count_clock_type(), which
+        defaults to QEMU_CLOCK_VIRTUAL (QEMU_MIPS_COUNT_REALTIME=1 opts into
+        REALTIME). The Count value must come from that clock helper.
+        """
         match = re.search(
             r"cpu_mips_get_count_val.*?\{(.*?)\n\}",
             cp0_timer_source, re.DOTALL
@@ -83,9 +88,14 @@ class TestCountFromVirtualTime:
         assert match, "cpu_mips_get_count_val function not found"
         body = match.group(1)
 
-        assert "QEMU_CLOCK_VIRTUAL" in body, (
-            "get_count_val does not use QEMU_CLOCK_VIRTUAL"
+        assert "mips_count_clock_type()" in body, (
+            "get_count_val does not source time from mips_count_clock_type()"
         )
+        # The helper must default to the VIRTUAL clock.
+        assert re.search(
+            r"mips_count_clock_type\(void\).*?QEMU_CLOCK_VIRTUAL",
+            cp0_timer_source, re.DOTALL
+        ), "mips_count_clock_type() does not default to QEMU_CLOCK_VIRTUAL"
 
 
 class TestTimerInitialization:
@@ -103,8 +113,9 @@ class TestTimerInitialization:
         assert "timer_new_ns" in body, (
             "clock_init does not create timer with timer_new_ns"
         )
-        assert "QEMU_CLOCK_VIRTUAL" in body, (
-            "clock_init timer does not use QEMU_CLOCK_VIRTUAL"
+        assert "mips_count_clock_type()" in body, (
+            "clock_init timer does not use the mips_count_clock_type() helper "
+            "(defaults to QEMU_CLOCK_VIRTUAL)"
         )
         assert "mips_timer_cb" in body, (
             "clock_init timer does not use mips_timer_cb callback"

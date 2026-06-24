@@ -101,6 +101,8 @@ from .export import (
 from . import ghidra_bridge
 from . import vm_instances
 from . import sgi_fs
+from . import disk_safety
+from . import golden_catalog
 
 # --- Persistent QEMU session support ---
 import bisect
@@ -132,9 +134,11 @@ class QemuSession:
         prom_name: str,
         qemu_binary: str = "",
         extra_args: str = "",
+        disks: list = None,
     ):
         self.session_id = session_id
         self.proc = proc
+        self.disks = disks or []  # writable disk images (for dirty-marking on kill)
         self.serial_sock = serial_sock
         self.monitor_sock_path = monitor_sock_path
         self.tmpdir = tmpdir
@@ -189,8 +193,47 @@ class QemuSession:
             if i + chunk_size < len(send_bytes):
                 time.sleep(chunk_delay)
 
-    def stop(self):
-        """Kill the session and clean up all resources."""
+    def graceful_shutdown(self, timeout: int = 90) -> bool:
+        """Best-effort clean in-guest shutdown (`sync; sync; init 0`).
+
+        Only attempts it when the serial console looks like a logged-in shell;
+        otherwise returns None and the caller falls back to monitor `quit`.
+        Returns True if a halt marker was seen, False on timeout, None if no
+        shell was detected. A clean halt means no dirty-marking and no journal
+        replay on next boot.
+        """
+        HALT = ("going down", "halted", "okay to power off", "PROM Monitor",
+                "System Maintenance", "ok to power", "Press <ENTER>")
+        try:
+            self.send("\n")
+            time.sleep(1.0)
+            probe = self.drain_buffer()
+            if not re.search(r"[#$]\s*$", probe) and "# " not in probe:
+                return None  # not at a shell — let caller use monitor quit
+            self.send("sync; sync; init 0\n")
+            buf = ""
+            deadline = time.time() + timeout
+            while time.time() < deadline:
+                time.sleep(2.0)
+                buf += self.drain_buffer()
+                if any(m in buf for m in HALT):
+                    return True
+            return False
+        except Exception:
+            return None
+
+    def stop(self, graceful: bool = False):
+        """Stop the session and clean up all resources.
+
+        With graceful=True, first attempt an in-guest `init 0` (when a shell is
+        reachable) so the filesystem is cleanly unmounted. Always tries monitor
+        `quit` (flushes qcow2) before any SIGKILL; a SIGKILL marks disks dirty.
+        """
+        if graceful:
+            try:
+                self.graceful_shutdown()
+            except Exception:
+                pass
         self.alive = False
 
         # Send quit to monitor
@@ -217,8 +260,13 @@ class QemuSession:
         except Exception:
             pass
 
-        # Kill process (if quit didn't work)
+        # Kill process (if quit didn't work). SIGKILL can corrupt in-flight
+        # writes, so mark every writable disk dirty — it must be scanned
+        # (xfs_scan) or rolled back to a golden before reuse.
         if self.proc:
+            for _d in self.disks:
+                disk_safety.mark_dirty(_d, f"SIGKILL of session {self.session_id} "
+                                           f"(monitor quit timed out)")
             try:
                 self.proc.kill()
                 self.proc.wait(timeout=5)
@@ -269,24 +317,119 @@ def _session_reader(session: QemuSession):
     session.alive = False
 
 
-def _kill_orphaned_qemu():
-    """Kill orphaned qemu-system-mips64 processes (not tracked sessions) and clean up temp dirs.
+def _extract_writable_disks(cmd):
+    """Return the writable disk image paths from a QEMU launch command line.
 
-    Only kills live (non-zombie) processes whose executable is qemu-system-mips64.
-    Skips processes tracked in _qemu_sessions to avoid killing our own sessions.
+    Parses `-drive` specs, skipping CD-ROMs and read-only disks. These are the
+    images a force-kill could corrupt, so they're what we mark dirty on SIGKILL.
+    """
+    disks = []
+    for i, a in enumerate(cmd):
+        if a == "-drive" and i + 1 < len(cmd):
+            spec = cmd[i + 1]
+            if "media=cdrom" in spec or "readonly=on" in spec:
+                continue
+            if spec.startswith("if=scsi") or spec.startswith("if=mtd"):
+                m = re.search(r"file=([^,]+)", spec)
+                if m:
+                    disks.append(m.group(1))
+    return disks
+
+
+def _disks_from_pid(pid):
+    """Best-effort: extract writable disk paths from a running QEMU's cmdline."""
+    try:
+        with open(f"/proc/{pid}/cmdline", "rb") as f:
+            argv = f.read().split(b"\x00")
+        cmd = [a.decode("utf-8", "replace") for a in argv if a]
+        return _extract_writable_disks(cmd)
+    except OSError:
+        return []
+
+
+def _instance_disk_in_use(inst_name):
+    """Return a running session_id whose writable disks include this instance's
+    disk image, else None. Used to refuse delete/reset of a disk under a live VM
+    (which would corrupt the qcow2)."""
+    try:
+        disk = str(vm_instances.get_disk_path(inst_name).resolve())
+    except Exception:
+        return None
+    for sid, s in _qemu_sessions.items():
+        try:
+            if not s.is_running():
+                continue
+            for d in getattr(s, "disks", []):
+                if str(Path(d).resolve()) == disk:
+                    return sid
+        except Exception:
+            continue
+    return None
+
+
+def _qemu_ppid(pid):
+    """Return the parent PID of a process, or None."""
+    try:
+        with open(f"/proc/{pid}/status") as f:
+            for line in f:
+                if line.startswith("PPid:"):
+                    return int(line.split()[1])
+    except (OSError, ValueError):
+        pass
+    return None
+
+
+def _is_zombie(pid):
+    try:
+        with open(f"/proc/{pid}/status") as f:
+            for line in f:
+                if line.startswith("State:"):
+                    return "Z" in line
+    except OSError:
+        pass
+    return False
+
+
+def _tmpdirs_from_pid(pid):
+    """Extract this QEMU's own temp dir(s) from its unix-socket cmdline args."""
+    dirs = set()
+    try:
+        with open(f"/proc/{pid}/cmdline", "rb") as f:
+            argv = [a.decode("utf-8", "replace") for a in f.read().split(b"\x00") if a]
+        for a in argv:
+            m = re.search(r"unix:([^,]+\.sock)", a)
+            if m:
+                dirs.add(os.path.dirname(m.group(1)))
+    except OSError:
+        pass
+    return dirs
+
+
+def _kill_orphaned_qemu(scope="own"):
+    """Kill orphaned qemu-system-mips64 processes and clean up temp dirs.
+
+    Ownership is determined by the OS process tree: every QEMU this MCP server
+    launched is our direct child (PPid == our pid). Another Claude session's VMs
+    are children of a *different* MCP process, so:
+
+    - scope="own" (default): only kill QEMUs that are our own children (+ already
+      tracked sessions). Foreign QEMUs (other sessions) are left untouched, and
+      only the temp dirs of QEMUs we actually killed are removed.
+    - scope="all": nuclear — kill every qemu-system-mips64 and sweep all qemu_*
+      temp dirs. Use ONLY when you know no other session is active.
+
+    Returns (killed, cleaned, skipped_foreign).
     """
     killed = 0
+    cleaned = 0
+    skipped_foreign = 0
+    my_pid = os.getpid()
+    killed_tmpdirs = set()
     tracked_pids = {s.proc.pid for s in _qemu_sessions.values() if s.is_running()}
     try:
         result = subprocess.run(
-            [
-                "pgrep",
-                "-x",
-                "qemu-system-mip",
-            ],  # pgrep -x matches comm (15-char truncated)
-            capture_output=True,
-            timeout=5,
-            text=True,
+            ["pgrep", "-x", "qemu-system-mip"],  # pgrep -x matches 15-char comm
+            capture_output=True, timeout=5, text=True,
         )
         if result.returncode == 0:
             for line in result.stdout.strip().split("\n"):
@@ -294,48 +437,50 @@ def _kill_orphaned_qemu():
                     pid = int(line.strip())
                     if pid in tracked_pids:
                         continue
-                    # Check if process is a zombie — can't kill those
+                    # Ownership gate: never touch another session's VMs.
+                    if scope != "all" and _qemu_ppid(pid) != my_pid:
+                        skipped_foreign += 1
+                        continue
+                    if _is_zombie(pid):
+                        continue
+                    # SIGKILL corrupts in-flight writes → mark disks dirty first.
+                    for _d in _disks_from_pid(pid):
+                        disk_safety.mark_dirty(_d, f"SIGKILL of orphan QEMU pid {pid}")
+                    killed_tmpdirs |= _tmpdirs_from_pid(pid)
+                    os.kill(pid, 9)
                     try:
-                        with open(f"/proc/{pid}/status") as f:
-                            for status_line in f:
-                                if status_line.startswith("State:"):
-                                    if "Z" in status_line:
-                                        break  # zombie, skip
-                                    # Live process — kill it
-                                    os.kill(pid, 9)
-                                    try:
-                                        os.waitpid(pid, os.WNOHANG)
-                                    except ChildProcessError:
-                                        pass
-                                    killed += 1
-                                    break
-                    except (FileNotFoundError, ProcessLookupError):
+                        os.waitpid(pid, os.WNOHANG)
+                    except ChildProcessError:
                         pass
-                except (ValueError, ProcessLookupError):
+                    killed += 1
+                except (ValueError, ProcessLookupError, FileNotFoundError):
                     pass
     except Exception:
         pass
-    # Clean up leftover temp directories
-    cleaned = 0
-    for pattern in [
-        "qemu_serial_*",
-        "qemu_session_*",
-        "qemu_mon_*",
-        "qemu_snap_*",
-        "qemu_restore_*",
-        "qemu_symbols_*",
-        "qemu_pcsample_*",
-        "qemu_inspect_*",
-        "qemu_qinsp_*",
-        "qemu_harness_*",
-    ]:
-        for d in glob_module.glob(os.path.join(tempfile.gettempdir(), pattern)):
+
+    # Temp-dir cleanup. In "own" scope only remove the dirs of QEMUs we killed
+    # (broad-globbing all /tmp/qemu_* would delete another session's live sockets).
+    if scope == "all":
+        for pattern in [
+            "qemu_serial_*", "qemu_session_*", "qemu_mon_*", "qemu_snap_*",
+            "qemu_restore_*", "qemu_symbols_*", "qemu_pcsample_*",
+            "qemu_inspect_*", "qemu_qinsp_*", "qemu_harness_*",
+        ]:
+            for d in glob_module.glob(os.path.join(tempfile.gettempdir(), pattern)):
+                try:
+                    shutil.rmtree(d, ignore_errors=True)
+                    cleaned += 1
+                except Exception:
+                    pass
+    else:
+        for d in killed_tmpdirs:
             try:
-                shutil.rmtree(d, ignore_errors=True)
-                cleaned += 1
+                if os.path.isdir(d) and "qemu" in os.path.basename(d):
+                    shutil.rmtree(d, ignore_errors=True)
+                    cleaned += 1
             except Exception:
                 pass
-    return killed, cleaned
+    return killed, cleaned, skipped_foreign
 
 
 # Module-level session registry
@@ -676,6 +821,10 @@ _vmi_calibration_cache: dict[str, dict] = {}
 # Machine type -> PROM subdirectory and default PROM mapping
 _MACHINE_PROM_MAP = {
     "indy": ("ip24", "Indy_ip24prom.070-9101-011.bin"),
+    # Virtuix (IP55) reuses the Indy IP24 PROM binary for now (it normally boots
+    # via -kernel; -bios supplies the PROM for SCSI boot). A dedicated ip55 PROM
+    # is future work. Distinct entry so the two never collide in tooling.
+    "virtuix": ("ip24", "Indy_ip24prom.070-9101-011.bin"),
     "indigo2": ("ip22", None),
     "indigo2-r10k": ("ip28", None),
     "indigo2-r8k": ("ip26", None),
@@ -843,7 +992,7 @@ def _build_qemu_launch(args: dict) -> tuple[list[str], str, str, str, str, str]:
     # via qemu_chr_find("ser0") in sgi_bridge_realize. For sgi-ip54, serial_hd(0)
     # is connected to sgi-pvuart which reads chardev:ser0 via the -serial flag.
     if machine in ("indy", "indigo2", "indigo2-r10k", "indigo2-r8k", "indigo",
-                   "sgi-ip54"):
+                   "virtuix", "sgi-ip54"):
         cmd[cmd.index("-serial") + 1] = "chardev:ser0"
     # sgi-ip54 PROM runs so fast it completes startup before the socket client
     # connects. Use wait=on so QEMU holds serial output until connected.
@@ -2702,13 +2851,18 @@ async def list_tools() -> list[Tool]:
         # --- Persistent QEMU session tools ---
         Tool(
             name="qemu_session_start",
-            description="Start a persistent QEMU session. Keeps QEMU running between calls for interactive serial exploration. Returns session ID + initial output. Kills any orphaned QEMU processes first. When `instance` is provided, `default_extra_args` and `default_snapshot` from the manifest are applied automatically; caller-provided `extra_args` is appended after the defaults.",
+            description="Start a persistent QEMU session. Keeps QEMU running between calls for interactive serial exploration. Returns session ID + initial output. Kills any orphaned QEMU processes first. When `instance` is provided, `default_extra_args` and `default_snapshot` from the manifest are applied automatically; caller-provided `extra_args` is appended after the defaults. Refuses to boot a disk marked dirty by a force-kill (see force_dirty) or to write-open an immutable golden (boot a fresh overlay instead).",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "prom": {
                         "type": "string",
                         "description": "PROM file path or name from PROM_library",
+                    },
+                    "force_dirty": {
+                        "type": "boolean",
+                        "description": "Boot even if a disk is marked dirty (force-killed, not yet scanned). NOT recommended — risks an EFSCORRUPTED replay. Prefer xfs_scan or rolling back to a golden.",
+                        "default": False,
                     },
                     "machine": {
                         "type": "string",
@@ -2949,7 +3103,7 @@ async def list_tools() -> list[Tool]:
         ),
         Tool(
             name="qemu_session_stop",
-            description="Stop a persistent QEMU session and clean up all resources.",
+            description="Stop a persistent QEMU session and clean up all resources. By default attempts a clean in-guest shutdown (sync; init 0) when a shell is reachable, then monitor quit; SIGKILL is a last resort and marks the disk dirty.",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -2957,14 +3111,30 @@ async def list_tools() -> list[Tool]:
                         "type": "string",
                         "description": "Session ID to stop",
                     },
+                    "graceful": {
+                        "type": "boolean",
+                        "description": "Attempt an in-guest 'sync; init 0' clean shutdown first (default true). Set false to skip straight to monitor quit (e.g. guest is wedged).",
+                        "default": True,
+                    },
                 },
                 "required": ["session_id"],
             },
         ),
         Tool(
             name="qemu_session_cleanup",
-            description="Kill ALL qemu-system-mips64 processes and clean up all tracked sessions. Nuclear option for cleanup.",
-            inputSchema={"type": "object", "properties": {}, "required": []},
+            description="Force-kill QEMU sessions and clean up. SIGKILLs, so affected disks are marked DIRTY (xfs_scan or roll back to a golden before reuse); prefer qemu_session_stop (graceful) when possible. scope='own' (DEFAULT) kills only this session's tracked sessions + our own child QEMUs — it will NOT touch another Claude session's VMs (multi-session safe). scope='all' is the nuclear option that kills every qemu-system-mips64 on the machine — use ONLY when you know no other session is active.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "scope": {
+                        "type": "string",
+                        "enum": ["own", "all"],
+                        "description": "'own' (default): only our own VMs. 'all': every QEMU on the box (nuclear).",
+                        "default": "own",
+                    },
+                },
+                "required": [],
+            },
         ),
         Tool(
             name="newport_screendump",
@@ -4830,6 +5000,84 @@ async def list_tools() -> list[Tool]:
                     },
                 },
                 "required": ["image"],
+            },
+        ),
+        Tool(
+            name="xfs_scan",
+            description="DEEP, READ-ONLY XFS corruption scan — the gate before reusing a force-killed disk. Unlike xfs_check (which PASSes on poisoned disks), this validates per-AG AGF/AGI headers, geometry, root inode, mkfs-in-progress flag, and internal-log state. It does NOT repair: a force-killed disk's poisoned journal can't be certified by inspection, so the trustworthy fix is to ROLL BACK to a golden (vm_instance_reset / fresh overlay), not repair. On a genuinely clean scan the <disk>.dirty marker is cleared.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "image": {
+                        "type": "string",
+                        "description": "Path to disk image (.img or .qcow2)",
+                    },
+                },
+                "required": ["image"],
+            },
+        ),
+        Tool(
+            name="disk_verify",
+            description="Full pre-reuse corruption gate: qcow2 container integrity (qemu-img check) THEN the deep guest XFS scan (xfs_scan: per-AG AGF/AGI, geometry, root, internal-log). Run before reusing any disk that was force-killed or whose provenance you don't trust. A clean result means 'safe to mount', not 'no data lost' — when in doubt, roll back to a golden rather than trust a repair.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "image": {
+                        "type": "string",
+                        "description": "Path to disk image (.img or .qcow2)",
+                    },
+                },
+                "required": ["image"],
+            },
+        ),
+        Tool(
+            name="golden_list",
+            description="List the golden image catalog — immutable, checksummed milestone disk snapshots with provenance. Always do work on a fresh overlay of a golden (golden_fork); roll back to a golden instead of repairing a corrupted disk.",
+            inputSchema={"type": "object", "properties": {}, "required": []},
+        ),
+        Tool(
+            name="golden_snapshot",
+            description="Promote a CLEAN, verified disk into an immutable golden (the milestone-snapshot ritual). Gates: source must not be dirty-marked and must pass qemu-img check; it should already be cleanly shut down (init 0) and verified to boot. Flattens to golden_catalog/<name>.qcow2, sha256s, chmod 444, records provenance. Record how you verified it in `verified`.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string", "description": "New golden name (must be unique; goldens are immutable)"},
+                    "source": {"type": "string", "description": "Path to the clean source disk to promote"},
+                    "parent": {"type": "string", "description": "Name of the golden this was derived from (provenance)"},
+                    "machine": {"type": "string", "description": "Machine type it was verified on (e.g. virtuix, indy)"},
+                    "kernel_md5": {"type": "string", "description": "md5 of the /unix kernel, if relevant"},
+                    "verified": {"type": "string", "description": "How this state was verified (e.g. 'boots -smp 4 to 4Dwm desktop')"},
+                    "notes": {"type": "string", "description": "Free-form notes"},
+                },
+                "required": ["name", "source"],
+            },
+        ),
+        Tool(
+            name="golden_register",
+            description="Register an EXISTING qcow2 (e.g. a prebuilt_disks golden like irix-6.5.5-complete-fixed.qcow2) into the catalog without copying — computes sha256 and locks it read-only (0444).",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string", "description": "Catalog name for this golden"},
+                    "file": {"type": "string", "description": "Path to the existing qcow2 (absolute or repo-relative)"},
+                    "machine": {"type": "string", "description": "Machine type"},
+                    "verified": {"type": "string", "description": "How it was verified"},
+                    "parent": {"type": "string", "description": "Parent golden, if any"},
+                    "lock": {"type": "boolean", "description": "chmod 0444 the file (default true)", "default": True},
+                },
+                "required": ["name", "file"],
+            },
+        ),
+        Tool(
+            name="golden_fork",
+            description="Create a fresh writable overlay backed by a golden — the ONLY safe way to use one. Boot the overlay, never the golden; a crash poisons only the throwaway, and rollback = discard + re-fork.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "name": {"type": "string", "description": "Golden name (see golden_list)"},
+                    "dest": {"type": "string", "description": "Path for the new overlay qcow2 (must not exist)"},
+                },
+                "required": ["name", "dest"],
             },
         ),
         Tool(
@@ -6805,6 +7053,28 @@ def _handle_tool(name: str, args: dict) -> str:
         if error:
             return error
 
+        # ── Disk-safety gates (corruption is the #1 time-sink) ──────────────
+        _writable_disks = _extract_writable_disks(cmd)
+        force_dirty = bool(args.get("force_dirty", False))
+        for _d in _writable_disks:
+            # 1. Refuse to boot a disk left dirty by a force-kill until it's
+            #    scanned (xfs_scan) or rolled back to a golden.
+            _info = disk_safety.is_dirty(_d)
+            if _info and not force_dirty:
+                shutil.rmtree(tmpdir, ignore_errors=True)
+                return "Error: " + disk_safety.dirty_error_message(_d, _info)
+            # 2. Refuse to write-open an immutable golden (chmod 444) — boot a
+            #    fresh overlay instead so a crash can't poison the golden.
+            if os.path.exists(_d) and not os.access(_d, os.W_OK):
+                shutil.rmtree(tmpdir, ignore_errors=True)
+                return (
+                    f"Error: disk '{_d}' is read-only (an immutable golden) but is being "
+                    f"opened writable. Boot a FRESH OVERLAY instead so a crash only poisons "
+                    f"a throwaway:\n  qemu-img create -f qcow2 -b '{_d}' -F qcow2 "
+                    f"<work>.qcow2\n  (or use vm_instance_fork / golden_fork). "
+                    f"Add ':ro' to the drive spec only if you truly want read-only."
+                )
+
         boot_wait = args.get("boot_wait", 15)
         machine = args.get("machine", "indy")
 
@@ -6836,6 +7106,7 @@ def _handle_tool(name: str, args: dict) -> str:
                 prom_name=prom_name,
                 qemu_binary=_qemu_bin,
                 extra_args=args.get("extra_args", ""),
+                disks=_writable_disks,
             )
             _qemu_sessions[session_id] = session
 
@@ -7485,7 +7756,10 @@ def _handle_tool(name: str, args: dict) -> str:
         session = _qemu_sessions[session_id]
         # Drain any remaining output before stopping
         final_output = session.drain_buffer()
-        session.stop()
+        # Graceful by default: clean in-guest `init 0` when a shell is reachable,
+        # else monitor `quit`. Set graceful=false to skip the init 0 attempt.
+        graceful = bool(args.get("graceful", True))
+        session.stop(graceful=graceful)
         del _qemu_sessions[session_id]
 
         result_lines = [f"**Session `{session_id}` stopped.**"]
@@ -7502,8 +7776,13 @@ def _handle_tool(name: str, args: dict) -> str:
         return "\n".join(result_lines)
 
     elif name == "qemu_session_cleanup":
-        # Aggressively kill all tracked sessions — skip graceful quit,
-        # use SIGKILL directly so cleanup never hangs.
+        # scope="own" (default): only THIS session's tracked sessions + our own
+        # child QEMUs — never another Claude session's VMs (multi-session safe).
+        # scope="all": nuclear — kill every qemu-system-mips64 on the box.
+        scope = args.get("scope", "own")
+        if scope not in ("own", "all"):
+            return "Error: scope must be 'own' (default) or 'all'."
+
         session_count = len(_qemu_sessions)
         for sid in list(_qemu_sessions.keys()):
             s = _qemu_sessions[sid]
@@ -7512,6 +7791,9 @@ def _handle_tool(name: str, args: dict) -> str:
                 s.serial_sock.close()
             except Exception:
                 pass
+            # Pure SIGKILL — mark this session's disks dirty before killing.
+            for _d in getattr(s, "disks", []):
+                disk_safety.mark_dirty(_d, f"qemu_session_cleanup SIGKILL of session {sid}")
             try:
                 s.proc.kill()
                 s.proc.wait(timeout=3)
@@ -7519,15 +7801,26 @@ def _handle_tool(name: str, args: dict) -> str:
                 pass
         _qemu_sessions.clear()
 
-        # Kill orphaned processes (harness-started, etc.)
-        killed, cleaned = _kill_orphaned_qemu()
+        # Kill orphaned processes (our own harness-started QEMUs, etc.).
+        killed, cleaned, skipped_foreign = _kill_orphaned_qemu(scope=scope)
 
-        return (
-            f"**Cleanup complete.**\n"
-            f"- Tracked sessions stopped: {session_count}\n"
-            f"- Orphaned QEMU processes killed: {killed}\n"
-            f"- Temp directories cleaned: {cleaned}"
-        )
+        lines = [
+            f"**Cleanup complete (scope={scope}).**",
+            f"- Tracked sessions stopped: {session_count}",
+            f"- Orphaned QEMU processes killed: {killed}",
+            f"- Temp directories cleaned: {cleaned}",
+        ]
+        if scope == "own" and skipped_foreign:
+            lines.append(
+                f"- Left untouched (other sessions' VMs): {skipped_foreign}  "
+                f"— use scope='all' only if you KNOW no other session is active."
+            )
+        if killed:
+            lines.append(
+                "- Note: SIGKILLed disks are now marked dirty; xfs_scan or roll "
+                "back to a golden before reuse."
+            )
+        return "\n".join(lines)
 
     elif name == "newport_screendump":
 
@@ -9156,6 +9449,13 @@ def _handle_tool(name: str, args: dict) -> str:
         inst_name = args.get("name", "")
         if not inst_name:
             return "Error: name is required"
+        _busy = _instance_disk_in_use(inst_name)
+        if _busy:
+            return (
+                f"Error: instance '{inst_name}' is in use by running session '{_busy}'. "
+                f"Stop it first (qemu_session_stop) — deleting a disk under a live VM "
+                f"corrupts it."
+            )
         if vm_instances.delete_instance(inst_name):
             return f"**Deleted instance:** `{inst_name}`"
         else:
@@ -9329,6 +9629,13 @@ def _handle_tool(name: str, args: dict) -> str:
         reset_name = args.get("name", "")
         if not reset_name:
             return "Error: name is required"
+        _busy = _instance_disk_in_use(reset_name)
+        if _busy:
+            return (
+                f"Error: instance '{reset_name}' is in use by running session '{_busy}'. "
+                f"Stop it first (qemu_session_stop) — recreating a disk under a live VM "
+                f"corrupts it."
+            )
 
         try:
             manifest = vm_instances.load_manifest(reset_name)
@@ -9369,12 +9676,16 @@ def _handle_tool(name: str, args: dict) -> str:
             if r2.returncode != 0:
                 return f"Error: qemu-img create failed:\n{r2.stderr}"
 
+            # Fresh overlay of a (clean) backing — any prior dirty marker no
+            # longer applies. This is the canonical recovery for a dirty disk.
+            disk_safety.clear_dirty(str(disk))
+
             # Clear snapshots from manifest
             manifest["snapshots"] = []
             manifest["default_snapshot"] = ""
             vm_instances.save_manifest(reset_name, manifest)
 
-            return f"Reset `{reset_name}`: fresh thin copy from `{backing}`\nAll previous changes discarded."
+            return f"Reset `{reset_name}`: fresh thin copy from `{backing}`\nAll previous changes discarded (dirty marker cleared)."
         except subprocess.CalledProcessError as e:
             return f"Error: qemu-img info failed: {e.stderr}"
         except Exception as e:
@@ -12662,6 +12973,42 @@ def _handle_tool(name: str, args: dict) -> str:
         if not image:
             return "Error: image is required"
         return sgi_fs.xfs_check(image)
+
+    elif name == "xfs_scan":
+        image = args.get("image", "")
+        if not image:
+            return "Error: image is required"
+        return sgi_fs.xfs_scan(image)
+
+    elif name == "disk_verify":
+        image = args.get("image", "")
+        if not image:
+            return "Error: image is required"
+        return sgi_fs.disk_verify(image)
+
+    elif name == "golden_list":
+        return golden_catalog.list_goldens()
+
+    elif name == "golden_snapshot":
+        if not args.get("name") or not args.get("source"):
+            return "Error: name and source are required"
+        return golden_catalog.snapshot_golden(
+            args["name"], args["source"], parent=args.get("parent"),
+            notes=args.get("notes"), machine=args.get("machine"),
+            kernel_md5=args.get("kernel_md5"), verified=args.get("verified"))
+
+    elif name == "golden_register":
+        if not args.get("name") or not args.get("file"):
+            return "Error: name and file are required"
+        return golden_catalog.register_golden(
+            args["name"], args["file"], parent=args.get("parent"),
+            notes=args.get("notes"), machine=args.get("machine"),
+            verified=args.get("verified"), lock=bool(args.get("lock", True)))
+
+    elif name == "golden_fork":
+        if not args.get("name") or not args.get("dest"):
+            return "Error: name and dest are required"
+        return golden_catalog.fork_golden(args["name"], args["dest"])
 
     elif name == "xfs_repair_superblock":
         image = args.get("image", "")

@@ -49,28 +49,28 @@ class TestIRQWiring:
         """Local0 (SCSI, ethernet) must be wired to CPU IP2 (env.irq[2])."""
         # Look for: cpu-irq index 0 -> irq[2]
         assert re.search(
-            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"cpu-irq",\s*0,\s*\n\s*cpu->env\.irq\[2\]\)',
+            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"cpu-irq",\s*0,\s*cpu->env\.irq\[2\]\)',
             indy_machine_source
         ), "Local0 not wired to CPU irq[2] (IP2)"
 
     def test_local1_wired_to_ip3(self, indy_machine_source):
         """Local1 (panel, DMA) must be wired to CPU IP3 (env.irq[3])."""
         assert re.search(
-            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"cpu-irq",\s*1,\s*\n\s*cpu->env\.irq\[3\]\)',
+            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"cpu-irq",\s*1,\s*cpu->env\.irq\[3\]\)',
             indy_machine_source
         ), "Local1 not wired to CPU irq[3] (IP3)"
 
     def test_timer0_wired_to_ip4(self, indy_machine_source):
         """PIT Timer 0 (sched clock) must be wired to CPU IP4 (env.irq[4])."""
         assert re.search(
-            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"timer-irq",\s*0,\s*\n\s*cpu->env\.irq\[4\]\)',
+            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"timer-irq",\s*0,\s*cpu->env\.irq\[4\]\)',
             indy_machine_source
         ), "Timer0 not wired to CPU irq[4] (IP4)"
 
     def test_timer1_wired_to_ip5(self, indy_machine_source):
         """PIT Timer 1 (prof clock) must be wired to CPU IP5 (env.irq[5])."""
         assert re.search(
-            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"timer-irq",\s*1,\s*\n\s*cpu->env\.irq\[5\]\)',
+            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"timer-irq",\s*1,\s*cpu->env\.irq\[5\]\)',
             indy_machine_source
         ), "Timer1 not wired to CPU irq[5] (IP5)"
 
@@ -91,9 +91,9 @@ class TestNVRAMConfiguration:
 
     def test_indy_nvram_filename(self, indy_machine_source):
         """IP24 (Indy) should use 'sgi_indy_nvram.bin' for NVRAM."""
-        assert 'case SGI_IP24: return "sgi_indy_nvram.bin"' in indy_machine_source, (
-            "IP24 NVRAM filename not set to sgi_indy_nvram.bin"
-        )
+        assert re.search(
+            r'case SGI_IP24:\s*return "sgi_indy_nvram.bin"', indy_machine_source
+        ), "IP24 NVRAM filename not set to sgi_indy_nvram.bin"
 
 
 class TestBoardTypeSelection:
@@ -134,15 +134,15 @@ class TestDefaultPROMNames:
 
     def test_ip24_prom_name(self, indy_machine_source):
         """IP24 defaults to ip24prom.bin."""
-        assert 'case SGI_IP24: return "ip24prom.bin"' in indy_machine_source
+        assert re.search(r'case SGI_IP24:\s*return "ip24prom.bin"', indy_machine_source)
 
     def test_ip22_prom_name(self, indy_machine_source):
         """IP22 defaults to ip22prom.bin."""
-        assert 'case SGI_IP22: return "ip22prom.bin"' in indy_machine_source
+        assert re.search(r'case SGI_IP22:\s*return "ip22prom.bin"', indy_machine_source)
 
     def test_ip28_prom_name(self, indy_machine_source):
         """IP28 defaults to ip28prom.bin."""
-        assert 'case SGI_IP28: return "ip28prom.bin"' in indy_machine_source
+        assert re.search(r'case SGI_IP28:\s*return "ip28prom.bin"', indy_machine_source)
 
 
 # ---------------------------------------------------------------------------
@@ -171,7 +171,7 @@ class TestIRIXIRQMapping:
         SCSI, ethernet, and other LOCAL0 sources.
         """
         assert re.search(
-            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"cpu-irq",\s*0,\s*\n\s*cpu->env\.irq\[2\]\)',
+            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"cpu-irq",\s*0,\s*cpu->env\.irq\[2\]\)',
             indy_machine_source
         ), "Local0 must be wired to irq[2] (IRIX IP3 / lcl0_intr)"
         # Verify IRIX mapping: irq[2] = hardware IP2 = IRIX IP3
@@ -186,7 +186,7 @@ class TestIRIXIRQMapping:
         power button, DMA, and other LOCAL1 sources.
         """
         assert re.search(
-            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"cpu-irq",\s*1,\s*\n\s*cpu->env\.irq\[3\]\)',
+            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"cpu-irq",\s*1,\s*cpu->env\.irq\[3\]\)',
             indy_machine_source
         ), "Local1 must be wired to irq[3] (IRIX IP4 / lcl1_intr)"
         hw_ip = 3
@@ -200,7 +200,7 @@ class TestIRIXIRQMapping:
         tick (on non-IOC1 boards; IOC1 boards use R4000 timer instead).
         """
         assert re.search(
-            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"timer-irq",\s*0,\s*\n\s*cpu->env\.irq\[4\]\)',
+            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"timer-irq",\s*0,\s*cpu->env\.irq\[4\]\)',
             indy_machine_source
         ), "Timer0 must be wired to irq[4] (IRIX IP5 / clock)"
         hw_ip = 4
@@ -213,7 +213,7 @@ class TestIRIXIRQMapping:
         IRIX IP6 (hardint 6) dispatches to ackkgclock() for profiling.
         """
         assert re.search(
-            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"timer-irq",\s*1,\s*\n\s*cpu->env\.irq\[5\]\)',
+            r'qdev_connect_gpio_out_named\(hpc3_dev,\s*"timer-irq",\s*1,\s*cpu->env\.irq\[5\]\)',
             indy_machine_source
         ), "Timer1 must be wired to irq[5] (IRIX IP6 / ackkgclock)"
         hw_ip = 5

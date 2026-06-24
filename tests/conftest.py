@@ -26,6 +26,15 @@ MC_SOURCE = os.path.join(QEMU_DIR, "hw", "misc", "sgi_mc.c")
 MC_HEADER = os.path.join(QEMU_DIR, "include", "hw", "misc", "sgi_mc.h")
 NEWPORT_SOURCE = os.path.join(QEMU_DIR, "hw", "display", "sgi_newport.c")
 NEWPORT_HEADER = os.path.join(QEMU_DIR, "include", "hw", "display", "sgi_newport.h")
+
+# Virtuix (IP55) machine + device source files (separated from authentic indy)
+VIRTUIX_MACHINE_SOURCE = os.path.join(QEMU_DIR, "hw", "mips", "sgi_virtuix.c")
+MC_VIRTUIX_SOURCE = os.path.join(QEMU_DIR, "hw", "misc", "sgi_mc_virtuix.c")
+MC_VIRTUIX_HEADER = os.path.join(QEMU_DIR, "include", "hw", "misc", "sgi_mc_virtuix.h")
+HPC3_VIRTUIX_SOURCE = os.path.join(QEMU_DIR, "hw", "misc", "sgi_hpc3_virtuix.c")
+HPC3_VIRTUIX_HEADER = os.path.join(QEMU_DIR, "include", "hw", "misc", "sgi_hpc3_virtuix.h")
+NEWPORT_VIRTUIX_SOURCE = os.path.join(QEMU_DIR, "hw", "display", "sgi_newport_virtuix.c")
+NEWPORT_VIRTUIX_HEADER = os.path.join(QEMU_DIR, "include", "hw", "display", "sgi_newport_virtuix.h")
 MIPS_KCONFIG = os.path.join(QEMU_DIR, "hw", "mips", "Kconfig")
 MIPS_MESON = os.path.join(QEMU_DIR, "hw", "mips", "meson.build")
 DISPLAY_KCONFIG = os.path.join(QEMU_DIR, "hw", "display", "Kconfig")
@@ -167,6 +176,69 @@ def hpc3_header():
     if not os.path.exists(HPC3_HEADER):
         pytest.skip(f"HPC3 header not found: {HPC3_HEADER}")
     with open(HPC3_HEADER) as f:
+        return f.read()
+
+
+@pytest.fixture
+def virtuix_machine_source():
+    """Load the SGI Virtuix (IP55) machine C source file."""
+    if not os.path.exists(VIRTUIX_MACHINE_SOURCE):
+        pytest.skip(f"Virtuix machine source not found: {VIRTUIX_MACHINE_SOURCE}")
+    with open(VIRTUIX_MACHINE_SOURCE) as f:
+        return f.read()
+
+
+@pytest.fixture
+def mc_virtuix_source():
+    """Load the Virtuix MC (Memory Controller) C source file."""
+    if not os.path.exists(MC_VIRTUIX_SOURCE):
+        pytest.skip(f"Virtuix MC source not found: {MC_VIRTUIX_SOURCE}")
+    with open(MC_VIRTUIX_SOURCE) as f:
+        return f.read()
+
+
+@pytest.fixture
+def mc_virtuix_header():
+    """Load the Virtuix MC header file."""
+    if not os.path.exists(MC_VIRTUIX_HEADER):
+        pytest.skip(f"Virtuix MC header not found: {MC_VIRTUIX_HEADER}")
+    with open(MC_VIRTUIX_HEADER) as f:
+        return f.read()
+
+
+@pytest.fixture
+def hpc3_virtuix_source():
+    """Load the Virtuix HPC3 C source file."""
+    if not os.path.exists(HPC3_VIRTUIX_SOURCE):
+        pytest.skip(f"Virtuix HPC3 source not found: {HPC3_VIRTUIX_SOURCE}")
+    with open(HPC3_VIRTUIX_SOURCE) as f:
+        return f.read()
+
+
+@pytest.fixture
+def hpc3_virtuix_header():
+    """Load the Virtuix HPC3 header file."""
+    if not os.path.exists(HPC3_VIRTUIX_HEADER):
+        pytest.skip(f"Virtuix HPC3 header not found: {HPC3_VIRTUIX_HEADER}")
+    with open(HPC3_VIRTUIX_HEADER) as f:
+        return f.read()
+
+
+@pytest.fixture
+def newport_virtuix_source():
+    """Load the Virtuix Newport graphics C source file."""
+    if not os.path.exists(NEWPORT_VIRTUIX_SOURCE):
+        pytest.skip(f"Virtuix Newport source not found: {NEWPORT_VIRTUIX_SOURCE}")
+    with open(NEWPORT_VIRTUIX_SOURCE) as f:
+        return f.read()
+
+
+@pytest.fixture
+def newport_virtuix_header():
+    """Load the Virtuix Newport header file."""
+    if not os.path.exists(NEWPORT_VIRTUIX_HEADER):
+        pytest.skip(f"Virtuix Newport header not found: {NEWPORT_VIRTUIX_HEADER}")
+    with open(NEWPORT_VIRTUIX_HEADER) as f:
         return f.read()
 
 

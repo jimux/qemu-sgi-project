@@ -152,15 +152,19 @@ class TestMCDMARegisters:
     """MC DMA registers are stubbed — DMA is not fully implemented."""
 
     def test_dma_run_clears_after_read(self, mc_source):
-        """dma_run must be cleared to 0 after read (instant completion)."""
+        """Reading MC_DMA_RUN clears the RUNNING bit (bit 6 / 0x40) but keeps
+        COMPLETE, so a consumer observes RUNNING exactly once then COMPLETE.
+        The register must NOT be zeroed (that made COMPLETE vanish)."""
         fn = re.search(
             r"sgi_mc_read\(.*?\{(.*?)^\}",
             mc_source, re.DOTALL | re.MULTILINE
         )
         assert fn, "sgi_mc_read function not found"
         body = fn.group(1)
-        # DMA_RUN read should clear after returning
-        assert re.search(r"MC_DMA_RUN.*?dma_run\s*=\s*0", body, re.DOTALL)
+        # DMA_RUN read clears only the RUNNING bit (1 << 6), keeping COMPLETE
+        assert re.search(
+            r"MC_DMA_RUN.*?dma_run\s*&=\s*~\(1\s*<<\s*6\)", body, re.DOTALL
+        )
 
     def test_dma_tlb_4_entries(self, mc_header):
         """DMA TLB must have 4 hi/lo pairs."""
@@ -168,14 +172,14 @@ class TestMCDMARegisters:
         assert re.search(r"dma_tlb_lo\[4\]", mc_header)
 
     def test_dma_start_sets_run_0x40(self, mc_source):
-        """MC_DMA_START write must set dma_run = 0x40."""
+        """MC_DMA_START write must set the RUNNING bit (dma_run |= 0x40)."""
         fn = re.search(
             r"sgi_mc_write\(.*?\{(.*?)^\}",
             mc_source, re.DOTALL | re.MULTILINE
         )
         assert fn, "sgi_mc_write function not found"
         body = fn.group(1)
-        assert re.search(r"MC_DMA_START.*?dma_run\s*=\s*0x40", body, re.DOTALL)
+        assert re.search(r"MC_DMA_START.*?dma_run\s*\|?=\s*0x40", body, re.DOTALL)
 
     def test_dma_gio_addr_start_sets_run(self, mc_source):
         """MC_DMA_GIO_ADDR_START write must also set dma_run = 0x40."""
