@@ -1,0 +1,12 @@
+
+WM_STATE(WM_STATE):
+                window state: Normal
+                icon window: 0x1800083
+WM_NAME(STRING) = "Icon Catalog: Applications (Page 1 of 11)"
+WM_CLASS(STRING) = "IconCatalog", "IconCatalog"
+WM_NORMAL_HINTS(WM_SIZE_HINTS):
+                program specified location: 0, 0
+                program specified size: 610 by 424
+                program specified minimum size: 300 by 200
+                window gravity: NorthWest
+_MOTIF_WM_HINTS(_MOTIF_WM_HINTS) = 0x1, 0x3e, 0xffffffff, 0xffffffff, 0x0

@@ -1,0 +1,1 @@
+; DISPLAY=:0 /usr/bin/X11/xlswins 2>&1; echo 

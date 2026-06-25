@@ -1,0 +1,9 @@
+
+PROP=0x3400073
+WM_STATE(WM_STATE):
+                window state: Normal
+                icon window: 0x1800083
+WM_CLASS(STRING) = "IconCatalog", "IconCatalog"
+PROP=0x1800078
+WM_STATE:  not found.
+WM_CLASS:  not found.

@@ -1,0 +1,182 @@
+
+
+xwininfo: Window id: 0x2f (the root window) (has no name)
+
+  Root window id: 0x2f (the root window) (has no name)
+  Parent window id: 0x0 (none)
+     32 children:
+     0x1800078 (has no name): ()  626x464+612+558  +612+558
+        10 children:
+        0x1800082 (has no name): ()  610x424+8+32  +620+590
+           1 child:
+           0x3400073 "Icon Catalog: Applications (Page 1 of 11)": ("IconCatalog" "IconCatalog")  610x424+0+0  +620+590
+              2 children:
+              0x34000a0 (has no name): ()  1280x1024+0+0  +620+590
+              0x3400074 (has no name): ()  610x424+0+0  +620+590
+                 2 children:
+                 0x340009a (has no name): ()  610x26+0+0  +620+590
+                    5 children:
+                    0x340009f (has no name): ()  52x22+5+2  +625+592
+                    0x340009e (has no name): ()  78x22+64+2  +684+592
+                    0x340009d (has no name): ()  47x22+149+2  +769+592
+                    0x340009c (has no name): ()  50x22+203+2  +823+592
+                    0x340009b (has no name): ()  48x22+557+2  +1177+592
+                 0x3400075 (has no name): ()  610x398+0+26  +620+616
+                    4 children:
+                    0x3400090 (has no name): ()  580x350+30+0  +650+616
+                       4 children:
+                       0x3400099 (has no name): ()  555x18+3+329  +653+945
+                       0x3400098 (has no name): ()  18x325+559+3  +1209+619
+                       0x3400097 (has no name): ()  18x18+559+329  +1209+945
+                       0x3400091 (has no name): ()  555x325+3+3  +653+619
+                    0x3400085 (has no name): ()  30x350+0+0  +620+616
+                       5 children:
+                       0x340008c (has no name): ()  30x78+0+0  +620+616
+                          3 children:
+                          0x340008f (has no name): ()  24x24+3+0  +623+616
+                          0x340008e (has no name): ()  24x24+3+27  +623+643
+                          0x340008d (has no name): ()  24x24+3+54  +623+670
+                       0x340008b (has no name): ()  30x12+0+78  +620+694
+                       0x3400088 (has no name): ()  30x24+0+90  +620+706
+                          2 children:
+                          0x340008a (has no name): ()  24x24+3+0  +623+706
+                          0x3400089 (has no name): ()  76x26+0+0  +620+706
+                       0x3400087 (has no name): ()  30x12+0+114  +620+730
+                       0x3400086 (has no name): ()  30x146+0+126  +620+742
+                    0x3400078 (has no name): ()  610x30+0+350  +620+966
+                       3 children:
+                       0x3400083 (has no name): ()  598x25+6+0  +626+966
+                          1 child:
+                          0x3400084 (has no name): ()  55x20+0+0  +626+966
+                       0x340007e (has no name): ()  6x30+0+0  +620+966
+                          4 children:
+                          0x3400082 (has no name): ()  6x1+0+0  +620+966
+                          0x3400081 (has no name): ()  6x1+0+1  +620+967
+                          0x3400080 (has no name): ()  1x28+0+2  +620+968
+                          0x340007f (has no name): ()  5x28+1+2  +621+968
+                       0x3400079 (has no name): ()  6x30+604+0  +1224+966
+                          4 children:
+                          0x340007d (has no name): ()  6x1+0+0  +1224+966
+                          0x340007c (has no name): ()  6x1+0+1  +1224+967
+                          0x340007b (has no name): ()  1x29+5+1  +1229+967
+                          0x340007a (has no name): ()  6x29+0+1  +1224+967
+                    0x3400076 (has no name): ()  610x18+0+380  +620+996
+                       1 child:
+                       0x3400077 (has no name): ()  610x18+0+0  +620+996
+        0x1800081 (has no name): ()  612x25+7+7  +619+565
+        0x1800080 (has no name): ()  8x400+0+32  +612+590
+        0x180007f (has no name): ()  32x32+0+432  +612+990
+        0x180007e (has no name): ()  562x8+32+456  +644+1014
+        0x180007d (has no name): ()  32x32+594+432  +1206+990
+        0x180007c (has no name): ()  8x400+618+32  +1230+590
+        0x180007b (has no name): ()  32x32+594+0  +1206+558
+        0x180007a (has no name): ()  562x7+32+0  +644+558
+        0x1800079 (has no name): ()  32x32+0+0  +612+558
+     0x3400035 (has no name): ()  5x5+0+0  +0+0
+        1 child:
+        0x3400036 (has no name): ()  191x178+0+0  +0+0
+     0x340000c (has no name): ()  159x154+0+0  +0+0
+        5 children:
+        0x3400019 (has no name): ()  304x300+0+0  +0+0
+        0x3400018 (has no name): ()  178x152+0+0  +0+0
+        0x3400017 (has no name): ()  78x102+0+0  +0+0
+        0x3400016 (has no name): ()  189x176+0+0  +0+0
+        0x340000d (has no name): ()  159x154+0+0  +0+0
+     0x1800070 (has no name): ()  105x185+9+9  +9+9
+        2 children:
+        0x1800072 (has no name): ()  105x160+0+25  +9+34
+           1 child:
+           0x2800037 "Toolchest": ("ToolChest" "Toolchest")  103x158+0+0  +9+34
+              1 child:
+              0x2800038 (has no name): ()  103x158+0+0  +10+35
+                 6 children:
+                 0x280003e (has no name): ()  99x24+2+2  +12+37
+                 0x280003d (has no name): ()  99x24+2+28  +12+63
+                 0x280003c (has no name): ()  99x24+2+54  +12+89
+                 0x280003b (has no name): ()  99x24+2+80  +12+115
+                 0x280003a (has no name): ()  99x24+2+106  +12+141
+                 0x2800039 (has no name): ()  99x24+2+132  +12+167
+        0x1800071 (has no name): ()  105x25+0+0  +9+9
+     0x280003f (has no name): ()  1x1+0+0  +0+0
+     0x3400006 "Icon Catalog": ("iconcatalog" "IconCatalog")  1x1+640+512  +640+512
+     0x3400001 "Icon Catalog": ("iconcatalog" "IconCatalog")  1x1+0+0  +0+0
+     0x1800063 (has no name): ()  679x400+9+615  +9+615
+        10 children:
+        0x180006d (has no name): ()  663x360+8+32  +17+647
+           1 child:
+           0x1000004 "Console": ("startconsole" "XWsh")  663x360+0+0  +17+647
+              2 children:
+              0x1000010 (has no name): ()  645x360+18+0  +35+647
+                 2 children:
+                 0x1000011 (has no name): ()  645x360+0+0  +35+647
+                 0x1000019 (has no name): ()  645x360+0+0  +35+647
+              0x1000005 (has no name): ()  18x360+0+0  +17+647
+                 1 child:
+                 0x100001a (has no name): ()  16x30+1+18  +18+665
+        0x180006c (has no name): ()  665x25+7+7  +16+622
+        0x180006b (has no name): ()  8x336+0+32  +9+647
+        0x180006a (has no name): ()  32x32+0+368  +9+983
+        0x1800069 (has no name): ()  615x8+32+392  +41+1007
+        0x1800068 (has no name): ()  32x32+647+368  +656+983
+        0x1800067 (has no name): ()  8x336+671+32  +680+647
+        0x1800066 (has no name): ()  32x32+647+0  +656+615
+        0x1800065 (has no name): ()  615x7+32+0  +41+615
+        0x1800064 (has no name): ()  32x32+0+0  +9+615
+     0x180006e (has no name): ()  97x99+204+10  +204+10
+        1 child:
+        0x180006f (has no name): ()  85x67+6+6  +210+16
+     0x1800083 (has no name): ()  97x99+0+0  +0+0
+        1 child:
+        0x1800084 (has no name): ()  85x67+6+6  +6+6
+     0x2c00006 "fm-1089": ("FmBackground" "FileManager")  1x1+640+512  +640+512
+     0x2c00001 "fm-1089": ("fm-1089" "FileManager")  1x1+0+0  +0+0
+     0x1800061 (has no name): ()  5x5+0+0  +0+0
+        1 child:
+        0x1800062 (has no name): ()  146x224+0+0  +0+0
+     0x2800021 (has no name): ()  195x96+10+35  +10+35
+        4 children:
+        0x2800034 (has no name): ()  194x96+0+0  +10+35
+        0x280002e (has no name): ()  151x318+0+0  +10+35
+        0x280002c (has no name): ()  194x50+0+0  +10+35
+        0x2800022 (has no name): ()  195x96+0+0  +10+35
+     0x2800014 (has no name): ()  5x5+10+35  +10+35
+        6 children:
+        0x2800036 (has no name): ()  142x166+0+0  +10+35
+        0x2800033 (has no name): ()  171x276+0+0  +10+35
+           1 child:
+           0x2800035 (has no name): ()  165x22+3+181  +13+216
+        0x2800032 (has no name): ()  142x362+0+0  +10+35
+        0x2800031 (has no name): ()  184x120+0+0  +10+35
+        0x2800030 (has no name): ()  174x316+0+0  +10+35
+        0x280001a (has no name): ()  161x230+0+0  +10+35
+           3 children:
+           0x280002f (has no name): ()  155x22+3+47  +13+82
+           0x280002d (has no name): ()  155x22+3+25  +13+60
+           0x280002b (has no name): ()  155x22+3+3  +13+38
+     0x100000f (has no name): ()  1x1+0+0  +0+0
+     0x100000e (has no name): ()  1x1+0+0  +0+0
+     0x2800001 "ToolChest": ("ToolChest" "Toolchest")  1x1+10+35  +10+35
+     0x100000b (has no name): ()  1x1+0+0  +0+0
+     0x2400001 (has no name): ()  1x1+0+0  +0+0
+     0x1800059 (has no name): ()  1x1+0+0  +0+0
+     0x1800056 (has no name): ()  1x1+0+0  +0+0
+     0x1800055 "4Dwm": ("4Dwm" "4DWm")  10x10+10000+0  +10000+0
+     0x1c00001 (has no name): ()  1x1+-2+-2  +-2+-2
+     0x1800053 (has no name): ()  5x5+0+0  +0+0
+        1 child:
+        0x1800054 (has no name): ()  176x379+0+0  +0+0
+     0x1800043 (has no name): ()  5x5+0+0  +0+0
+        1 child:
+        0x180004a (has no name): ()  159x59+0+0  +0+0
+     0x180002e (has no name): ()  10x10+-100+-100  +-100+-100
+     0x1800027 (has no name): ()  1280x1024+0+0  +0+0
+     0x180000b (has no name): ()  10x10+10000+10000  +10000+10000
+     0x1800001 "4Dwm": ("4Dwm" "4DWm")  1x1+0+0  +0+0
+     0xc00001 (has no name): ()  10x10+-100+-100  +-100+-100
+     0x2c00009 (has no name): ()  1280x1024+0+0  +0+0
+        1 child:
+        0x2c0000f (has no name): ()  1280x1024+0+0  +0+0
+           2 children:
+           0x2c00022 (has no name): ()  1280x1024+0+0  +0+0
+           0x2c0001c (has no name): ()  1280x1024+0+0  +0+0
+
