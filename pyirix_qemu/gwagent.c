@@ -21,7 +21,15 @@
  */
 
 #define GW_MAGIC 0x47574159u   /* 'GWAY' */
-#define DATA_SZ  2048
+/* DATA_SZ is bounded by the MIPS software TLB. The gdbstub reads the agent's
+ * user VA ONLY via TLB entries currently resident (no page-table walk), so the
+ * spin loop must keep EVERY page of the struct resident (see the touch loop).
+ * This works because the agent is a busy-loop that never yields: its whole
+ * working set (struct pages + code/stack) stays TLB-resident with no eviction,
+ * as long as it fits the 48-entry R4000/R4600 TLB. 64 KB (16 pages) is safe;
+ * 128 KB+ risks eviction -> flaky reads; 5 MB is impossible. Must equal
+ * Gateway.DATA_SZ in host_channel.py. */
+#define DATA_SZ  65536
 #define PAGE     4096
 
 /* command codes */
@@ -48,9 +56,10 @@ struct gw {
     char data[DATA_SZ];
 };
 
-/* 2 pages of BSS; the struct lives at the first page boundary inside it so the
- * whole struct sits in ONE page the spin loop keeps resident + TLB-mapped. */
-static char gw_region[2 * PAGE];
+/* BSS for the struct; it starts at the first page boundary inside this region.
+ * The spin loop keeps ALL of its pages resident + TLB-mapped (it now spans
+ * ceil((280 + DATA_SZ)/PAGE) pages, not one). */
+static char gw_region[DATA_SZ + 2 * PAGE];
 
 int main(int argc, char **argv)
 {
@@ -71,8 +80,13 @@ int main(int argc, char **argv)
 
     for (;;) {
         unsigned int c;
-        g->seq++;               /* heartbeat + keep the page resident/in-TLB */
-        touch = g->data[0];
+        unsigned int o;
+        g->seq++;               /* heartbeat */
+        /* Keep EVERY page of the struct resident/in-TLB so the gdbstub can read
+         * the whole (multi-page) data buffer, not just its first page. popen()
+         * in C_RUN context-switches and can evict these, so re-touch each spin. */
+        for (o = 0; o < sizeof(struct gw); o += PAGE)
+            touch = ((volatile char *)g)[o];
         c = g->cmd;
         if (c == 0) continue;
 

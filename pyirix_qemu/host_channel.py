@@ -258,7 +258,7 @@ class Gateway:
     O_PATH = 24
     PATH_SZ = 256
     O_DATA = 24 + 256          # 280
-    DATA_SZ = 2048
+    DATA_SZ = 65536           # must equal DATA_SZ in gwagent.c (TLB-bounded)
     MAGIC = 0x47574159          # 'GWAY'
     # command codes
     PING, RUN, OPEN_W, WRITE, CLOSE, OPEN_R, READ = 1, 2, 3, 4, 5, 6, 7
@@ -324,6 +324,18 @@ class Gateway:
                 return self._sstatus()
         return None
 
+    def _exec_ok(self, cmd, timeout_s=30, retries=6):
+        """_exec that retries on transient failure (agent momentarily not the
+        current process at the gdb stop). Safe to retry: a non-1 result means the
+        agent never cleared cmd, so the op (read/write) did not happen and the
+        file offset did not advance. Returns True iff the op completed ok."""
+        st = self._exec(cmd, timeout_s)
+        tries = 0
+        while st != 1 and tries < retries:
+            tries += 1
+            st = self._exec(cmd, timeout_s)
+        return st == 1
+
     def ping(self):
         st = self._exec(self.PING)
         return st, self._rdw(self.O_ARG)
@@ -351,26 +363,26 @@ class Gateway:
         if isinstance(content, str):
             content = content.encode("latin-1")
         self._setpath(guest_path)
-        if self._exec(self.OPEN_W, timeout_s) != 1:
+        if not self._exec_ok(self.OPEN_W, timeout_s):
             return False
         for i in range(0, len(content), self.DATA_SZ):
             chunk = content[i:i + self.DATA_SZ]
             self._wr(self.O_DATA, chunk)
             self._wrw(self.O_ARG, len(chunk))
-            if self._exec(self.WRITE, timeout_s) != 1:
+            if not self._exec_ok(self.WRITE, timeout_s):
                 self._exec(self.CLOSE, timeout_s)
                 return False
-        return self._exec(self.CLOSE, timeout_s) == 1
+        return self._exec_ok(self.CLOSE, timeout_s)
 
     def pull_file(self, guest_path, timeout_s=30, max_bytes=64 * 1024 * 1024):
         """Binary-exact guest->host file read via the agent."""
         self._setpath(guest_path)
-        if self._exec(self.OPEN_R, timeout_s) != 1:
+        if not self._exec_ok(self.OPEN_R, timeout_s):
             return None
         out = b""
         while len(out) < max_bytes:
-            if self._exec(self.READ, timeout_s) != 1:
-                break
+            if not self._exec_ok(self.READ, timeout_s):
+                break                          # genuine error after retries
             n = self._rdw(self.O_ARG) or 0
             if n == 0:
                 break                          # read() == 0 -> EOF (short reads OK)
