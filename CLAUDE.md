@@ -36,6 +36,10 @@ data = gw.pull_file("/unix")
 
 ⚠️ A gdb client connect **halts the guest CPU**, so do NOT attach during boot (it freezes the boot) — attach only once the guest is idle at a shell, and the per-op halt resumes automatically. The slow magic-page **scan** is what timed out before; pass `base=0x10013000, scan=False`. Reusable helpers live in `tmp/ip55-buildfork/` (`gwx.py` = run/push/pull; `bh_session.py` = serial boot driver — note IRIX-devel NVRAM is `console=g`, so serial is silent until poked, autoboots, and you must send Start-System `1` exactly ONCE: resending interrupts the boot). See memory `buildhost_serial_not_gdb_during_boot` and `progress_notes/ip55/ip55_board_fork_phaseB.md`.
 
+### ⭐ Driving the IRIX desktop UI: tool-based "eyes" (USE THIS instead of screenshot-and-guess)
+
+To **see and interact with the running 4Dwm desktop** — list windows (names/geometry/state), poll readiness, and click/move/**resize** exact targets **without framebuffer screenshots** — use the **`pyirix_qemu/desktop/`** package (built on the gwagent channel above + an in-guest `gwxq` X11 helper + the closed-loop NP_CURSOR servo). It ends the token-heavy "screenshot → guess a pixel → miss" loop. **Read `pyirix_qemu/desktop/README.md`** for the setup recipe + API + recipes; findings in `progress_notes/ip55/desktop_eyes.md`, memory `desktop_eyes_tooling`. Key gotchas baked in there: X is *grabbed* during the login screen (readiness via the clogin process, not X queries); resize works via *protocol* `XMoveResizeWindow` not handle-drag; the cursor needs a +(30,30) offset (handled); pin gwagent to CPU 0 on SMP. Intra-window items (menu entries, list rows) still need one screenshot to read their text — the tooling targets at the window level, the servo then clicks exactly.
+
 **MCP parameter types:** Many tools have `integer`-typed parameters (e.g. `ram_mb`, `timeout`, `disk_size_mb`). These require actual integers, not floats or strings. MCP input validation will reject `256.0` or `"256"` — pass `256`.
 
 ```

@@ -33,11 +33,16 @@ class ServoDriver:
         self.maxit = maxit
         self.ox, self.oy = offset
 
-    def mon(self, c: str, wait: float = 0.12) -> str:
+    def mon(self, c: str, wait: float = 0.12, read: bool = False) -> str:
+        """Send a monitor command. read=False (default) is fire-and-forget --
+        right for mouse_move/mouse_button, where the reply is unneeded and the
+        servo reads the result from the NP_CURSOR log instead. Reading the full
+        reply means waiting out the recv timeout (~slow), so only do it when
+        the caller actually wants the text."""
         s = socket.socket(socket.AF_UNIX)
         s.connect(self.mon_sock)
-        s.settimeout(2.0)
-        time.sleep(0.04)
+        s.settimeout(0.5)
+        time.sleep(0.02)
         try:
             s.recv(65536)
         except Exception:
@@ -45,11 +50,12 @@ class ServoDriver:
         s.sendall((c + "\n").encode())
         time.sleep(wait)
         o = b""
-        try:
-            while True:
-                o += s.recv(65536)
-        except Exception:
-            pass
+        if read:
+            try:
+                for _ in range(4):
+                    o += s.recv(65536)
+            except Exception:
+                pass
         s.close()
         return o.decode("latin1", "replace")
 
@@ -71,19 +77,33 @@ class ServoDriver:
         v = self._vc2()
         return (v[0] - self.ox, v[1] - self.oy) if v else None
 
+    def _read_after(self, prev, timeout: float = 0.5):
+        """After a move, wait for the NP_CURSOR log to reflect a NEW position
+        (the move registered) before trusting the reading -- this is what keeps
+        the closed loop precise without paying the slow monitor recv timeout."""
+        end = time.time() + timeout
+        while time.time() < end:
+            time.sleep(0.04)
+            cur = self._vc2()
+            if cur and cur != prev:
+                time.sleep(0.04)            # let it settle one more tick
+                return self._vc2() or cur
+        return self._vc2() or prev
+
     def _servo_vc2(self, tx, ty):
-        self.mon("mouse_move 0 1"); time.sleep(0.12)
-        self.mon("mouse_move 0 -1"); time.sleep(0.15)
+        self.mon("mouse_move 1 0")
+        c = self._read_after(None)
         for _ in range(self.maxit):
-            c = self._vc2()
             if c is None:
-                self.mon("mouse_move 1 0"); time.sleep(0.15); continue
+                self.mon("mouse_move 2 0"); c = self._read_after(None); continue
             ex, ey = tx - c[0], ty - c[1]
             if abs(ex) <= self.tol and abs(ey) <= self.tol:
                 return c
             dx = max(-12, min(12, ex)); dy = max(-12, min(12, ey))
-            self.mon(f"mouse_move {dx} {dy}"); time.sleep(0.12)
-        return self._vc2()
+            prev = c
+            self.mon(f"mouse_move {dx} {dy}")
+            c = self._read_after(prev)
+        return c
 
     def to(self, sx, sy):
         """Position the CLICK point at screen (sx, sy)."""
