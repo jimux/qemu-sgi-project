@@ -112,7 +112,7 @@ def virtuix_vm(tmp_path):
     qlog.close()
 
 
-def test_virtuix_boots_to_multiuser_and_smp(virtuix_vm):
+def test_virtuix_boots_smp_and_networking(virtuix_vm):
     proc, ser_path, mon_path = virtuix_vm
     ser = _Serial(ser_path)
     buf = ""
@@ -139,8 +139,18 @@ def test_virtuix_boots_to_multiuser_and_smp(virtuix_vm):
     ser.read(1)
     ser.send("hinv | grep -i Processors\r")
     hinv = ser.read(4)
-    ser.close()
     m = re.search(r"(\d+)\s+\d+\s+MHZ\s+IP22\s+Processors", hinv)
     assert m, f"could not read SMP processor count from hinv: {hinv!r}"
     assert int(m.group(1)) == SMP, \
         f"expected {SMP} CPUs, hinv reported {m.group(1)}"
+
+    # Seeq ec0 networking: interface up + slirp gateway reachable
+    ser.send("/usr/etc/ifconfig ec0\r")
+    ifc = ser.read(3)
+    assert re.search(r"ec0:.*UP", ifc, re.DOTALL), \
+        f"ec0 ethernet interface not UP: {ifc!r}"
+    ser.send("ping -c 2 10.0.2.2\r")
+    png = ser.read(7)
+    ser.close()
+    assert "0.0% packet loss" in png or re.search(r"2 packets received", png), \
+        f"virtuix could not ping the slirp gateway over ec0: {png!r}"
