@@ -1114,6 +1114,27 @@ def _build_qemu_launch(args: dict) -> tuple[list[str], str, str, str, str, str]:
     if args.get("start_stopped"):
         cmd.append("-S")
 
+    # Virtuix (IP55) canonical defaults: boot the IP55-native SMP desktop kernel
+    # via -kernel, with MTTCG multi-threading and user networking. Each default
+    # is suppressed if the caller already supplied that flag in extra_args, so
+    # this is a convenience layer, not a constraint. virtuix boots via -kernel;
+    # the -bios PROM only matters for a SCSI/PROM boot path.
+    if machine == "virtuix":
+        _vx_extra = args.get("extra_args", "") or ""
+        if "-smp" not in _vx_extra:
+            cmd.extend(["-smp", str(int(args.get("smp", 4) or 4))])
+        if "-accel" not in _vx_extra and "thread=multi" not in _vx_extra:
+            cmd.extend(["-accel", "tcg,thread=multi"])
+        if "-kernel" not in _vx_extra:
+            _vx_kern = args.get("kernel") or "ip55_desktop_kernel/unix.ip55.g"
+            _vx_kpath = Path(_vx_kern)
+            if not _vx_kpath.is_absolute():
+                _vx_kpath = project_root / _vx_kern
+            if _vx_kpath.exists():
+                cmd.extend(["-kernel", str(_vx_kpath)])
+        if "-nic" not in _vx_extra and "-netdev" not in _vx_extra:
+            cmd.extend(["-nic", "user"])
+
     extra_args = args.get("extra_args", "")
     if extra_args and rr_mode in ("record", "replay") and "-nic user" in extra_args \
             and "filter-replay" not in extra_args:
