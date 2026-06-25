@@ -129,6 +129,54 @@ class TestVirtuixDeviceInstantiation:
         assert "TYPE_SGI_NEWPORT_VIRTUIX" not in indy_machine_source
 
 
+class TestVirtuixRealtimeClock:
+    """Virtuix locks the CP0 HZ tick to the host realtime clock and delivers it
+    from the vCPU; authentic indy must keep the default VIRTUAL clock.
+
+    [CROSS-REF] Two QEMU commits: 732623c33c (realtime default) and ab95df1e
+    (vCPU-side catch-up). These guard against regressing the -smp drag-stall fix.
+    """
+
+    def test_virtuix_defaults_count_realtime(self, virtuix_machine_source):
+        """virtuix machine init sets QEMU_MIPS_COUNT_REALTIME=1 by default.
+
+        Without it the CP0 Count/Compare (IRIX HZ tick) rides QEMU_CLOCK_VIRTUAL,
+        which advances in bursts under MTTCG -> jittery tick -> UI stalls.
+        """
+        assert 'setenv("QEMU_MIPS_COUNT_REALTIME"' in virtuix_machine_source, \
+            "virtuix must default the CP0 tick to the realtime clock"
+        # overwrite=0 so an explicit user override is respected
+        m = re.search(r'setenv\("QEMU_MIPS_COUNT_REALTIME",\s*"1",\s*0\)',
+                      virtuix_machine_source)
+        assert m, "QEMU_MIPS_COUNT_REALTIME should be set with overwrite=0"
+
+    def test_indy_does_not_set_count_realtime(self, indy_machine_source):
+        """[REGRESSION GUARD] Authentic indy must NOT touch the count clock."""
+        assert "QEMU_MIPS_COUNT_REALTIME" not in indy_machine_source, \
+            "indy must keep the default VIRTUAL clock (authentic timing)"
+
+    def test_cp0_timer_has_realtime_gated_catchup(self, cp0_timer_source):
+        """cpu_mips_timer_catchup() exists and is gated to the realtime clock."""
+        assert "cpu_mips_timer_catchup" in cp0_timer_source, \
+            "vCPU-side timer catch-up helper missing"
+        fn = re.search(r"void cpu_mips_timer_catchup\(.*?\{(.*?)^\}",
+                       cp0_timer_source, re.DOTALL | re.MULTILINE)
+        assert fn, "cpu_mips_timer_catchup function body not found"
+        body = fn.group(1)
+        assert "QEMU_CLOCK_REALTIME" in body, \
+            "catch-up must be gated to the realtime clock (virtuix only)"
+        assert "timer_expired" in body, \
+            "catch-up must only fire an already-expired timer (idempotent)"
+
+    def test_catchup_wired_into_has_work(self, cpu_source):
+        """The catch-up is called from mips_cpu_has_work (vCPU re-eval point)."""
+        fn = re.search(r"static bool mips_cpu_has_work\(.*?\{(.*?)^\}",
+                       cpu_source, re.DOTALL | re.MULTILINE)
+        assert fn, "mips_cpu_has_work not found"
+        assert "cpu_mips_timer_catchup" in fn.group(1), \
+            "mips_cpu_has_work must call cpu_mips_timer_catchup"
+
+
 class TestVirtuixNewportPlaneFix:
     """Virtuix Newport keeps the popup/overlay plane-shift fix."""
 
