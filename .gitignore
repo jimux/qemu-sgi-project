@@ -226,3 +226,7 @@ minimal.B
 
 # qemu symlink (regenerated from qemu-sgi-repo submodule)
 qemu
+
+# bare-metal test binaries (built on demand by tests/bare_metal/Makefile)
+tests/bare_metal/*.elf
+tests/bare_metal/*.bin
