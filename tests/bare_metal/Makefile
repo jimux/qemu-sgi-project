@@ -1,4 +1,6 @@
-CROSS = /opt/cross/mips-elf/bin/mips-elf-
+# MIPS cross-toolchain prefix. Defaults to the workstation location
+# (~/cross/mips-elf); override with `make CROSS=/path/to/mips-elf-`.
+CROSS ?= $(HOME)/cross/mips-elf/bin/mips-elf-
 CC = $(CROSS)gcc
 LD = $(CROSS)ld
 OBJCOPY = $(CROSS)objcopy
