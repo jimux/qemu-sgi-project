@@ -17,7 +17,11 @@ import time
 # Derive all paths relative to the project root (two levels up from this file)
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 _BUILD_SUBDIR = "build-mac" if _platform.system() == "Darwin" else "build"
-_BUILD_DIR = os.path.join(_PROJECT_ROOT, "qemu", _BUILD_SUBDIR)
+# The project migrated from qemu/ to qemu-sgi-repo/build-linux; prefer the
+# current build dir and fall back to the legacy layout for old checkouts.
+_BUILD_DIR = os.path.join(_PROJECT_ROOT, "qemu-sgi-repo", "build-linux")
+if not os.path.isdir(_BUILD_DIR):
+    _BUILD_DIR = os.path.join(_PROJECT_ROOT, "qemu", _BUILD_SUBDIR)
 
 # Find the QEMU binary (prefer unsigned on macOS where codesigning creates it)
 def _find_qemu_bin():

@@ -1,51 +1,67 @@
 """
-Input path integration tests.
+Input path integration test.
 
-Tests that keyboard input injected via the QEMU monitor sendkey command
-flows through the full path: monitor → PS/2 → 8042 → INT3 → guest handler.
+Validates the Z85C30 **serial console input** path end-to-end: with no boot disk
+the PROM auto-boots, fails, and blocks at 'press any key to continue:'. Writing a
+byte to the serial line must unblock the PROM and advance it to the System
+Maintenance menu — proving received serial characters reach the PROM's input
+handler. (This is the headless input path; PS/2 keyboard input drives the
+*graphical* console and is exercised by the desktop-eyes tooling instead — a
+serial-console PROM does not read PS/2.)
 
-These tests are SLOW (require PROM boot, ~35s).
+SLOW (PROM boot, ~35-45s).
 """
 
 import os
+import select
 import time
+
 import pytest
 
 from helpers.qemu_runner import SGIQemuRunner
 
 
+def _drain(proc, seconds):
+    """Read whatever serial output is available within `seconds`."""
+    out = b""
+    end = time.time() + seconds
+    while time.time() < end:
+        ready, _, _ = select.select([proc.stdout], [], [], 0.3)
+        if not ready:
+            continue
+        chunk = os.read(proc.stdout.fileno(), 4096)
+        if not chunk:
+            break
+        out += chunk
+    return out.decode("utf-8", errors="replace")
+
+
 @pytest.mark.slow
 class TestSendkeyPROM:
 
-    def test_sendkey_selects_menu_option(self):
-        """Send '5' to select Enter Command Monitor from the PROM menu.
-
-        If sendkey works, the PROM should respond with the command monitor
-        prompt '>>'. This tests the full input path: QEMU monitor sendkey →
-        PS/2 keyboard → 8042 controller → INT3 interrupt → PROM handler →
-        serial echo.
-        """
+    def test_serial_input_advances_prom_at_keypress_prompt(self):
+        """The PROM blocks at 'press any key to continue:'; a byte on the serial
+        line must unblock it and reach the System Maintenance menu — proving the
+        Z85C30 RX → PROM input path works."""
         runner = SGIQemuRunner()
         try:
-            runner.boot_prom_background(timeout=45)
-            # PROM is at "Option?" menu. Send "5" (Enter Command Monitor)
-            runner.sendkey('5')
-            time.sleep(2)
-            # Read any new serial output
-            import select
-            output = b""
-            while True:
-                ready, _, _ = select.select(
-                    [runner._process.stdout], [], [], 0.5)
-                if not ready:
+            runner.boot_prom_background(
+                timeout=60,
+                wait_for=r"press any key to continue|System Maintenance|Option\?")
+            text = ""
+            # PROM is blocked on serial input; feed it bytes and read the result.
+            for _ in range(6):
+                try:
+                    runner._process.stdin.write(b"\r")
+                    runner._process.stdin.flush()
+                except Exception:
+                    pass
+                text += _drain(runner._process, 1.5)
+                if "System Maintenance" in text or "Option?" in text:
                     break
-                chunk = os.read(runner._process.stdout.fileno(), 4096)
-                if not chunk:
-                    break
-                output += chunk
-            text = output.decode("utf-8", errors="replace")
-            assert '>>' in text or 'Command Monitor' in text, (
-                f"Expected command monitor prompt, got: {text[:200]}"
-            )
+            text += _drain(runner._process, 4.0)
+            assert "System Maintenance" in text or "Option?" in text, (
+                "serial input did not advance the PROM past 'press any key' "
+                f"(Z85C30 RX path broken?); got: {text[-400:]!r}")
         finally:
             runner.cleanup()

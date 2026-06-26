@@ -18,7 +18,24 @@ Concretely: the VM should not know or care about its own clock rate (cosmetic `h
 
 This principle should color every design decision — when in doubt, take the shortcut that makes IRIX run better on a hypervisor, not the one that makes it behave more like a real Indy.
 
+### Device doctrine — the "paravirtual walk" (how the principle applies to devices)
+
+The roadmap for steering IP55/virtuix's device stack toward the goal lives in `~/.claude/plans/it-s-been-a-while-federated-phoenix.md`. The rules that govern it:
+
+- **Paravirtualize only for a real host-passthrough win** — a new capability or a meaningfully *cheaper run* — and **never by re-emulating SGI silicon on a paravirtual bus.** Moving a Newport onto a sysbus (the IP54 `pvrex3` trap) is still SGI-replica work, not the win.
+- **It must run well on modest hosts.** Host-CPU-heavy emulation (e.g. per-pixel REX3 blits) is itself a reason to offload to the host, even where *we* (resource-rich) don't feel the cost. Cheap-on-the-host is a first-class goal, not just speed for us.
+- **The IP54 paravirtual devices are unvalidated references, not trusted designs.** They were built in bulk, never finished validation, and in places missed the mark. Mine their proven mechanisms and reverse-engineered guest hooks, but **validate or redesign every device, and gate each step with a real pass/fail test** (the discipline IP54 skipped).
+- **GL/3D is the host-GPU end-goal**, in the spirit of virtio-gpu/virgl: a real GPU device plus the translation layer built so IRIX's IRIS-GL/OpenGL reaches the **host GPU**, broad enough to cover the full breadth of SGI demos. Explicitly **NOT** DGL-interception (a per-app chokepoint that won't generalize) and **NOT** a Newport replica. An enormous, dedicated effort taken *after* the rest of the machine is solid.
+- **2D is our own host-offloaded device** — high-level ops (fill/copy/blit/span) executed with host-native `memcpy`/`memset` (or host 2D), not a per-pixel REX3 emulation.
+- **disk and net stay emulated.** They already ride host backends (qcow2, slirp), so paravirtualizing them is a risky refactor for little virtualization-native gain — **harden them with tests instead.**
+
+Validated ordering (lightest, additive, each gated before the next): **① clock → host wall-clock** (cpufreq cosmetic) **② our own 2D device** (host-native blits) **③ audio → host `-audiodev`** **④ harden disk/net/console/input**, then the dedicated **host-GPU GL** push.
+
 ## Build & Run — Always Use MCP Tools
+
+### ⭐ Default shell differs by disk: build host = bash, stock IRIX = csh
+
+Two different disks, two different root shells. The **`irix-devel` build host** has had **bash installed and set as root's default shell** (freeware bash 2.04; see memory `r5000_mips4_and_nekoware_blocker`) — so commands there can use bash syntax. But the **stock IRIX desktop disks** (`prebuilt_disks/irix-6.5.5-complete-fixed.qcow2` and forks of it) were **never modified — root's login shell there is still `csh`.** csh lacks `2>`/`2>/dev/null` redirects, `$()`, etc. So on a stock/desktop disk, either write csh-safe commands or **`exec /bin/sh`** first (Bourne shell; per memory `telnet_preferred_over_serial`). Don't assume bash is present just because the build host has it.
 
 ### ⭐ Driving a running IRIX guest: the gwagent host↔guest channel (USE THIS for the build host)
 

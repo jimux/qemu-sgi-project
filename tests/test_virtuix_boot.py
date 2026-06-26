@@ -1,8 +1,10 @@
 """Live boot test for the virtuix (IP55) machine.
 
 Boots `-M virtuix -kernel unix.ip55.g` on a fresh disposable overlay of the
-clean golden and verifies the IP55-native kernel reaches multi-user and brings
-up the requested number of SMP CPUs. This is the first test that actually runs
+clean golden and verifies the IP55-native kernel reaches multi-user, brings up
+the requested number of SMP CPUs, and that the host-backed paths work: Seeq ec0
+networking, the WD33C93/HPC3 SCSI disk (write->sync->read-back), and the Z85C30
+serial console (computed round-trip). This is the live smoke/hardening test for
 the virtuix machine (everything else is source analysis).
 
 Marked `slow` (full IRIX boot, ~1-2 min) so it is excluded from the default
@@ -151,6 +153,30 @@ def test_virtuix_boots_smp_and_networking(virtuix_vm):
         f"ec0 ethernet interface not UP: {ifc!r}"
     ser.send("ping -c 2 10.0.2.2\r")
     png = ser.read(7)
+
+    # --- host-backed path hardening (disk + console), exercised on R5000 ---
+    # Serial console round-trip: a COMPUTED result that is NOT present in the
+    # command text must echo back, proving the Z85C30 console + shell round-trip
+    # cleanly (not just that a command was accepted).
+    ser.send("expr 314159 + 271828\r")
+    rt = ser.read(2)
+    # Disk write -> sync -> read-back through the WD33C93 + HPC3 SCSI-DMA path on
+    # the XFS root. Split into two reads so the marker can only appear from the
+    # file read-back (the `cat` command text does not contain it) -> airtight.
+    ser.send("echo DISKWRITEOK > /var/tmp/.hardencheck; sync; sync\r")
+    ser.read(2)
+    ser.send("cat /var/tmp/.hardencheck; rm -f /var/tmp/.hardencheck\r")
+    diskrb = ser.read(3)
+    # Disk/SCSI is enumerated in the hardware inventory.
+    ser.send("hinv | grep -iE 'SCSI|Disk'\r")
+    dinv = ser.read(3)
     ser.close()
+
     assert "0.0% packet loss" in png or re.search(r"2 packets received", png), \
         f"virtuix could not ping the slirp gateway over ec0: {png!r}"
+    assert "585987" in rt, \
+        f"serial console round-trip failed (Z85C30 console did not echo result): {rt!r}"
+    assert "DISKWRITEOK" in diskrb, \
+        f"disk write->sync->read-back failed (WD33C93/HPC3 SCSI path): {diskrb!r}"
+    assert re.search(r"(?i)scsi|disk", dinv), \
+        f"no SCSI/disk controller in hinv inventory: {dinv!r}"

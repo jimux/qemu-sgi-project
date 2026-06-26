@@ -27,6 +27,17 @@ INCLUDE: ng1
 INCLUDE: gfxs rrm xconn
 INCLUDE: gfx
 INCLUDE: kdsp
+* a2_dd = device-dependent A2/HAL2 audio driver. We tried statically linking it
+* (INCLUDE: a2_dd) so audio attaches under `-kernel` boot without configmon's
+* loadable path (which fails on the running-kernel != disk-/unix namelist check).
+* BLOCKED: a2_dd.o references the DATA symbol `kdsp_pro_audio_subcode` (DSP
+* microcode), which is NOT defined in kdsp.a or any object on the build host
+* (verified) -> lboot ERROR 33 undefined, output removed. The subcode is normally
+* a SEPARATE loadable resolved at load time, not link time. To statically link
+* a2_dd we'd first have to locate + stage that subcode object into IP55bootarea.
+* Until then audio uses the loadable path via the /unix-namelist-match approach
+* (install the booted kernel as disk /unix). See progress_notes/ip55/audio_plan.md.
+* INCLUDE: a2_dd
 GEOF
 grep -n 'gfxstubs\|ng1stubs\|gr2stubs' $SPEC | head
 
